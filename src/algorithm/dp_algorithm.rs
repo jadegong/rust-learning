@@ -37,19 +37,19 @@ pub fn can_jump_55(nums: Vec<i32>) -> bool {
     let mut max_arrive: usize = 0;
     let nums_len = nums.len();
     let mut current_num: usize;
-    while index < nums_len - 1 {
-        current_num = nums[index] as usize;
-        if current_num == 0 {
-            if max_arrive <= index {
-                return false;
-            }
+    while index < nums_len {
+        if max_arrive < index { // can't arrive current index
+            return false;
         }
+        current_num = nums[index] as usize;
         if index + current_num > max_arrive {
             max_arrive = index + current_num;
         }
+        if max_arrive >= nums_len - 1 { // Can arrive last
+            return true;
+        }
         index += 1;
     }
-    return true;
+    return false;
 }
-
 
