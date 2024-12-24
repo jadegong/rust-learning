@@ -25,3 +25,14 @@ fn test_remove_duplicates_80() {
         assert_eq!(test_nums[i], *el);
     }
 }
+
+#[test]
+fn test_merge_sorted_array_88() {
+    let mut nums1: Vec<i32> = vec![1, 2, 3, 0, 0, 0];
+    let mut nums2: Vec<i32> = vec![2, 5, 6];
+    array_algorithm::merge_sorted_array_88(&mut nums1, 3, &mut nums2, 3);
+    let expected_nums: Vec<i32> = vec![1, 2, 2, 3, 5, 6];
+    for (i, el) in nums1.iter().enumerate() {
+        assert_eq!(*el, expected_nums[i]);
+    }
+}

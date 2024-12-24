@@ -75,3 +75,33 @@ pub fn remove_duplicates_80(nums: &mut Vec<i32>) -> i32 {
     return ret_index as i32;
 }
 
+///
+/// Leetcode 88 merge sorted arrays
+///
+pub fn merge_sorted_array_88(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
+    let mut index = m + n - 1;
+    let mut index1 = m - 1;
+    let mut index2 = n - 1;
+    loop {
+        if index1 < 0 {
+            nums1[index as usize] = nums2[index2 as usize];
+            index2 -= 1;
+        } else if index2 < 0 {
+            nums1[index as usize] = nums1[index1 as usize];
+            index1 -= 1;
+        } else {
+            if nums1[index1 as usize] >= nums2[index2 as usize] {
+                nums1[index as usize] = nums1[index1 as usize];
+                index1 -= 1;
+            } else {
+                nums1[index as usize] = nums2[index2 as usize];
+                index2 -= 1;
+            }
+        }
+        if index == 0 {
+            break;
+        }
+        index -= 1;
+    }
+}
+
