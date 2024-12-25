@@ -27,29 +27,3 @@ pub fn max_profit_121(prices: Vec<i32>) -> i32 {
     return max_ret;
 }
 
-///
-/// Leetcode 55 jump game
-///You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
-/// Return true if you can reach the last index, or false otherwise.
-///
-pub fn can_jump_55(nums: Vec<i32>) -> bool {
-    let mut index: usize = 0;
-    let mut max_arrive: usize = 0;
-    let nums_len = nums.len();
-    let mut current_num: usize;
-    while index < nums_len {
-        if max_arrive < index { // can't arrive current index
-            return false;
-        }
-        current_num = nums[index] as usize;
-        if index + current_num > max_arrive {
-            max_arrive = index + current_num;
-        }
-        if max_arrive >= nums_len - 1 { // Can arrive last
-            return true;
-        }
-        index += 1;
-    }
-    return false;
-}
-

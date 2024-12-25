@@ -10,13 +10,3 @@ fn test_max_profit_121() {
     assert_eq!(test_ret1, 0);
 }
 
-#[test]
-fn test_can_jump_55() {
-    let test_nums1: Vec<i32> = vec![2, 3, 1, 1, 4];
-    let test_ret1 = dp_algorithm::can_jump_55(test_nums1);
-    assert_eq!(test_ret1, true);
-    let test_nums1: Vec<i32> = vec![3, 2, 1, 0, 4];
-    let test_ret1 = dp_algorithm::can_jump_55(test_nums1);
-    assert_eq!(test_ret1, false);
-}
-
