@@ -20,3 +20,13 @@ fn test_jump_game_45() {
     assert_eq!(test_ret, 2);
 }
 
+#[test]
+fn test_candy_135() {
+    let test_nums: Vec<i32> = vec![1, 0 ,2];
+    let test_ret = greedy_algorithm::candy_135(test_nums);
+    assert_eq!(test_ret, 5);
+    let test_nums: Vec<i32> = vec![1, 3, 2, 2, 1];
+    let test_ret = greedy_algorithm::candy_135(test_nums);
+    assert_eq!(test_ret, 7);
+}
+

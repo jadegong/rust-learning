@@ -27,3 +27,26 @@ pub fn max_profit_121(prices: Vec<i32>) -> i32 {
     return max_ret;
 }
 
+///
+/// Leetcode 238 
+///
+pub fn product_except_self_238(nums: Vec<i32>) -> Vec<i32> {
+    let mut left_product: Vec<i32> = vec![]; // product from left
+    let mut right_product: Vec<i32> = vec![]; // product from right
+    let nums_len = nums.len();
+    let mut result_nums: Vec<i32> = vec![];
+    for (i, _) in nums.iter().enumerate() {
+        if i == 0 {
+            left_product.push(1);
+            right_product.push(1);
+        } else {
+            left_product.push(left_product[i - 1] * nums[i - 1]);
+            right_product.push(right_product[i - 1] * nums[nums_len - i]);
+        }
+    }
+    for (i, _) in left_product.iter().enumerate() {
+        result_nums.push(left_product[i] * right_product[nums_len - 1 - i]);
+    }
+    return result_nums;
+}
+

@@ -54,3 +54,50 @@ pub fn jump_game_45(nums: Vec<i32>) -> i32 {
     return steps;
 }
 
+/// 
+/// Leetcode 135 Candy
+///
+pub fn candy_135(ratings: Vec<i32>) -> i32 {
+    let mut nums_left: Vec<i32> = vec![]; // Count from left side
+    let mut nums_right: Vec<i32> = vec![]; // Count from right side
+    let nums_len = ratings.len();
+    let mut index = 0;
+    while index < nums_len {
+        nums_left.push(0);
+        nums_right.push(0);
+        index += 1;
+    }
+    index = 0;
+    while index < nums_len {
+        if index == 0 {
+            nums_left[index] = 1;
+            nums_right[nums_len - 1 - index] = 1;
+        } else {
+            // Calc nums_left
+            if ratings[index] > ratings[index - 1] {
+                nums_left[index] = nums_left[index - 1] + 1;
+            } else {
+                nums_left[index] = 1;
+            }
+            // Calc nums_right
+            if ratings[nums_len - 1 - index] > ratings[nums_len - index] {
+                nums_right[nums_len - 1 - index] = nums_right[nums_len - index] + 1;
+            } else {
+                nums_right[nums_len - 1 - index] = 1;
+            }
+        }
+        index += 1;
+    }
+    index = 0;
+    let mut total = 0;
+    while index < nums_len {
+        if nums_left[index] > nums_right[index] {
+            total += nums_left[index];
+        } else {
+            total += nums_right[index];
+        }
+        index += 1;
+    }
+    return total;
+}
+
