@@ -61,3 +61,83 @@ pub fn longest_common_prefix_14(strs: Vec<String>) -> String {
     }
     return ret_str;
 }
+
+///
+/// Leetcode 151 reverse words use single space
+///
+pub fn reverse_words_151(s: String) -> String {
+    let words: Vec<&str> = s.trim().split(" ").collect();
+    let words_len = words.len();
+    let mut ret_str = String::new();
+    let mut index = 0;
+    while index < words_len {
+        if words[words_len - 1 - index] != "" {
+            if ret_str.len() > 0 {
+                ret_str.push_str(" ");
+            }
+            ret_str.push_str(words[words_len - 1 - index]);
+        }
+        index += 1;
+    }
+    return ret_str;
+}
+
+///
+/// Leetcode 28 
+/// KMP string searching
+///
+pub fn str_str_28(haystack: String, needle: String) -> i32 {
+    let haystack_chars: Vec<char> = haystack.chars().collect();
+    let needle_chars: Vec<char> = needle.chars().collect();
+    let needle_len = needle_chars.len();
+    // needle_kmp[i] means when first needle_kmp[i] and last needle_kmp[i] chars are the same in first i + 1 chars of needle
+    // eg: ABCAB , needle_kmp[3], pick first 3+1 chars ABCA, the max match is first 1 char and last 1 char A, so needle_kmp[3] = 1
+    let mut needle_kmp: Vec<usize> = vec![];
+    let mut index = 0;
+    let mut sub_needle = String::new();
+    while index < needle_len { // loop needle_len
+        sub_needle.push(needle_chars[index]);
+        // sub needle length index + 1
+        let mut current_kmp_v = 0;
+        for sub_index in (0..index).rev() {
+            // first sub_index+1 chars equal to last sub_index+1 chars
+            if sub_needle.get(0..(sub_index+1)).unwrap() == sub_needle.get((index-sub_index)..(index+1)).unwrap() {
+                // get needle_kmp[index]
+                current_kmp_v = sub_index+1;
+                break;
+            }
+        }
+        needle_kmp.push(current_kmp_v);
+        // loop for every first index + 1 chars
+        index += 1;
+    }
+    index = 0;
+    let mut has_match = false;
+    let haystack_len = haystack.len();
+    while index < haystack_len {
+        let mut sub_index = 0;
+        let mut match_len = 0;
+        while sub_index < needle_len && index + sub_index < haystack_len {
+            if haystack_chars[index + sub_index] == needle_chars[sub_index] {
+                match_len += 1;
+                sub_index += 1;
+            } else {
+                break;
+            }
+        }
+        if match_len == needle_len {
+            has_match = true;
+            break;
+        } else if match_len == 0 {
+            index += 1;
+        } else {
+            // index move right according to kmp
+            index += match_len - needle_kmp[match_len - 1];
+        }
+    }
+    if !has_match {
+        return -1;
+    }
+    return index as i32;
+}
+
