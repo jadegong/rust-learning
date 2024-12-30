@@ -83,7 +83,7 @@ pub fn reverse_words_151(s: String) -> String {
 }
 
 ///
-/// Leetcode 28 
+/// Leetcode 28 Find the Index of the First Occurrence in a String
 /// KMP string searching
 ///
 pub fn str_str_28(haystack: String, needle: String) -> i32 {

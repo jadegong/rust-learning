@@ -26,3 +26,19 @@ fn test_product_except_self_238() {
     }
 }
 
+#[test]
+fn test_trap_42() {
+    let test_height: Vec<i32> = vec![0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+    let result_trap = dp_algorithm::trap_42(test_height);
+    let expected_trap = 6;
+    assert_eq!(result_trap, expected_trap);
+    let test_height: Vec<i32> = vec![4, 2, 0, 3, 2, 5];
+    let result_trap = dp_algorithm::trap_42(test_height);
+    let expected_trap = 9;
+    assert_eq!(result_trap, expected_trap);
+    let test_height: Vec<i32> = vec![4, 2, 0, 3, 2, 4, 3, 4];
+    let result_trap = dp_algorithm::trap_42(test_height);
+    let expected_trap = 10;
+    assert_eq!(result_trap, expected_trap);
+}
+

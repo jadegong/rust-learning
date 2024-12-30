@@ -50,3 +50,62 @@ pub fn product_except_self_238(nums: Vec<i32>) -> Vec<i32> {
     return result_nums;
 }
 
+///
+/// Leetcode 42
+/// Trapping Rain Water
+///
+pub fn trap_42(height: Vec<i32>) -> i32 {
+    let mut left_trap = 0; // from left to right (equal included in this condition)
+    let mut right_trap = 0; // from right to left
+    let mut left_index = 0;
+    let mut right_index = 1;
+    let mut current_valley_trap = 0;
+    let n = height.len();
+    if n <= 2 {
+        return 0;
+    }
+    let mut equal_right_indexes: Vec<usize> = vec![];
+    while left_index < n && right_index < n {
+        if height[right_index] >= height[left_index] {
+            // plus current_valley_trap
+            if height[right_index] == height[left_index] {
+                // record equal right index
+                equal_right_indexes.push(right_index);
+            }
+            left_trap += current_valley_trap;
+            current_valley_trap = 0;
+            left_index = right_index;
+        } else {
+            current_valley_trap += height[left_index] - height[right_index];
+        }
+        right_index += 1;
+    }
+    left_index = n - 2;
+    right_index = n - 1;
+    current_valley_trap = 0;
+    // from right to left
+    loop {
+        if height[left_index] >= height[right_index] {
+            // have calculated from left to right
+            if height[left_index] > height[right_index] {
+                right_trap += current_valley_trap;
+            } else {
+                // equal
+                let find_index = equal_right_indexes.iter().position(|&x| x == right_index);
+                if find_index == None {
+                    right_trap += current_valley_trap;
+                }
+            }
+            current_valley_trap = 0;
+            right_index = left_index;
+        } else {
+            current_valley_trap += height[right_index] - height[left_index];
+        }
+        if left_index <= 0 || right_index <= 0 {
+            break;
+        }
+        left_index -= 1;
+    }
+    return left_trap + right_trap;
+}
+
