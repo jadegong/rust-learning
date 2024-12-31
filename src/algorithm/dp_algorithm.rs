@@ -109,3 +109,23 @@ pub fn trap_42(height: Vec<i32>) -> i32 {
     return left_trap + right_trap;
 }
 
+///
+/// Leetcode 12
+/// Container With Most Water
+///
+pub fn max_area_12(height: Vec<i32>) -> i32 {
+    let height_len = height.len();
+    let mut ret = 0;
+    let mut left_index = 0;
+    let mut right_index = height_len - 1;
+    while left_index < right_index {
+        ret = std::cmp::max(ret, std::cmp::min(height[left_index], height[right_index]) * (right_index - left_index) as i32);
+        if height[left_index] < height[right_index] {
+            left_index += 1;
+        } else {
+            right_index -= 1;
+        }
+    }
+    return ret;
+}
+

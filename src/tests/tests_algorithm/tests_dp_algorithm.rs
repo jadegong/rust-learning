@@ -42,3 +42,19 @@ fn test_trap_42() {
     assert_eq!(result_trap, expected_trap);
 }
 
+#[test]
+fn test_max_area_12() {
+    let test_height: Vec<i32> = vec![1,8,6,2,5,4,8,3,7];
+    let expected_ret = 49;
+    let test_ret = dp_algorithm::max_area_12(test_height);
+    assert_eq!(test_ret, expected_ret);
+    let test_height: Vec<i32> = vec![1, 1];
+    let expected_ret = 1;
+    let test_ret = dp_algorithm::max_area_12(test_height);
+    assert_eq!(test_ret, expected_ret);
+    let test_height: Vec<i32> = vec![2,3,10,5,7,8,9];
+    let expected_ret = 36;
+    let test_ret = dp_algorithm::max_area_12(test_height);
+    assert_eq!(test_ret, expected_ret);
+}
+
