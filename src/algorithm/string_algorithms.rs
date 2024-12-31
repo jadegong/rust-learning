@@ -141,3 +141,62 @@ pub fn str_str_28(haystack: String, needle: String) -> i32 {
     return index as i32;
 }
 
+///
+/// Leetcode 125
+/// Valid Palindrome
+///
+pub fn is_palindrome_125(s: String) -> bool {
+    let chars_arr: Vec<char> = s.chars().collect();
+    let mut palin_arr: Vec<char> = vec![];
+    let mut s_len = chars_arr.len();
+    let mut left_index = 0;
+    while left_index < s_len {
+        if chars_arr[left_index].is_ascii_digit() || chars_arr[left_index].is_ascii_uppercase() || chars_arr[left_index].is_ascii_lowercase() {
+            palin_arr.push(chars_arr[left_index].to_ascii_uppercase());
+        }
+        left_index += 1;
+    }
+    left_index = 0;
+    s_len = palin_arr.len();
+    if s_len <= 0 {
+        return true;
+    }
+    let mut right_index = s_len - 1;
+    let middle_index = s_len / 2;
+    while left_index <= middle_index && right_index >= middle_index {
+        if palin_arr[left_index] != palin_arr[right_index] {
+            return false;
+        }
+        left_index += 1;
+        right_index -= 1;
+    }
+    return true;
+}
+
+///
+/// Leetcode 392
+/// Is Subsequence
+///
+pub fn is_subsequence_392(s: String, t: String) -> bool {
+    let s_len = s.len();
+    let t_len = t.len();
+    if s_len > t_len {
+        return false;
+    }
+    let mut s_index = 0;
+    let mut t_index = 0;
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    while s_index < s_len && t_index < t_len {
+        if s_chars[s_index] == t_chars[t_index] {
+            s_index += 1;
+        }
+        t_index += 1;
+    }
+    if s_index == s_len {
+        return true;
+    } else {
+        return false;
+    }
+}
+

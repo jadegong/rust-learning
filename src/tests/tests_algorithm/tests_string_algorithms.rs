@@ -55,3 +55,23 @@ pub fn test_str_str_28() {
     assert_eq!(test_ret, 6);
 }
 
+#[test]
+pub fn test_is_palindrome_125() {
+    let test_str: String = String::from("A man, a plan, a canal: Panama");
+    assert!(string_algorithms::is_palindrome_125(test_str));
+    let test_str: String = String::from("race a car");
+    assert!(!string_algorithms::is_palindrome_125(test_str));
+    let test_str: String = String::from(" ");
+    assert!(string_algorithms::is_palindrome_125(test_str));
+}
+
+#[test]
+pub fn test_is_subsequence_392() {
+    let test_s: String = String::from("abc");
+    let test_t: String = String::from("ahbgdc");
+    assert!(string_algorithms::is_subsequence_392(test_s, test_t));
+    let test_s: String = String::from("axc");
+    let test_t: String = String::from("ahbgdc");
+    assert!(!string_algorithms::is_subsequence_392(test_s, test_t));
+}
+

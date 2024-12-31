@@ -101,3 +101,22 @@ pub fn candy_135(ratings: Vec<i32>) -> i32 {
     return total;
 }
 
+///
+/// Leetcode 122 
+/// Best Time to Buy and Sell Stock II
+///
+pub fn max_profit_122(prices: Vec<i32>) -> i32 {
+    let mut total = 0;
+    let mut buy_price = prices[0];
+    let date_num = prices.len();
+    let mut index = 1;
+    while index < date_num {
+        if prices[index] > buy_price {
+            total += prices[index] - buy_price;
+        }
+        buy_price = prices[index];
+        index += 1;
+    }
+    return total;
+}
+

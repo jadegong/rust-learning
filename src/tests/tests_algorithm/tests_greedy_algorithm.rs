@@ -30,3 +30,19 @@ fn test_candy_135() {
     assert_eq!(test_ret, 7);
 }
 
+#[test]
+fn test_max_profix_122() {
+    let test_prices: Vec<i32> = vec![7, 1, 5, 3, 6, 4];
+    let expected_ret = 7;
+    let test_ret = greedy_algorithm::max_profit_122(test_prices);
+    assert_eq!(test_ret, expected_ret);
+    let test_prices: Vec<i32> = vec![1, 2, 3, 4, 5];
+    let expected_ret = 4;
+    let test_ret = greedy_algorithm::max_profit_122(test_prices);
+    assert_eq!(test_ret, expected_ret);
+    let test_prices: Vec<i32> = vec![7, 6, 4, 3, 1];
+    let expected_ret = 0;
+    let test_ret = greedy_algorithm::max_profit_122(test_prices);
+    assert_eq!(test_ret, expected_ret);
+}
+
