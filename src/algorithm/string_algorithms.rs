@@ -200,3 +200,40 @@ pub fn is_subsequence_392(s: String, t: String) -> bool {
     }
 }
 
+///
+/// Leetcode 3
+/// Given a string s, find the length of the longes substring without repeating characters.
+///
+pub fn length_of_longest_substring_3(s: String) -> i32 {
+    if s.len() == 0 {
+        return 0;
+    }
+    let mut longest_len_ret = std::i32::MIN;
+    let s_vec: Vec<char> = s.chars().collect();
+    let mut left_index = 0;
+    let mut right_index = 0;
+    let mut current_sub_len = 0;
+    let s_len = s.len();
+    while right_index < s_len {
+        // Find current right_index in s_vec
+        let mut index = left_index;
+        let mut found = false;
+        while index < right_index {
+            if s_vec[index] == s_vec[right_index] {
+                found = true;
+                break;
+            }
+            index += 1;
+        }
+        if found {
+            left_index = index + 1;
+            current_sub_len = (right_index - left_index + 1) as i32; // Recalc current sub len
+        } else {
+            current_sub_len += 1;
+        }
+        longest_len_ret = std::cmp::max(longest_len_ret, current_sub_len);
+        right_index += 1;
+    }
+    return longest_len_ret;
+}
+

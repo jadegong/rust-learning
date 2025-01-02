@@ -105,3 +105,51 @@ pub fn merge_sorted_array_88(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>,
     }
 }
 
+///
+/// Leetcode 209
+/// Minimum Size Subarray Sum
+///
+pub fn min_sub_array_len_209(target: i32, nums: Vec<i32>) -> i32 {
+    let mut left_index = 0; // current subarray's left edge
+    let mut right_index = 0; // current subarray's right edge
+    let mut current_sub_len = 1;
+    let mut current_subarray_sum = nums[0]; // current subarray's sum
+    let mut min_len_ret = std::i32::MAX;
+    if current_subarray_sum >= target {
+        min_len_ret = 1;
+    }
+    let nums_len = nums.len();
+    while right_index < nums_len {
+        if left_index < right_index {
+            if current_subarray_sum > target { // Over target, minus left_edge
+                left_index += 1;
+                current_subarray_sum -= nums[left_index - 1];
+                current_sub_len -= 1;
+            } else { // Not over target, move right_edge towards
+                right_index += 1;
+                if right_index > nums_len - 1 {
+                    break;
+                }
+                current_subarray_sum += nums[right_index];
+                current_sub_len += 1;
+            }
+        } else { // edge is the same position, plus right_edge
+            right_index += 1;
+            if right_index > nums_len - 1 {
+                break;
+            }
+            current_subarray_sum += nums[right_index];
+            current_sub_len += 1;
+        }
+        if current_subarray_sum >= target { // Sum equal or over target
+            // Compare current_sub_len and min_len_ret
+            min_len_ret = std::cmp::min(current_sub_len, min_len_ret);
+        }
+        // println!("Current left: {}, right: {}, current_sub_len: {}, current_subarray_sum: {}, min_len_ret: {}", left_index, right_index, current_sub_len, current_subarray_sum, min_len_ret);
+    }
+    if min_len_ret == std::i32::MAX {
+        return 0;
+    }
+    return min_len_ret;
+}
+

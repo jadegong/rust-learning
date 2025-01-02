@@ -75,3 +75,19 @@ pub fn test_is_subsequence_392() {
     assert!(!string_algorithms::is_subsequence_392(test_s, test_t));
 }
 
+#[test]
+pub fn test_length_of_longest_substring_3() {
+    let test_s: String = String::from("abcabcbb");
+    let expected_ret = 3;
+    let test_ret = string_algorithms::length_of_longest_substring_3(test_s);
+    assert_eq!(test_ret, expected_ret);
+    let test_s: String = String::from("bbbbb");
+    let expected_ret = 1;
+    let test_ret = string_algorithms::length_of_longest_substring_3(test_s);
+    assert_eq!(test_ret, expected_ret);
+    let test_s: String = String::from("pwwkew");
+    let expected_ret = 3;
+    let test_ret = string_algorithms::length_of_longest_substring_3(test_s);
+    assert_eq!(test_ret, expected_ret);
+}
+

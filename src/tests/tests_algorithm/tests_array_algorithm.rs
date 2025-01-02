@@ -36,3 +36,19 @@ fn test_merge_sorted_array_88() {
         assert_eq!(*el, expected_nums[i]);
     }
 }
+
+#[test]
+fn test_min_sub_array_len_209() {
+    let test_nums: Vec<i32> = vec![2,3,1,2,4,3];
+    let expected_ret = 2;
+    let test_ret = array_algorithm::min_sub_array_len_209(7, test_nums);
+    assert_eq!(expected_ret, test_ret);
+    let test_nums: Vec<i32> = vec![1,4,4];
+    let expected_ret = 1;
+    let test_ret = array_algorithm::min_sub_array_len_209(4, test_nums);
+    assert_eq!(expected_ret, test_ret);
+    let test_nums: Vec<i32> = vec![1,1,1,1,1,1,1,1];
+    let expected_ret = 0;
+    let test_ret = array_algorithm::min_sub_array_len_209(11, test_nums);
+    assert_eq!(expected_ret, test_ret);
+}
