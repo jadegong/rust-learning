@@ -153,3 +153,48 @@ pub fn min_sub_array_len_209(target: i32, nums: Vec<i32>) -> i32 {
     return min_len_ret;
 }
 
+///
+/// Leetcode 239
+/// Sliding Window Maximum
+/// Time Limit Exceeded
+pub fn max_sliding_window_239(nums: Vec<i32>, k: i32) -> Vec<i32> {
+    let mut max_ret: Vec<i32> = vec![];
+    let mut max_index_offset = -1; // Record current max num's index offset according to current left index
+    let nums_len = nums.len() as i32;
+    let mut current_max_num = std::i32::MIN;
+    let mut index = 0;
+    // find the first max
+    while index < k {
+        if nums[index as usize] >= current_max_num {
+            current_max_num = nums[index as usize];
+            max_index_offset = index;
+        }
+        index += 1;
+    }
+    max_ret.push(current_max_num);
+    let mut left_index = 1;
+    while left_index <= nums_len - k {
+        if nums[(left_index + k - 1) as usize] >= current_max_num {
+            current_max_num = nums[(left_index + k - 1) as usize];
+            max_index_offset = k - 1;
+        } else {
+            if max_index_offset == 0 {
+                index = left_index;
+                current_max_num = std::i32::MIN;
+            } else {
+                index = left_index + max_index_offset - 1;
+            }
+            while index < left_index + k {
+                if nums[index as usize] >= current_max_num {
+                    current_max_num = nums[index as usize];
+                    max_index_offset = index - left_index;
+                }
+                index += 1;
+            }
+        }
+        max_ret.push(current_max_num);
+        left_index += 1;
+    }
+    return max_ret;
+}
+

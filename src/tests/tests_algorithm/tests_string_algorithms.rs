@@ -91,3 +91,38 @@ pub fn test_length_of_longest_substring_3() {
     assert_eq!(test_ret, expected_ret);
 }
 
+#[test]
+pub fn test_min_window_76() {
+    let test_s: String = String::from("ADOBECODEBANC");
+    let test_t: String = String::from("ABC");
+    let expected_ret: String = String::from("BANC");
+    let test_ret = string_algorithms::min_window_76(test_s, test_t);
+    assert_eq!(expected_ret, test_ret);
+    let test_s: String = String::from("a");
+    let test_t: String = String::from("a");
+    let expected_ret: String = String::from("a");
+    let test_ret = string_algorithms::min_window_76(test_s, test_t);
+    assert_eq!(expected_ret, test_ret);
+    let test_s: String = String::from("a");
+    let test_t: String = String::from("aa");
+    let expected_ret: String = String::from("");
+    let test_ret = string_algorithms::min_window_76(test_s, test_t);
+    assert_eq!(expected_ret, test_ret);
+}
+
+#[test]
+pub fn test_can_construct_383() {
+    let test_s: String = String::from("a");
+    let test_t: String = String::from("b");
+    let test_ret = string_algorithms::can_construct_383(test_s, test_t);
+    assert_eq!(test_ret, false);
+    let test_s: String = String::from("aa");
+    let test_t: String = String::from("ab");
+    let test_ret = string_algorithms::can_construct_383(test_s, test_t);
+    assert_eq!(test_ret, false);
+    let test_s: String = String::from("aa");
+    let test_t: String = String::from("aab");
+    let test_ret = string_algorithms::can_construct_383(test_s, test_t);
+    assert_eq!(test_ret, true);
+}
+

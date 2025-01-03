@@ -237,3 +237,93 @@ pub fn length_of_longest_substring_3(s: String) -> i32 {
     return longest_len_ret;
 }
 
+///
+/// Leetcode 76
+/// Minimum Window Substring
+/// 
+pub fn min_window_76(s: String, t: String) -> String {
+    let mut min_window_len = std::usize::MAX;
+    let mut min_window_left_index = 0;
+    let mut left_index = 0;
+    let mut right_index = 0;
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    let t_len = t.len();
+    let s_len = s.len();
+    let mut char_nums: std::collections::HashMap<char, i32> = std::collections::HashMap::new(); // Save the count of every char in t
+    let mut index = 0;
+    let mut t_count = t_len;
+    while index < t_len {
+        if char_nums.contains_key(&t_chars[index]) {
+            let old_n = char_nums.get(&t_chars[index]).unwrap();
+            char_nums.insert(t_chars[index], *old_n + 1);
+        } else {
+            char_nums.insert(t_chars[index], 1);
+        }
+        index += 1;
+    }
+    while right_index < s_len {
+        // move right_index by right one step util include all t string
+        if char_nums.contains_key(&s_chars[right_index]) { // No record useless chars
+            let old_n = char_nums.get(&s_chars[right_index]).unwrap();
+            if *old_n > 0 {
+                t_count -= 1;
+            }
+            char_nums.insert(s_chars[right_index], *old_n - 1);
+        }
+        while t_count == 0 {
+            if right_index - left_index + 1 < min_window_len {
+                min_window_len = right_index - left_index + 1;
+                min_window_left_index = left_index;
+            }
+            // Atemp move left_index by right one
+            if char_nums.contains_key(&s_chars[left_index]) { // No record useless chars
+                let old_n = char_nums.get(&s_chars[left_index]).unwrap();
+                if *old_n == 0 { // Need another char left_index
+                    t_count += 1;
+                }
+                char_nums.insert(s_chars[left_index], *old_n + 1);
+            }
+            left_index += 1;
+        }
+        right_index += 1;
+    }
+    if min_window_len == std::usize::MAX {
+        return "".to_string();
+    }
+    return String::from_iter(&s_chars[min_window_left_index..(min_window_left_index + min_window_len)]);
+}
+
+pub fn can_construct_383(ransom_note: String, magazine: String) -> bool {
+    let magazine_chars: Vec<char> = magazine.chars().collect();
+    let ransom_note_chars: Vec<char> = ransom_note.chars().collect();
+    let mut ransom_note_chars_count = ransom_note.len();
+    let magazine_len = magazine.len();
+    let mut char_nums: std::collections::HashMap<char, i32> = std::collections::HashMap::new();
+    let mut index = 0;
+    while index < ransom_note_chars_count {
+        if char_nums.contains_key(&ransom_note_chars[index]) {
+            let old_n = char_nums.get(&ransom_note_chars[index]).unwrap();
+            char_nums.insert(ransom_note_chars[index], *old_n + 1);
+        } else {
+            char_nums.insert(ransom_note_chars[index], 1);
+        }
+        index += 1;
+    }
+    index = 0;
+    while index < magazine_len {
+        if char_nums.contains_key(&magazine_chars[index]) {
+            let old_n = char_nums.get(&magazine_chars[index]).unwrap();
+            if *old_n > 0 {
+                ransom_note_chars_count -= 1;
+            }
+            char_nums.insert(magazine_chars[index], *old_n - 1);
+        }
+        index += 1;
+    }
+    if ransom_note_chars_count == 0 {
+        return true;
+    }
+    return false;
+}
+
