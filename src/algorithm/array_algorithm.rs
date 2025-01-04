@@ -198,3 +198,86 @@ pub fn max_sliding_window_239(nums: Vec<i32>, k: i32) -> Vec<i32> {
     return max_ret;
 }
 
+///
+/// Leetcode 169
+/// Majority Element appears more than n/2 times
+///
+pub fn majority_element_169(nums: Vec<i32>) -> i32 {
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut nums_count_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let mut max_num_count = 0;
+    let mut ret_num = 0;
+    while index < nums_len {
+        if nums_count_map.contains_key(&nums[index]) {
+            let old_n = nums_count_map.get(&nums[index]).unwrap();
+            if *old_n + 1 > max_num_count {
+                max_num_count = *old_n + 1;
+                ret_num = nums[index];
+            }
+            nums_count_map.insert(nums[index], *old_n + 1);
+        } else {
+            nums_count_map.insert(nums[index], 1);
+            if index == 0 {
+                ret_num = nums[index];
+                max_num_count = 1;
+            }
+        }
+        index += 1;
+    }
+    return ret_num;
+}
+
+///
+/// Leetcode 73
+/// Set matrix zeroes in place
+///
+pub fn set_zeroes_73(matrix: &mut Vec<Vec<i32>>) {
+    let row_count = matrix.len();
+    let column_count = matrix[0].len();
+    let mut row_flag_map: std::collections::HashMap<usize, bool> = std::collections::HashMap::new(); // judge current row has zero
+    let mut column_flag_map: std::collections::HashMap<usize, bool> = std::collections::HashMap::new(); // judge current column has zero
+    let mut row_index = 0;
+    let mut column_index = 0;
+    // init row_flag_map
+    while row_index < row_count {
+        row_flag_map.insert(row_index, false);
+        row_index += 1;
+    }
+    // init column_flag_map
+    while column_index < column_count {
+        column_flag_map.insert(column_index, false);
+        column_index += 1;
+    }
+    row_index = 0;
+    while row_index < row_count {
+        column_index = 0;
+        while column_index < column_count {
+            if matrix[row_index][column_index] == 0 {
+                row_flag_map.insert(row_index, true);
+                column_flag_map.insert(column_index, true);
+            }
+            column_index += 1;
+        }
+        row_index += 1;
+    }
+    // set values
+    row_index = 0;
+    'row_loop: loop {
+        if row_index >= row_count {
+            break 'row_loop;
+        }
+        column_index = 0;
+        'column_loop: loop {
+            if column_index >= column_count {
+                break 'column_loop;
+            }
+            if *row_flag_map.get(&row_index).unwrap() || *column_flag_map.get(&column_index).unwrap() {
+                matrix[row_index][column_index] = 0;
+            }
+            column_index += 1;
+        }
+        row_index += 1;
+    }
+}
+
