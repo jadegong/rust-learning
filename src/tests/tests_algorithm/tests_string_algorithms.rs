@@ -126,3 +126,19 @@ pub fn test_can_construct_383() {
     assert_eq!(test_ret, true);
 }
 
+#[test]
+pub fn test_is_isomorphic_205() {
+    let test_s: String = String::from("egg");
+    let test_t: String = String::from("add");
+    assert_eq!(string_algorithms::is_isomorphic_205(test_s, test_t), true);
+    let test_s: String = String::from("foo");
+    let test_t: String = String::from("bar");
+    assert_eq!(string_algorithms::is_isomorphic_205(test_s, test_t), false);
+    let test_s: String = String::from("paper");
+    let test_t: String = String::from("title");
+    assert_eq!(string_algorithms::is_isomorphic_205(test_s, test_t), true);
+    let test_s: String = String::from("badc");
+    let test_t: String = String::from("baba");
+    assert_eq!(string_algorithms::is_isomorphic_205(test_s, test_t), false);
+}
+

@@ -294,6 +294,9 @@ pub fn min_window_76(s: String, t: String) -> String {
     return String::from_iter(&s_chars[min_window_left_index..(min_window_left_index + min_window_len)]);
 }
 
+///
+/// Leetcode 383
+///
 pub fn can_construct_383(ransom_note: String, magazine: String) -> bool {
     let magazine_chars: Vec<char> = magazine.chars().collect();
     let ransom_note_chars: Vec<char> = ransom_note.chars().collect();
@@ -325,5 +328,37 @@ pub fn can_construct_383(ransom_note: String, magazine: String) -> bool {
         return true;
     }
     return false;
+}
+
+/// 
+/// Leetcode 205
+///
+pub fn is_isomorphic_205(s: String, t: String) -> bool {
+    let mut s_t_map: std::collections::HashMap<char, char> = std::collections::HashMap::new();
+    let mut t_s_map: std::collections::HashMap<char, char> = std::collections::HashMap::new();
+    let mut ret = true;
+    let n = s.len();
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    let mut index = 0;
+    while index < n {
+        if s_t_map.contains_key(&s_chars[index]) {
+            let map_v = s_t_map.get(&s_chars[index]).unwrap();
+            if *map_v != t_chars[index] {
+                ret = false;
+                break;
+            }
+        } else {
+            if t_s_map.contains_key(&t_chars[index]) {
+                ret = false;
+                break;
+            } else {
+                t_s_map.insert(t_chars[index], s_chars[index]);
+                s_t_map.insert(s_chars[index], t_chars[index]);
+            }
+        }
+        index += 1;
+    }
+    return ret;
 }
 
