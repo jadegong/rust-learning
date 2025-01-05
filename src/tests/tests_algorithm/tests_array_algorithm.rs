@@ -84,3 +84,31 @@ pub fn test_set_zeroes_73() {
     array_algorithm::set_zeroes_73(&mut test_matrix);
     assert_eq!(test_matrix, expected_matrix);
 }
+
+#[test]
+pub fn test_rotate_48() {
+    let mut test_matrix: Vec<Vec<i32>> = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
+    let expected_matrix: Vec<Vec<i32>> = vec![vec![7, 4, 1], vec![8, 5, 2], vec![9, 6, 3]];
+    array_algorithm::rotate_48(&mut test_matrix);
+    assert_eq!(test_matrix, expected_matrix);
+    let mut test_matrix: Vec<Vec<i32>> = vec![vec![5, 1, 9, 11], vec![2, 4, 8, 10], vec![13, 3, 6, 7], vec![15, 14, 12, 16]];
+    let expected_matrix: Vec<Vec<i32>> = vec![vec![15, 13, 2, 5], vec![14, 3, 4, 1], vec![12, 6, 8, 9], vec![16, 7, 10, 11]];
+    array_algorithm::rotate_48(&mut test_matrix);
+    assert_eq!(test_matrix, expected_matrix);
+}
+
+#[test]
+pub fn test_spiral_order_54() {
+    let test_matrix: Vec<Vec<i32>> = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
+    let expected_ret: Vec<i32> = vec![1, 2, 3, 6, 9, 8, 7, 4, 5];
+    let test_ret = array_algorithm::spiral_order_54(test_matrix);
+    assert_eq!(test_ret, expected_ret);
+    let test_matrix: Vec<Vec<i32>> = vec![vec![1, 2, 3, 4], vec![5, 6, 7, 8], vec![9, 10, 11, 12]];
+    let expected_ret: Vec<i32> = vec![1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7];
+    let test_ret = array_algorithm::spiral_order_54(test_matrix);
+    assert_eq!(test_ret, expected_ret);
+    let test_matrix: Vec<Vec<i32>> = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9], vec![10, 11, 12], vec![13, 14, 15]];
+    let expected_ret: Vec<i32> = vec![1, 2, 3, 6, 9, 12, 15, 14, 13, 10, 7, 4, 5, 8, 11];
+    let test_ret = array_algorithm::spiral_order_54(test_matrix);
+    assert_eq!(test_ret, expected_ret);
+}

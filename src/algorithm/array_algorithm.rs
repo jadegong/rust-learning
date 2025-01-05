@@ -281,3 +281,105 @@ pub fn set_zeroes_73(matrix: &mut Vec<Vec<i32>>) {
     }
 }
 
+/// 
+/// Leetcode 48
+/// Rotate Image by 90 degrees (clockwise)
+/// 1. Fold according the line from topcenter to bottomceter;
+/// 2. Fold according the line from bottomleft to topright.
+///
+pub fn rotate_48(matrix: &mut Vec<Vec<i32>>) {
+    let n = matrix.len();
+    let mut row_index = 0;
+    let mut column_index;
+    // 1. Fold according the line from topcenter to bottomceter;
+    let mut temp: i32;
+    while row_index < n {
+        column_index = 0;
+        while column_index <= (n - 1) / 2 {
+            temp = matrix[row_index][column_index];
+            matrix[row_index][column_index] = matrix[row_index][n-1-column_index];
+            matrix[row_index][n-1-column_index] = temp;
+            column_index += 1;
+        }
+        row_index += 1;
+    }
+    // 2. Fold according the line from bottomleft to topright.
+    row_index = 0;
+    while row_index < n {
+        column_index = 0;
+        while column_index < (n - 1 - row_index) {
+            temp = matrix[row_index][column_index];
+            matrix[row_index][column_index] = matrix[n-1-column_index][n-1-row_index];
+            matrix[n-1-column_index][n-1-row_index] = temp;
+            column_index += 1;
+        }
+        row_index += 1;
+    }
+}
+
+///
+/// Leetcode 54
+///
+pub fn spiral_order_54(matrix: Vec<Vec<i32>>) -> Vec<i32> {
+    let mut ret_vec: Vec<i32> = vec![];
+    let row_count = matrix.len();
+    let column_count = matrix[0].len();
+    let mut start_row_index = 0;
+    let mut start_column_index = 0;
+    let mut current_row_count;
+    let mut current_column_count;
+    while start_row_index < (row_count + 1) / 2 && start_column_index < (column_count + 1) / 2 {
+        current_row_count = row_count - start_row_index * 2;
+        current_column_count = column_count - start_column_index * 2;
+        let mut row_index = start_row_index;
+        let mut column_index = start_column_index;
+        if current_row_count == 1 { // Only one row
+            while column_index < column_count - start_column_index {
+                ret_vec.push(matrix[row_index][column_index]);
+                column_index += 1;
+            }
+        } else { // Two or more rows
+            if current_column_count == 1 { // Only one column
+                while row_index < row_count - start_row_index {
+                    ret_vec.push(matrix[row_index][column_index]);
+                    row_index += 1;
+                }
+            } else { // Two or more columns
+                // 1.Top row
+                while column_index < column_count - start_column_index {
+                    ret_vec.push(matrix[row_index][column_index]);
+                    column_index += 1;
+                }
+                column_index -= 1;
+                row_index += 1;
+                // 2.Right column
+                while row_index < row_count - start_row_index - 1 {
+                    ret_vec.push(matrix[row_index][column_index]);
+                    row_index += 1;
+                }
+                // row_index += 1;
+                // 3.Bottom row
+                while column_index >= start_column_index {
+                    ret_vec.push(matrix[row_index][column_index]);
+                    if column_index == 0 {
+                        break;
+                    }
+                    column_index -= 1;
+                }
+                if start_column_index > 0 {
+                    column_index += 1;
+                }
+                row_index -= 1;
+                // 4.Left column
+                while row_index > start_row_index {
+                    ret_vec.push(matrix[row_index][column_index]);
+                    row_index -= 1;
+                }
+            }
+        }
+        start_row_index += 1;
+        start_column_index += 1;
+    }
+    return ret_vec;
+}
+
