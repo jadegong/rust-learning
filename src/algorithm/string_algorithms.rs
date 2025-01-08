@@ -362,3 +362,39 @@ pub fn is_isomorphic_205(s: String, t: String) -> bool {
     return ret;
 }
 
+///
+/// Leetcode 290
+///
+pub fn word_pattern_290(pattern: String, s: String) -> bool {
+    let pattern_chars: Vec<char> = pattern.chars().collect();
+    let s_words: Vec<&str> = s.rsplit(' ').collect();
+    let pattern_len = pattern_chars.len();
+    let s_words_len = s_words.len();
+    if pattern_len != s_words_len {
+        return false;
+    }
+    let mut p_s_map: std::collections::HashMap<char, &str> = std::collections::HashMap::new();
+    let mut s_p_map: std::collections::HashMap<&str, char> = std::collections::HashMap::new();
+    let mut index = 0;
+    let mut ret: bool = true;
+    while index < pattern_len {
+        if p_s_map.contains_key(&pattern_chars[index]) {
+            let p_s_map_v = p_s_map.get(&pattern_chars[index]).unwrap();
+            if *p_s_map_v != s_words[index] {
+                ret = false;
+                break;
+            }
+        } else {
+            if s_p_map.contains_key(&s_words[index]) {
+                ret = false;
+                break;
+            } else {
+                p_s_map.insert(pattern_chars[index], s_words[index]);
+                s_p_map.insert(s_words[index], pattern_chars[index]);
+            }
+        }
+        index += 1;
+    }
+    return ret;
+}
+

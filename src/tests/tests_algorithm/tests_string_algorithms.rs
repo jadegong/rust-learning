@@ -142,3 +142,16 @@ pub fn test_is_isomorphic_205() {
     assert_eq!(string_algorithms::is_isomorphic_205(test_s, test_t), false);
 }
 
+#[test]
+pub fn test_word_pattern_290() {
+    let test_pattern: String = String::from("abba");
+    let test_s: String = String::from("dog cat cat dog");
+    assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), true);
+    let test_pattern: String = String::from("abba");
+    let test_s: String = String::from("dog cat cat fish");
+    assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), false);
+    let test_pattern: String = String::from("aaaa");
+    let test_s: String = String::from("dog cat cat dog");
+    assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), false);
+}
+
