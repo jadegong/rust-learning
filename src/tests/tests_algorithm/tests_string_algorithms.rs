@@ -153,5 +153,8 @@ pub fn test_word_pattern_290() {
     let test_pattern: String = String::from("aaaa");
     let test_s: String = String::from("dog cat cat dog");
     assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), false);
+    let test_pattern: String = String::from("deadbeef");
+    let test_s: String = String::from("d e a d b e e f");
+    assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), true);
 }
 

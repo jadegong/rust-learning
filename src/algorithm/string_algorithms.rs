@@ -367,7 +367,7 @@ pub fn is_isomorphic_205(s: String, t: String) -> bool {
 ///
 pub fn word_pattern_290(pattern: String, s: String) -> bool {
     let pattern_chars: Vec<char> = pattern.chars().collect();
-    let s_words: Vec<&str> = s.rsplit(' ').collect();
+    let s_words: Vec<&str> = s.split(' ').collect();
     let pattern_len = pattern_chars.len();
     let s_words_len = s_words.len();
     if pattern_len != s_words_len {
