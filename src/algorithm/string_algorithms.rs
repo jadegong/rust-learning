@@ -398,3 +398,47 @@ pub fn word_pattern_290(pattern: String, s: String) -> bool {
     return ret;
 }
 
+///
+/// Leetcode 242
+///
+pub fn valid_anagram_242(s: String, t: String) -> bool {
+    let s_len = s.len();
+    let t_len = t.len();
+    if s_len != t_len {
+        return false;
+    }
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    let mut char_count_map: std::collections::HashMap<char, i32> = std::collections::HashMap::new();
+    let mut index = 0;
+    while index < s_len {
+        if char_count_map.contains_key(&s_chars[index]) {
+            let current_count = char_count_map.get(&s_chars[index]).unwrap();
+            char_count_map.insert(s_chars[index], *current_count + 1);
+        } else {
+            char_count_map.insert(s_chars[index], 1);
+        }
+        index += 1;
+    }
+    let mut ret = true;
+    index = 0;
+    while index < t_len {
+        if char_count_map.contains_key(&t_chars[index]) {
+            let current_count = char_count_map.get(&t_chars[index]).unwrap();
+            if *current_count == 0 {
+                ret = false;
+                break;
+            } else if *current_count == 1 {
+                char_count_map.remove(&t_chars[index]);
+            } else {
+                char_count_map.insert(t_chars[index], *current_count - 1);
+            }
+        } else {
+            ret = false;
+            break;
+        }
+        index += 1;
+    }
+    return ret;
+}
+

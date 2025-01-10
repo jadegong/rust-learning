@@ -158,3 +158,13 @@ pub fn test_word_pattern_290() {
     assert_eq!(string_algorithms::word_pattern_290(test_pattern, test_s), true);
 }
 
+#[test]
+pub fn test_valid_anagram_242() {
+    let test_s: String = String::from("anagram");
+    let test_t: String = String::from("nagaram");
+    assert_eq!(string_algorithms::valid_anagram_242(test_s, test_t), true);
+    let test_s: String = String::from("rat");
+    let test_t: String = String::from("car");
+    assert_eq!(string_algorithms::valid_anagram_242(test_s, test_t), false);
+}
+
