@@ -112,3 +112,32 @@ pub fn test_spiral_order_54() {
     let test_ret = array_algorithm::spiral_order_54(test_matrix);
     assert_eq!(test_ret, expected_ret);
 }
+
+#[test]
+pub fn test_two_sum_1() {
+    let test_nums: Vec<i32> = vec![2,7,11,15];
+    let test_target: i32 = 9;
+    let expected_ret: Vec<i32> = vec![0,1];
+    assert_eq!(array_algorithm::two_sum_1(test_nums, test_target), expected_ret);
+    let test_nums: Vec<i32> = vec![3,2,4];
+    let test_target: i32 = 6;
+    let expected_ret: Vec<i32> = vec![1,2];
+    assert_eq!(array_algorithm::two_sum_1(test_nums, test_target), expected_ret);
+    let test_nums: Vec<i32> = vec![3,3];
+    let test_target: i32 = 6;
+    let expected_ret: Vec<i32> = vec![0,1];
+    assert_eq!(array_algorithm::two_sum_1(test_nums, test_target), expected_ret);
+}
+
+#[test]
+pub fn test_contains_nearby_duplicate_219() {
+    let test_nums: Vec<i32> = vec![1,2,3,1];
+    let test_k: i32 = 3;
+    assert_eq!(array_algorithm::contains_nearby_duplicate_219(test_nums, test_k), true);
+    let test_nums: Vec<i32> = vec![1,0,1,1];
+    let test_k: i32 = 1;
+    assert_eq!(array_algorithm::contains_nearby_duplicate_219(test_nums, test_k), true);
+    let test_nums: Vec<i32> = vec![1,2,3,1,2,3];
+    let test_k: i32 = 2;
+    assert_eq!(array_algorithm::contains_nearby_duplicate_219(test_nums, test_k), false);
+}

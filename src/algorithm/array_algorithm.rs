@@ -383,3 +383,50 @@ pub fn spiral_order_54(matrix: Vec<Vec<i32>>) -> Vec<i32> {
     return ret_vec;
 }
 
+///
+/// Leetcode 1
+///
+pub fn two_sum_1(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    let mut ret_vec: Vec<i32> = vec![];
+    let nums_len = nums.len();
+    let mut nums_index_map: std::collections::HashMap<i32, usize> = std::collections::HashMap::new();
+    let mut index = 0;
+    while index < nums_len {
+        if nums_index_map.contains_key(&(target - nums[index])) {
+            let map_v = nums_index_map.get(&(target - nums[index])).unwrap();
+            ret_vec.push(*map_v as i32);
+            ret_vec.push(index as i32);
+            break;
+        } else {
+            nums_index_map.insert(nums[index], index);
+        }
+        index += 1;
+    }
+    return ret_vec;
+}
+
+///
+/// Leetcode 219
+///
+pub fn contains_nearby_duplicate_219(nums: Vec<i32>, k: i32) -> bool {
+    let mut nums_index_map: std::collections::HashMap<i32, usize> = std::collections::HashMap::new();
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut ret = false;
+    while index < nums_len {
+        if nums_index_map.contains_key(&nums[index]) {
+            let map_v = nums_index_map.get(&nums[index]).unwrap();
+            if index - *map_v <= k as usize {
+                ret = true;
+                break;
+            } else { // Do not satisfy, update index of current num
+                nums_index_map.insert(nums[index], index);
+            }
+        } else {
+            nums_index_map.insert(nums[index], index);
+        }
+        index += 1;
+    }
+    return ret;
+}
+
