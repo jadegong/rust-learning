@@ -141,3 +141,13 @@ pub fn test_contains_nearby_duplicate_219() {
     let test_k: i32 = 2;
     assert_eq!(array_algorithm::contains_nearby_duplicate_219(test_nums, test_k), false);
 }
+
+#[test]
+pub fn test_summary_ranges_228() {
+    let test_nums: Vec<i32> = vec![0,1,2,4,5,7];
+    let expected_ret: Vec<String> = vec![String::from("0->2"), String::from("4->5"), String::from("7")];
+    assert_eq!(array_algorithm::summary_ranges_228(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![0,2,3,4,6,8,9];
+    let expected_ret: Vec<String> = vec![String::from("0"), String::from("2->4"), String::from("6"), String::from("8->9")];
+    assert_eq!(array_algorithm::summary_ranges_228(test_nums), expected_ret);
+}

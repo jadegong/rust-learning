@@ -430,3 +430,37 @@ pub fn contains_nearby_duplicate_219(nums: Vec<i32>, k: i32) -> bool {
     return ret;
 }
 
+///
+/// Leetcode 228
+///
+pub fn summary_ranges_228(nums: Vec<i32>) -> Vec<String> {
+    let mut ret_vec: Vec<String> = vec![];
+    let nums_len = nums.len();
+    if nums_len <= 0 {
+        return ret_vec;
+    }
+    let mut index = 1;
+    let mut current_start = nums[0];
+    let mut current_num = nums[0];
+    while index < nums_len {
+        if nums[index] > current_num + 1 {
+            // should print current_start -> current_num
+            let mut current_str: String = current_start.to_string();
+            if current_num != current_start {
+                current_str = current_str + "->" + &(current_num.to_string());
+            }
+            ret_vec.push(current_str);
+            current_start = nums[index]; // New start
+        }
+        current_num = nums[index];
+        index += 1;
+    }
+    // Add lasf
+    let mut current_str: String = current_start.to_string();
+    if current_num != current_start {
+        current_str = current_str + "->" + &(current_num.to_string());
+    }
+    ret_vec.push(current_str);
+    return ret_vec;
+}
+
