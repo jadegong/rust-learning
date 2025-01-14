@@ -151,3 +151,15 @@ pub fn test_summary_ranges_228() {
     let expected_ret: Vec<String> = vec![String::from("0"), String::from("2->4"), String::from("6"), String::from("8->9")];
     assert_eq!(array_algorithm::summary_ranges_228(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_insert_57() {
+    let intervals: Vec<Vec<i32>> = vec![vec![1,3], vec![6,9]];
+    let new_interval: Vec<i32> = vec![2,5];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,5], vec![6,9]];
+    assert_eq!(array_algorithm::insert_57(intervals, new_interval), expected_ret);
+    let intervals: Vec<Vec<i32>> = vec![vec![1,2],vec![3,5],vec![6,7],vec![8,10],vec![12,16]];
+    let new_interval: Vec<i32> = vec![4,8];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,2],vec![3,10],vec![12,16]];
+    assert_eq!(array_algorithm::insert_57(intervals, new_interval), expected_ret);
+}

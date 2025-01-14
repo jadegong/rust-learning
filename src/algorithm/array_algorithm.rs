@@ -464,3 +464,80 @@ pub fn summary_ranges_228(nums: Vec<i32>) -> Vec<String> {
     return ret_vec;
 }
 
+///
+/// Leetcode 57
+///
+pub fn insert_57(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {
+    let intervals_len = intervals.len();
+    let mut ret_vec: Vec<Vec<i32>> = vec![];
+    if intervals_len == 0 {
+        ret_vec.push(vec![new_interval[0], new_interval[1]]);
+        return ret_vec;
+    }
+    let mut index = 0;
+    let mut new_start_index = intervals_len;
+    let mut new_start_in = false;
+    let mut new_end_index= intervals_len;
+    let mut new_end_in = false;
+    while index < intervals_len {
+        if new_start_index == intervals_len {
+            if new_interval[0] <= intervals[index][1] {
+                new_start_index = index;
+                if new_interval[0] >= intervals[index][0] {
+                    new_start_in = true;
+                }
+            }
+        }
+        if new_end_index == intervals_len {
+            if new_interval[1] <= intervals[index][1] {
+                new_end_index = index;
+                if new_interval[1] >= intervals[index][0] {
+                    new_end_in = true;
+                }
+            }
+        }
+        index += 1;
+    }
+    index = 0;
+    println!("new_start_index: {}, new_start_in: {}, new_end_index: {}, new_end_in: {}", new_start_index, new_start_in, new_end_index, new_end_in);
+    let mut current_start: i32 = new_interval[0];
+    let mut current_end: i32 = new_interval[1];
+    while index < intervals_len {
+        if index < new_start_index {
+            ret_vec.push(vec![intervals[index][0], intervals[index][1]]);
+        } else if index == new_start_index {
+            if !new_start_in {
+                current_start = new_interval[0];
+            } else {
+                current_start = intervals[index][0];
+            }
+            if index == new_end_index {
+                if !new_end_in {
+                    current_end = new_interval[1];
+                    ret_vec.push(vec![current_start, current_end]);
+                    ret_vec.push(vec![intervals[index][0], intervals[index][1]]);
+                } else {
+                    current_end = intervals[index][1];
+                    ret_vec.push(vec![current_start, current_end]);
+                }
+            }
+        } else if index == new_end_index {
+            if !new_end_in {
+                current_end = new_interval[1];
+                ret_vec.push(vec![current_start, current_end]);
+                ret_vec.push(vec![intervals[index][0], intervals[index][1]]);
+            } else {
+                current_end = intervals[index][1];
+                ret_vec.push(vec![current_start, current_end]);
+            }
+        } else if index > new_end_index {
+            ret_vec.push(vec![intervals[index][0], intervals[index][1]]);
+        }
+        index += 1;
+    }
+    if new_end_index == intervals_len {
+        ret_vec.push(vec![current_start, new_interval[1]]);
+    }
+    return ret_vec;
+}
+

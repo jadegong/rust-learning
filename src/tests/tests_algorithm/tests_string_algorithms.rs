@@ -168,3 +168,11 @@ pub fn test_valid_anagram_242() {
     assert_eq!(string_algorithms::valid_anagram_242(test_s, test_t), false);
 }
 
+#[test]
+pub fn test_is_valid_20() {
+    let test_s: String = String::from("()[]{}");
+    assert_eq!(string_algorithms::is_valid_20(test_s), true);
+    let test_s: String = String::from("((])");
+    assert_eq!(string_algorithms::is_valid_20(test_s), false);
+}
+

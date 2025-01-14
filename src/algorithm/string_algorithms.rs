@@ -442,3 +442,57 @@ pub fn valid_anagram_242(s: String, t: String) -> bool {
     return ret;
 }
 
+/// 
+/// Leetcode 20
+///
+pub fn is_valid_20(s: String) -> bool {
+    let s_len = s.len();
+    let s_chars: Vec<char> = s.chars().collect();
+    let mut stack_vec: Vec<char> = vec![];
+    let mut ret = true;
+    let mut index = 0;
+    while index < s_len {
+        if s_chars[index] == '{' || s_chars[index] == '(' || s_chars[index] == '[' {
+            stack_vec.push(s_chars[index]);
+        } else if s_chars[index] == '}' {
+            if stack_vec.len() == 0 {
+                ret = false;
+                break;
+            } else {
+                if stack_vec.pop().unwrap() != '{' {
+                    ret = false;
+                    break;
+                }
+            }
+        } else if s_chars[index] == ']' {
+            if stack_vec.len() == 0 {
+                ret = false;
+                break;
+            } else {
+                if stack_vec.pop().unwrap() != '[' {
+                    ret = false;
+                    break;
+                }
+            }
+        } else if s_chars[index] == ')' {
+            if stack_vec.len() == 0 {
+                ret = false;
+                break;
+            } else {
+                if stack_vec.pop().unwrap() != '(' {
+                    ret = false;
+                    break;
+                }
+            }
+        } else {
+            ret = false;
+            break;
+        }
+        index += 1;
+    }
+    if stack_vec.len() > 0 {
+        ret = false;
+    }
+    return ret;
+}
+
