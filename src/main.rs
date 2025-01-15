@@ -1,5 +1,6 @@
 pub mod learning;
 pub mod algorithm;
+pub mod structure;
 
 #[cfg(test)]
 pub mod tests;
