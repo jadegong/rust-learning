@@ -21,3 +21,20 @@ pub fn is_same_tree_100(p: Option<Rc<RefCell<TreeNode>>>, q: Option<Rc<RefCell<T
     }
 }
 
+///
+/// Leetcode 112
+///
+pub fn has_path_sum_112(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> bool {
+    if root == None {
+        return false;
+    } else {
+        let root_rc = root.unwrap();
+        let root_ref = root_rc.borrow();
+        if root_ref.left == None && root_ref.right == None {
+            return root_ref.val == target_sum;
+        } else {
+            return has_path_sum_112(root_ref.left.clone(), target_sum - root_ref.val) || has_path_sum_112(root_ref.right.clone(), target_sum - root_ref.val);
+        }
+    }
+}
+
