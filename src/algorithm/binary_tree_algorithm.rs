@@ -331,3 +331,103 @@ pub fn lowest_common_ancestor_236(root: Option<Rc<RefCell<TreeNode>>>, p: Option
     }
     return ret_node;
 }
+
+///
+/// Leetcode 637
+///
+pub fn average_of_levels_637(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<f64> {
+    // sums: sums of every level, nums: nums of every level
+    fn inner_sum_of_levels(node: Option<Rc<RefCell<TreeNode>>>, sums: &mut Vec<i64>, nums: &mut Vec<i64>, depth: &mut usize) {
+        if node == None {
+            return;
+        }
+        let prev_depth = *depth;
+        *depth += 1;
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        if *depth > sums.len() {
+            sums.push(node_ref.val as i64);
+            nums.push(1);
+        } else {
+            sums[*depth - 1] += node_ref.val as i64;
+            nums[*depth - 1] += 1;
+        }
+        inner_sum_of_levels(node_ref.left.clone(), sums, nums, depth);
+        *depth = prev_depth + 1;
+        inner_sum_of_levels(node_ref.right.clone(), sums, nums, depth);
+    }
+    let mut sums_vec: Vec<i64> = vec![];
+    let mut nums_vec: Vec<i64> = vec![];
+    let mut ret_vec: Vec<f64> = vec![];
+    let mut depth = 0;
+    if root == None {
+        return ret_vec;
+    }
+    inner_sum_of_levels(root.clone(), &mut sums_vec, &mut nums_vec, &mut depth);
+    let mut index = 0;
+    while index < sums_vec.len() {
+        ret_vec.push((sums_vec[index] as f64) / (nums_vec[index] as f64));
+        index += 1;
+    }
+    return ret_vec;
+}
+
+///
+/// Leetcode 102
+///
+pub fn level_order_102(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+    fn inner_level_order(node: Option<Rc<RefCell<TreeNode>>>, vals: &mut Vec<Vec<i32>>, depth: &mut usize) {
+        if node == None {
+            return;
+        }
+        let prev_depth = *depth;
+        *depth += 1;
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        if *depth > vals.len() {
+            vals.push(vec![node_ref.val]);
+        } else {
+            vals[*depth - 1].push(node_ref.val);
+        }
+        inner_level_order(node_ref.left.clone(), vals, depth);
+        *depth = prev_depth + 1;
+        inner_level_order(node_ref.right.clone(), vals, depth);
+    }
+
+    let mut vals: Vec<Vec<i32>> = vec![];
+    let mut depth = 0;
+    inner_level_order(root, &mut vals, &mut depth);
+    return vals;
+}
+
+///
+/// Leetcode 103
+///
+pub fn zigzag_level_order_103(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+    fn inner_zigzag_level_order(node: Option<Rc<RefCell<TreeNode>>>, vals: &mut Vec<Vec<i32>>, depth: &mut usize) {
+        if node == None {
+            return;
+        }
+        let prev_depth = *depth;
+        *depth += 1;
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        if *depth > vals.len() {
+            vals.push(vec![node_ref.val]);
+        } else {
+            if *depth % 2 == 0 {
+                vals[*depth - 1].insert(0, node_ref.val);
+            } else {
+                vals[*depth - 1].push(node_ref.val);
+            }
+        }
+        inner_zigzag_level_order(node_ref.left.clone(), vals, depth);
+        *depth = prev_depth + 1;
+        inner_zigzag_level_order(node_ref.right.clone(), vals, depth);
+    }
+
+    let mut vals: Vec<Vec<i32>> = vec![];
+    let mut depth = 0;
+    inner_zigzag_level_order(root, &mut vals, &mut depth);
+    return vals;
+}
