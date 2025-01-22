@@ -501,7 +501,7 @@ pub fn insert_57(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i3
     index = 0;
     println!("new_start_index: {}, new_start_in: {}, new_end_index: {}, new_end_in: {}", new_start_index, new_start_in, new_end_index, new_end_in);
     let mut current_start: i32 = new_interval[0];
-    let mut current_end: i32 = new_interval[1];
+    let mut current_end;
     while index < intervals_len {
         if index < new_start_index {
             ret_vec.push(vec![intervals[index][0], intervals[index][1]]);

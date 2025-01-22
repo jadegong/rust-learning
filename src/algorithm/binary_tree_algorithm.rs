@@ -111,8 +111,8 @@ pub fn flattern_114(root: &mut Option<Rc<RefCell<TreeNode>>>) {
         if node_ref.left == None && node_ref.right == None {
             return node.clone();
         }
-        let mut node_left_next: Option<Rc<RefCell<TreeNode>>> = None;
-        let mut node_right_next: Option<Rc<RefCell<TreeNode>>> = None;
+        let node_left_next: Option<Rc<RefCell<TreeNode>>>;
+        let node_right_next: Option<Rc<RefCell<TreeNode>>>;
         let mut node_left_mut = node_ref.left.clone();
         let mut node_right_mut = node_ref.right.clone();
         if node_ref.left != None {
