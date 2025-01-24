@@ -20,3 +20,31 @@ pub fn test_reverse_between_92() {
     assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::reverse_between_92(test_list, 2, 4)));
 }
 
+#[test]
+pub fn test_reverse_k_group_25() {
+    let test_nums: Vec<i32> = vec![1, 2, 3, 4, 5];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    let expected_nums: Vec<i32> = vec![3, 2, 1, 4, 5];
+    let expected_list = linked_list_algorithm::create_linked_list(expected_nums);
+    assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::reverse_k_group_25(test_list, 3)));
+    let test_nums: Vec<i32> = vec![1, 2, 3, 4, 5];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    let expected_nums: Vec<i32> = vec![2, 1, 4, 3, 5];
+    let expected_list = linked_list_algorithm::create_linked_list(expected_nums);
+    assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::reverse_k_group_25(test_list, 2)));
+}
+
+#[test]
+pub fn test_remove_nth_from_end_19() {
+    let test_nums: Vec<i32> = vec![1, 2, 3, 4, 5];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    let expected_nums: Vec<i32> = vec![1, 2, 3, 5];
+    let expected_list = linked_list_algorithm::create_linked_list(expected_nums);
+    assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::remove_nth_from_end_19(test_list, 2)));
+    let test_nums: Vec<i32> = vec![1, 2];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    let expected_nums: Vec<i32> = vec![1];
+    let expected_list = linked_list_algorithm::create_linked_list(expected_nums);
+    assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::remove_nth_from_end_19(test_list, 1)));
+}
+

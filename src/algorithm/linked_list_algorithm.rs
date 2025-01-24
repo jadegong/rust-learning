@@ -134,3 +134,158 @@ pub fn reverse_between_92(head: Option<Box<ListNode>>, left: i32, right: i32) ->
     }
     ret
 }
+
+///
+/// Leetcode 25
+///
+pub fn reverse_k_group_25(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
+    let mut current_node: Option<Box<ListNode>> = head.clone();
+    let mut reverse_vec: Vec<i32> = vec![];
+    while current_node != None {
+        let current_val = current_node.as_mut().unwrap().val;
+        reverse_vec.push(current_val);
+        current_node = current_node.unwrap().next;
+    }
+    let mut current_index = 0;
+    let vec_len = reverse_vec.len();
+    while current_index + (k as usize) <= vec_len {
+        let mut current_group_index = k as usize;
+        while current_group_index > (k/2) as usize {
+            let temp = reverse_vec[current_index + current_group_index - 1];
+            reverse_vec[current_index + current_group_index - 1] = reverse_vec[current_index + k as usize - current_group_index];
+            reverse_vec[current_index + k as usize - current_group_index] = temp;
+            current_group_index -= 1;
+        }
+        current_index += k as usize;
+    }
+    let mut ret: Option<Box<ListNode>> = None;
+    let mut prev_node = &mut ret;
+    current_index = 0;
+    while current_index < vec_len {
+        let node = Box::new(ListNode::new(reverse_vec[current_index]));
+        prev_node = &mut prev_node.insert(node).next;
+        current_index += 1;
+    }
+    ret
+}
+
+///
+/// Leetcode 82
+///
+pub fn delete_duplicates_82(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let mut current_node: Option<Box<ListNode>> = head.clone();
+    let mut prev_val = i32::MIN;
+    let mut is_same = false;
+    let mut ret: Option<Box<ListNode>> = None;
+    let mut prev_node = &mut ret;
+    while current_node != None {
+        let current_val = current_node.as_mut().unwrap().val;
+        if current_val == prev_val {
+            is_same = true;
+        } else {
+            if !is_same  {
+                if prev_val != i32::MIN {
+                    let node = Box::new(ListNode::new(prev_val));
+                    prev_node = &mut prev_node.insert(node).next;
+                }
+            }
+            is_same = false;
+            prev_val = current_val;
+        }
+        current_node = current_node.unwrap().next;
+    }
+    // Last node
+    if !is_same {
+        if prev_val != i32::MIN {
+            let node = Box::new(ListNode::new(prev_val));
+            *prev_node = Some(node);
+        }
+    }
+    ret
+}
+
+///
+/// Leetcode 19
+///
+pub fn remove_nth_from_end_19(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
+    let mut ret: Option<Box<ListNode>> = None;
+    let mut prev_node = &mut ret;
+    let mut len_index = 0;
+    let mut right_node = head.clone();
+    while len_index < n {
+        right_node = right_node.unwrap().next;
+        len_index += 1;
+    }
+    let mut current_node: Option<Box<ListNode>> = head.clone();
+    while right_node != None {
+        let current_val = current_node.as_mut().unwrap().val;
+        let node = Box::new(ListNode::new(current_val));
+        prev_node = &mut prev_node.insert(node).next;
+        right_node = right_node.unwrap().next;
+        current_node = current_node.unwrap().next;
+    }
+    *prev_node = current_node.unwrap().next;
+    ret
+}
+
+///
+/// Leetcode 61
+///
+pub fn rotate_right_61(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
+    let mut nums: Vec<i32> = vec![];
+    let mut current_node: Option<Box<ListNode>> = head.clone();
+    while current_node != None {
+        nums.push(current_node.as_ref().unwrap().val);
+        current_node = current_node.unwrap().next;
+    }
+    let nums_len = nums.len();
+    if nums_len == 0 {
+        return None;
+    }
+    let m_k = (k as usize) % nums_len;
+    let mut index = 0;
+    let mut ret: Option<Box<ListNode>> = None;
+    let mut prev_node = &mut ret;
+    while index < m_k {
+        let node = Box::new(ListNode::new(nums[nums_len - m_k + index]));
+        prev_node = &mut prev_node.insert(node).next;
+        index += 1;
+    }
+    index = 0;
+    while index < nums_len - m_k {
+        let node = Box::new(ListNode::new(nums[index]));
+        prev_node = &mut prev_node.insert(node).next;
+        index += 1;
+    }
+    ret
+}
+
+///
+/// Leetcode 86
+///
+pub fn partition_86(head: Option<Box<ListNode>>, x: i32) -> Option<Box<ListNode>> {
+    let mut nums: Vec<i32> = vec![];
+    let mut current_node: Option<Box<ListNode>> = head.clone();
+    let mut index = 0;
+    while current_node != None {
+        let current_val = current_node.as_ref().unwrap().val;
+        if current_val < x {
+            nums.insert(index, current_val);
+            index += 1;
+        } else {
+            nums.push(current_val);
+        }
+        current_node = current_node.unwrap().next;
+    }
+    let mut ret: Option<Box<ListNode>> = None;
+    let mut prev_node = &mut ret;
+    index = 0;
+    let nums_len = nums.len();
+    while index < nums_len {
+        let node = Box::new(ListNode::new(nums[index]));
+        prev_node = &mut prev_node.insert(node).next;
+        index += 1;
+    }
+    ret
+}
+

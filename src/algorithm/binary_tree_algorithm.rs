@@ -3,6 +3,12 @@ use std::cell::RefCell;
 use crate::structure::treenode::TreeNode;
 
 ///
+/// Create a binary tree from i32 Vec
+/// TODO
+///
+pub fn create_binary_tree(nums: Vec<i32>) {}
+
+///
 /// Leetcode 100
 ///
 pub fn is_same_tree_100(p: Option<Rc<RefCell<TreeNode>>>, q: Option<Rc<RefCell<TreeNode>>>) -> bool {
@@ -431,3 +437,86 @@ pub fn zigzag_level_order_103(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i3
     inner_zigzag_level_order(root, &mut vals, &mut depth);
     return vals;
 }
+
+///
+/// Leetcode 530
+///
+pub fn get_minimum_difference_530(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    fn inner_generate_preorder(node: Option<Rc<RefCell<TreeNode>>>, nums_vec: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        inner_generate_preorder(node_ref.left.clone(), nums_vec);
+        nums_vec.push(node_ref.val);
+        inner_generate_preorder(node_ref.right.clone(), nums_vec);
+    }
+    let mut nums_vec: Vec<i32> = vec![];
+    inner_generate_preorder(root, &mut nums_vec);
+    let mut ret = i32::MAX;
+    let mut index = 1;
+    let nums_len = nums_vec.len();
+    let mut prev_num = nums_vec[0];
+    while index < nums_len {
+        ret = i32::min(ret, nums_vec[index] - prev_num);
+        prev_num = nums_vec[index];
+        index += 1;
+    }
+    ret
+}
+
+///
+/// Leetcode 98
+///
+pub fn is_valid_bst_98(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+    fn inner_generate_preorder(node: Option<Rc<RefCell<TreeNode>>>, nums_vec: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        inner_generate_preorder(node_ref.left.clone(), nums_vec);
+        nums_vec.push(node_ref.val);
+        inner_generate_preorder(node_ref.right.clone(), nums_vec);
+    }
+    if root == None {
+        return true;
+    }
+    let mut nums_vec: Vec<i32> = vec![];
+    inner_generate_preorder(root, &mut nums_vec);
+    let mut ret = true;
+    let mut index = 1;
+    let nums_len = nums_vec.len();
+    let mut prev_num = nums_vec[0];
+    while index < nums_len {
+        if nums_vec[index] <= prev_num {
+            ret = false;
+            break;
+        }
+        prev_num = nums_vec[index];
+        index += 1;
+    }
+    ret
+}
+
+///
+/// Leetcode 230
+///
+pub fn kth_smallest_230(root: Option<Rc<RefCell<TreeNode>>>, k: i32) -> i32 {
+    // Preorder
+    fn inner_generate_preorder(node: Option<Rc<RefCell<TreeNode>>>, nums_vec: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        inner_generate_preorder(node_ref.left.clone(), nums_vec);
+        nums_vec.push(node_ref.val);
+        inner_generate_preorder(node_ref.right.clone(), nums_vec);
+    }
+    let mut nums_vec: Vec<i32> = vec![];
+    inner_generate_preorder(root, &mut nums_vec);
+    return nums_vec[(k - 1) as usize];
+}
+
