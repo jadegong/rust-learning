@@ -129,3 +129,20 @@ pub fn max_area_12(height: Vec<i32>) -> i32 {
     return ret;
 }
 
+///
+/// Leetcode 53
+/// Maximum Subarray
+///
+pub fn maximum_subarray_53(nums: Vec<i32>) -> i32 {
+    let nums_len = nums.len();
+    let mut ret = i32::MIN;
+    let mut current_max = 0;
+    let mut index = 0;
+    while index < nums_len {
+        current_max = std::cmp::max(current_max + nums[index], nums[index]);
+        ret = std::cmp::max(current_max, ret);
+        index += 1;
+    }
+    ret
+}
+

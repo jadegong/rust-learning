@@ -58,3 +58,14 @@ fn test_max_area_12() {
     assert_eq!(test_ret, expected_ret);
 }
 
+#[test]
+fn test_maximum_subarray_53() {
+    let test_nums: Vec<i32> = vec![-2,1,-3,4,-1,2,1,-5,4];
+    let expected_ret = 6;
+    assert_eq!(dp_algorithm::maximum_subarray_53(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![5,4,-1,7,8];
+    let expected_ret = 23;
+    assert_eq!(dp_algorithm::maximum_subarray_53(test_nums), expected_ret);
+}
+
+

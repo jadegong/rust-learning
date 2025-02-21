@@ -541,3 +541,60 @@ pub fn insert_57(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i3
     return ret_vec;
 }
 
+///
+/// Leetcode 35
+/// Search Insert Position
+///
+pub fn search_insert_53(nums: Vec<i32>, target: i32) -> i32 {
+    let mut left_index = 0;
+    let mut right_index = nums.len() - 1;
+    let mut target_index = usize::MAX;
+    let mut middle_index;
+    while left_index < right_index {
+        middle_index = (left_index + right_index) / 2;
+        if nums[middle_index] == target {
+            target_index = middle_index;
+            break;
+        } else if nums[middle_index] > target {
+            if middle_index == left_index {
+                right_index = middle_index;
+                break;
+            }
+            right_index = middle_index - 1;
+        } else {
+            left_index = middle_index + 1;
+        }
+    }
+    if target_index == usize::MAX {
+        if nums[right_index] >= target {
+            target_index = right_index;
+        } else {
+            target_index = right_index + 1;
+        }
+    }
+    target_index as i32
+}
+
+///
+/// Leetcode 153
+/// Find Minimum in Rotated Sorted Array
+///
+pub fn find_min_153(nums: Vec<i32>) -> i32 {
+    let mut left_index = 0;
+    let mut right_index = nums.len() - 1;
+    let mut middle_index: usize;
+    let mut ret = nums[left_index];
+    while left_index < right_index {
+        middle_index = (left_index + right_index) / 2;
+        if nums[middle_index] > nums[left_index] {
+            left_index = middle_index;
+        } else if nums[middle_index] < nums[left_index] {
+            right_index = middle_index;
+            ret = nums[middle_index];
+        } else { // while middle_index = left_index, means right_index = left_index + 1;
+            break;
+        }
+    }
+    std::cmp::min(nums[right_index], ret)
+}
+

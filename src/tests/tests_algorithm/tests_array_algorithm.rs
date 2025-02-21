@@ -163,3 +163,13 @@ pub fn test_insert_57() {
     let expected_ret: Vec<Vec<i32>> = vec![vec![1,2],vec![3,10],vec![12,16]];
     assert_eq!(array_algorithm::insert_57(intervals, new_interval), expected_ret);
 }
+
+#[test]
+pub fn test_find_min_153() {
+    let test_nums: Vec<i32> = vec![3,4,5,1,2];
+    let expected_ret = 1;
+    assert_eq!(array_algorithm::find_min_153(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![11,13,15,17];
+    let expected_ret = 11;
+    assert_eq!(array_algorithm::find_min_153(test_nums), expected_ret);
+}
