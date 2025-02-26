@@ -146,3 +146,63 @@ pub fn maximum_subarray_53(nums: Vec<i32>) -> i32 {
     ret
 }
 
+/// 
+/// Leetcode 70
+/// Climbing Stairs
+///
+pub fn climb_stairs_70(n: i32) -> i32 {
+    if n == 1 {
+        return 1;
+    } else if n == 2 {
+        return 2;
+    }
+    let mut prev_two_ways = 1;
+    let mut prev_one_ways = 2;
+    let mut current_ways = 3;
+    let mut index = 3;
+    while index <= n {
+        current_ways = prev_two_ways + prev_one_ways;
+        prev_two_ways = prev_one_ways;
+        prev_one_ways = current_ways;
+        index += 1;
+    }
+    current_ways
+}
+
+/// 
+/// Leetcode 300
+/// Triangle
+///
+pub fn minimum_total_120(triangle: Vec<Vec<i32>>) -> i32 {
+    let rows = triangle.len();
+    let mut row_index = 0;
+    let mut col_index;
+    let mut row_dp: Vec<i32> = vec![i32::MAX; rows];
+    let mut ret = i32::MAX;
+    while row_index < rows {
+        col_index = row_index;
+        loop {
+            if row_index == 0 {
+                row_dp[0] = triangle[0][0];
+            } else { // Later rows
+                if col_index == 0 {
+                    row_dp[0] = row_dp[0] + triangle[row_index][0];
+                } else if col_index == row_index { // Last column
+                    row_dp[col_index] = row_dp[col_index - 1] + triangle[row_index][col_index];
+                } else { // Later column
+                    row_dp[col_index] = std::cmp::min(row_dp[col_index - 1], row_dp[col_index]) + triangle[row_index][col_index];
+                }
+            }
+            if row_index == rows - 1 {
+                ret = std::cmp::min(ret, row_dp[col_index]);
+            }
+            if col_index == 0 {
+                break;
+            }
+            col_index -= 1;
+        }
+        row_index += 1;
+    }
+    ret
+}
+

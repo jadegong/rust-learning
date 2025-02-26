@@ -4,9 +4,9 @@ use crate::structure::treenode::TreeNode;
 
 ///
 /// Create a binary tree from i32 Vec
-/// TODO
+/// TODO  nums: Vec<i32>
 ///
-pub fn create_binary_tree(nums: Vec<i32>) {}
+pub fn create_binary_tree() {}
 
 ///
 /// Leetcode 100

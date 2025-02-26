@@ -68,4 +68,20 @@ fn test_maximum_subarray_53() {
     assert_eq!(dp_algorithm::maximum_subarray_53(test_nums), expected_ret);
 }
 
+#[test]
+pub fn test_climb_stairs_70() {
+    let test_n = 3;
+    let expected_ret = 3;
+    assert_eq!(dp_algorithm::climb_stairs_70(test_n), expected_ret);
+    let test_n = 5;
+    let expected_ret = 8;
+    assert_eq!(dp_algorithm::climb_stairs_70(test_n), expected_ret);
+}
+
+#[test]
+pub fn test_minimum_total_120() {
+    let test_triangle: Vec<Vec<i32>> = vec![vec![2], vec![3,4], vec![6,5,7], vec![4,1,8,3]];
+    let expected_ret = 11;
+    assert_eq!(dp_algorithm::minimum_total_120(test_triangle), expected_ret);
+}
 
