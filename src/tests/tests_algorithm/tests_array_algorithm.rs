@@ -173,3 +173,11 @@ pub fn test_find_min_153() {
     let expected_ret = 11;
     assert_eq!(array_algorithm::find_min_153(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_search_33() {
+    let test_nums: Vec<i32> = vec![4,5,6,7,0,1,2];
+    assert_eq!(array_algorithm::search_33(test_nums, 0), 4);
+    let test_nums: Vec<i32> = vec![4,5,6,7,0,1,2];
+    assert_eq!(array_algorithm::search_33(test_nums, 3), -1);
+}
