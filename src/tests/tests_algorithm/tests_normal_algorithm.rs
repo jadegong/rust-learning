@@ -39,3 +39,26 @@ pub fn test_single_number_137() {
     let expected_ret: i32 = 99;
     assert_eq!(normal_algorithms::single_number_137(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_is_palindrome_9() {
+    let test_x = 121;
+    let expected_ret = true;
+    assert_eq!(normal_algorithms::is_palindrome_9(test_x), expected_ret);
+    let test_x = -121;
+    let expected_ret = false;
+    assert_eq!(normal_algorithms::is_palindrome_9(test_x), expected_ret);
+    let test_x = 10;
+    let expected_ret = false;
+    assert_eq!(normal_algorithms::is_palindrome_9(test_x), expected_ret);
+}
+
+#[test]
+pub fn test_plus_one_66() {
+    let test_nums: Vec<i32> = vec![1,2,3];
+    let expected_nums: Vec<i32> = vec![1,2,4];
+    assert_eq!(normal_algorithms::plus_one_66(test_nums), expected_nums);
+    let test_nums: Vec<i32> = vec![4,3,2,9];
+    let expected_nums: Vec<i32> = vec![4,3,3,0];
+    assert_eq!(normal_algorithms::plus_one_66(test_nums), expected_nums);
+}
