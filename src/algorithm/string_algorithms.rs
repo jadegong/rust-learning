@@ -496,3 +496,45 @@ pub fn is_valid_20(s: String) -> bool {
     return ret;
 }
 
+/// 
+/// Leetcode 2696
+/// Minimum String Length After Removing Substrings
+///
+pub fn min_length_2696(s: String) -> i32 {
+    let s_chars: Vec<char> = s.chars().collect();
+    let s_len = s.len();
+    let mut stack_vec: Vec<char> = vec![];
+    let mut index = 0;
+    let mut ret: usize = 0; // Stack len
+    while index < s_len {
+        if s_chars[index] == 'B' {
+            if ret == 0 {
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else if stack_vec[ret - 1] != 'A' { // Stack top not 'A'
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else {
+                stack_vec.pop();
+                ret -= 1;
+            }
+        } else if s_chars[index] == 'D' {
+            if ret == 0 {
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else if stack_vec[ret - 1] != 'C' { // Stack top not 'C'
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else {
+                stack_vec.pop();
+                ret -= 1;
+            }
+        } else {
+            stack_vec.push(s_chars[index]);
+            ret += 1;
+        }
+        index += 1;
+    }
+    ret as i32
+}
+
