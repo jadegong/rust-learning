@@ -85,3 +85,33 @@ pub fn test_minimum_total_120() {
     assert_eq!(dp_algorithm::minimum_total_120(test_triangle), expected_ret);
 }
 
+#[test]
+pub fn test_min_path_sum_64() {
+    let test_grid: Vec<Vec<i32>> = vec![vec![1,3,1], vec![1,5,1], vec![4,2,1]];
+    let expected_ret = 7;
+    assert_eq!(dp_algorithm::min_path_sum_64(test_grid), expected_ret);
+    let test_grid: Vec<Vec<i32>> = vec![vec![1,2,3], vec![4,5,6]];
+    let expected_ret = 12;
+    assert_eq!(dp_algorithm::min_path_sum_64(test_grid), expected_ret);
+}
+
+#[test]
+pub fn test_unique_paths_with_obstacles_63() {
+    let test_grid: Vec<Vec<i32>> = vec![vec![0,0,0],vec![0,1,0],vec![0,0,0]];
+    let expected_ret = 2;
+    assert_eq!(dp_algorithm::unique_paths_with_obstacles_63(test_grid), expected_ret);
+    let test_grid: Vec<Vec<i32>> = vec![vec![0,1],vec![0,0]];
+    let expected_ret = 1;
+    assert_eq!(dp_algorithm::unique_paths_with_obstacles_63(test_grid), expected_ret);
+}
+
+#[test]
+pub fn test_maximal_square_221() {
+    let test_matrix: Vec<Vec<char>> = vec![vec!['1','0','1','0','0'],vec!['1','0','1','1','1'],vec!['1','1','1','1','1'],vec!['1','0','0','1','0']];
+    let expected_ret = 4;
+    assert_eq!(dp_algorithm::maximal_square_221(test_matrix), expected_ret);
+    let test_matrix: Vec<Vec<char>> = vec![vec!['0', '1'],vec!['1', '0']];
+    let expected_ret = 1;
+    assert_eq!(dp_algorithm::maximal_square_221(test_matrix), expected_ret);
+}
+

@@ -206,3 +206,128 @@ pub fn minimum_total_120(triangle: Vec<Vec<i32>>) -> i32 {
     ret
 }
 
+/// 
+/// Leetcode 64
+/// Minimum Path Sum
+///
+pub fn min_path_sum_64(grid: Vec<Vec<i32>>) -> i32 {
+    let m_len = grid.len();
+    let n_len = grid[0].len();
+    let mut row_sum: Vec<i32> = vec![i32::MAX; n_len];
+    let mut row_index = 0;
+    let mut col_index;
+    while row_index < m_len {
+        col_index = 0;
+        while col_index < n_len {
+            if row_index == 0 { // first row
+                if col_index == 0 {
+                    row_sum[col_index] = grid[0][0];
+                } else {
+                    row_sum[col_index] = row_sum[col_index - 1] + grid[row_index][col_index];
+                }
+            } else {
+                if col_index == 0 { // first column
+                    row_sum[col_index] = row_sum[col_index] + grid[row_index][col_index];
+                } else {
+                    row_sum[col_index] = std::cmp::min(row_sum[col_index - 1], row_sum[col_index]) + grid[row_index][col_index];
+                }
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    row_sum[n_len - 1]
+}
+
+/// 
+/// Leetcode 63
+/// Unique Paths II
+///
+pub fn unique_paths_with_obstacles_63(obstacle_grid: Vec<Vec<i32>>) -> i32 {
+    let m_len = obstacle_grid.len();
+    let n_len = obstacle_grid[0].len();
+    let mut row_dp: Vec<i32> = vec![0; n_len];
+    let mut row_index = 0;
+    let mut col_index;
+    while row_index < m_len {
+        col_index = 0;
+        while col_index < n_len {
+            if row_index == 0 { // first row
+                if col_index == 0 {
+                    if obstacle_grid[0][0] == 1 {
+                        row_dp[0] = 0;
+                    } else {
+                        row_dp[0] = 1;
+                    }
+                } else {
+                    if obstacle_grid[0][col_index] == 1 {
+                        row_dp[col_index] = 0;
+                    } else {
+                        row_dp[col_index] = row_dp[col_index - 1];
+                    }
+                }
+            } else {
+                if col_index == 0 { // first column
+                    if obstacle_grid[row_index][col_index] == 1 {
+                        row_dp[col_index] = 0;
+                    }
+                } else {
+                    if obstacle_grid[row_index][col_index] == 1 {
+                        row_dp[col_index] = 0;
+                    } else {
+                        row_dp[col_index] = row_dp[col_index - 1] + row_dp[col_index];
+                    }
+                }
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    row_dp[n_len - 1]
+}
+
+/// 
+/// Leetcode 221
+/// Maximal Square
+///
+pub fn maximal_square_221(matrix: Vec<Vec<char>>) -> i32 {
+    let m_len = matrix.len();
+    let mut n_len = 0;
+    if m_len > 0 {
+        n_len = matrix[0].len();
+    }
+    let mut ret = 0;
+    let mut square_width: Vec<i32> = vec![0; n_len];
+    let mut square_top_left_width1; // prev row top left
+    let mut square_top_left_width2; // prev row top
+    let mut row_index = 0;
+    let mut col_index;
+    while row_index < m_len {
+        col_index = 0;
+        square_top_left_width2 = 0;
+        while col_index < n_len {
+            square_top_left_width1 = square_top_left_width2;
+            square_top_left_width2 = square_width[col_index];
+            if row_index == 0 {
+                if matrix[row_index][col_index] == '1' {
+                    square_width[col_index] = 1;
+                }
+            } else {
+                if matrix[row_index][col_index] == '1' {
+                    if col_index == 0 {
+                        square_width[col_index] = 1;
+                    } else {
+                        square_width[col_index] = std::cmp::min(std::cmp::min(square_width[col_index - 1], square_width[col_index]), square_top_left_width1) + 1;
+                    }
+                } else {
+                    square_width[col_index] = 0;
+                }
+            }
+            ret = std::cmp::max(ret, square_width[col_index]);
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    ret * ret
+}
+
