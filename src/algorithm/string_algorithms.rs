@@ -538,3 +538,34 @@ pub fn min_length_2696(s: String) -> i32 {
     ret as i32
 }
 
+/// 
+/// Leetcode 921
+/// Minimum Add To Make Parentheses Valid
+///
+pub fn min_add_to_make_valid_921(s: String) -> i32 {
+    let s_chars: Vec<char> = s.chars().collect();
+    let s_len = s.len();
+    let mut stack_vec: Vec<char> = vec![];
+    let mut index = 0;
+    let mut ret = 0; // stack len
+    while index < s_len {
+        if s_chars[index] == ')' {
+            if ret == 0 {
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else if stack_vec[ret - 1] != '(' {
+                stack_vec.push(s_chars[index]);
+                ret += 1;
+            } else { // ret > 0 && stack top is '(', current char is ')'
+                stack_vec.pop();
+                ret -= 1;
+            }
+        } else {
+            stack_vec.push(s_chars[index]);
+            ret += 1;
+        }
+        index += 1;
+    }
+    ret as i32
+}
+

@@ -176,3 +176,13 @@ pub fn test_is_valid_20() {
     assert_eq!(string_algorithms::is_valid_20(test_s), false);
 }
 
+#[test]
+pub fn test_min_add_to_make_valid_921() {
+    let test_s: String = String::from("())");
+    let expected_ret = 1;
+    assert_eq!(string_algorithms::min_add_to_make_valid_921(test_s), expected_ret);
+    let test_s: String = String::from("(((");
+    let expected_ret = 3;
+    assert_eq!(string_algorithms::min_add_to_make_valid_921(test_s), expected_ret);
+}
+

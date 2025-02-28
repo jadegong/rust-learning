@@ -120,3 +120,106 @@ pub fn max_profit_122(prices: Vec<i32>) -> i32 {
     return total;
 }
 
+/// 
+/// Leetcode 2938
+/// Separate Black and White Balls
+/// Find '0' from left to right, and move to the index of first '1', after this operation, the
+/// index of first '1' will add one
+pub fn minimum_steps_2938(s: String) -> i64 {
+    let s_len = s.len();
+    let s_chars: Vec<char> = s.chars().collect();
+    let mut dest_index = 0; // Move current to the dest index
+    let mut current_index = 0;
+    let mut found_one = false;
+    let mut ret = 0;
+    while current_index < s_len {
+        if found_one {
+            if s_chars[current_index] == '0' {
+                // Move current to dest, dest plus one
+                ret += current_index - dest_index;
+                dest_index += 1;
+            }
+        } else {
+            if s_chars[current_index] == '1' {
+                dest_index = current_index;
+                found_one = true;
+            }
+        }
+        current_index += 1;
+    }
+    ret as i64
+}
+
+/// 
+/// Leetcode 670
+/// Maximum Swap
+/// 1.From right to left, find all increasing nums vec, 
+///   and record indexes vec(indexes is increasing too); O(log n)
+/// 2.From left to right, try to find a num smaller than 1's num, and index before it; O(log n)
+pub fn maximum_swap_670(num: i32) -> i32 {
+    let mut digits_vec: Vec<i32> = vec![];
+    let mut origin_num = num;
+    if origin_num == 0 {
+        digits_vec.push(0);
+    }
+    while origin_num > 0 {
+        digits_vec.push(origin_num % 10);
+        origin_num /= 10;
+    }
+    let digits_len = digits_vec.len();
+    if digits_len <= 1 {
+        return num;
+    }
+    let mut move_index_vec: Vec<usize> = vec![0];
+    let mut dest_index = usize::MAX;
+    let mut move_index_vec_index = 0;
+    let mut current_index = 1;
+    while current_index < digits_len {
+        if digits_vec[current_index] > digits_vec[move_index_vec[move_index_vec_index]] {
+            move_index_vec.push(current_index);
+            move_index_vec_index += 1;
+        }
+        current_index += 1;
+    }
+    current_index = digits_len - 1;
+    move_index_vec_index = move_index_vec.len() - 1;
+    loop {
+        if current_index > move_index_vec[move_index_vec_index] {
+            if digits_vec[current_index] < digits_vec[move_index_vec[move_index_vec_index]] {
+                dest_index = current_index;
+                break;
+            }
+        } else {
+            if move_index_vec_index == 0 {
+                break;
+            }
+            move_index_vec_index -= 1;
+        }
+
+        if current_index == 0 {
+            break;
+        }
+        current_index -= 1
+    }
+    let mut ret = 0;
+    if dest_index == usize::MAX {
+        ret = num;
+    } else {
+        current_index = digits_len - 1;
+        loop {
+            if current_index == dest_index {
+                ret = ret * 10 + digits_vec[move_index_vec[move_index_vec_index]];
+            } else if current_index == move_index_vec[move_index_vec_index] {
+                ret = ret * 10 + digits_vec[dest_index];
+            } else {
+                ret = ret * 10 + digits_vec[current_index];
+            }
+            if current_index == 0 {
+                break;
+            }
+            current_index -= 1
+        }
+    }
+    ret
+}
+

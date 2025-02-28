@@ -46,3 +46,13 @@ fn test_max_profix_122() {
     assert_eq!(test_ret, expected_ret);
 }
 
+#[test]
+pub fn test_maximum_swap_670() {
+    let test_num: i32 = 2736;
+    let expected_ret: i32 = 7236;
+    assert_eq!(greedy_algorithm::maximum_swap_670(test_num), expected_ret);
+    let test_num: i32 = 9973;
+    let expected_ret: i32 = 9973;
+    assert_eq!(greedy_algorithm::maximum_swap_670(test_num), expected_ret);
+}
+
