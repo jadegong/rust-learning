@@ -569,3 +569,34 @@ pub fn min_add_to_make_valid_921(s: String) -> i32 {
     ret as i32
 }
 
+/// 
+/// Leetcode 3174
+/// Clear Digits
+///
+pub fn clear_digits_3174(s: String) -> String {
+    let s_chars: Vec<char> = s.chars().collect();
+    let mut stack_vec: Vec<char> = vec![];
+    let s_len = s.len();
+    let mut index = 0;
+    let mut stack_vec_len = 0;
+    while index < s_len {
+        if s_chars[index] >= '0' && s_chars[index] <= '9' {
+            if stack_vec_len == 0 {
+                stack_vec.push(s_chars[index]);
+                stack_vec_len += 1;
+            } else if stack_vec[stack_vec_len - 1] >= '0' && stack_vec[stack_vec_len - 1] <= '9' {
+                stack_vec.push(s_chars[index]);
+                stack_vec_len += 1;
+            } else {
+                stack_vec.pop();
+                stack_vec_len -= 1;
+            }
+        } else {
+            stack_vec.push(s_chars[index]);
+            stack_vec_len += 1;
+        }
+        index += 1;
+    }
+    String::from_iter(stack_vec)
+}
+

@@ -181,3 +181,16 @@ pub fn test_search_33() {
     let test_nums: Vec<i32> = vec![4,5,6,7,0,1,2];
     assert_eq!(array_algorithm::search_33(test_nums, 3), -1);
 }
+
+#[test]
+pub fn test_count_bad_pairs_2364() {
+    let test_nums: Vec<i32> = vec![4,1,3,3];
+    let expected_ret: i64 = 5;
+    assert_eq!(array_algorithm::count_bad_pairs_2364(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2,3,4,5];
+    let expected_ret: i64 = 0;
+    assert_eq!(array_algorithm::count_bad_pairs_2364(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![64,6,81,7,16,15,99,47,56,39,91,85,34,24,77,99,77,11,64,63,83,5,28];
+    let expected_ret: i64 = 252;
+    assert_eq!(array_algorithm::count_bad_pairs_2364(test_nums), expected_ret);
+}

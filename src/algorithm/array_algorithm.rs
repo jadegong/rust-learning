@@ -640,3 +640,61 @@ pub fn search_33(nums: Vec<i32>, target: i32) -> i32 {
     }
     target_index as i32
 }
+
+/// 
+/// Leetcode 2161
+/// Partition Array According to Given Pivot
+///
+pub fn pivot_array(nums: Vec<i32>, pivot: i32) -> Vec<i32> {
+    let mut left_arr: Vec<i32> = vec![];
+    let mut middle_arr: Vec<i32> = vec![];
+    let mut right_arr: Vec<i32> = vec![];
+    let mut index = 0;
+    let nums_len = nums.len();
+    while index < nums_len {
+        if nums[index] < pivot {
+            left_arr.push(nums[index]);
+        } else if nums[index] == pivot {
+            middle_arr.push(nums[index]);
+        } else {
+            right_arr.push(nums[index]);
+        }
+        index += 1;
+    }
+    left_arr.append(&mut middle_arr);
+    left_arr.append(&mut right_arr);
+    left_arr
+}
+
+/// 
+/// Leetcode 2364
+/// Count Number of Bad Pairs
+/// j - i != nums[j] - nums[i] => nums[i] - i != nums[j] - j
+///
+pub fn count_bad_pairs_2364(nums: Vec<i32>) -> i64 {
+    let mut count_map: std::collections::HashMap<i32, i64> = std::collections::HashMap::new();
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut normal_count: i64 = 0;
+    while index < nums_len {
+        if count_map.contains_key(&(nums[index] - index as i32)) {
+            let old_n = count_map.get(&(nums[index] - index as i32)).unwrap();
+            normal_count += *old_n;
+            count_map.insert(nums[index] - index as i32, *old_n + 1);
+        } else {
+            count_map.insert(nums[index] - index as i32, 1);
+        }
+        index += 1;
+    }
+    // let map_keys: Vec<&i32> = count_map.keys().collect();
+    // index = 0;
+    // let count_len = map_keys.len();
+    // let mut normal_count: i64 = 0;
+    // while index < count_len {
+        // let count_n = count_map.get(map_keys[index]).unwrap();
+        // normal_count += *count_n * (*count_n - 1) / 2;
+        // index += 1;
+    // }
+    let total: i64 = (nums_len * (nums_len - 1) / 2) as i64;
+    total - normal_count
+}
