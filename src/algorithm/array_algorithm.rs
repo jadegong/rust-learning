@@ -698,3 +698,142 @@ pub fn count_bad_pairs_2364(nums: Vec<i32>) -> i64 {
     let total: i64 = (nums_len * (nums_len - 1) / 2) as i64;
     total - normal_count
 }
+
+/// 
+/// Leetcode 2342
+/// Max Sum of a Pair With Equal Sum of Digits
+///
+pub fn maximum_sum_2342(nums: Vec<i32>) -> i32 {
+    // Biggest two numbers for every digits sum
+    let mut big_two_map: std::collections::HashMap<i32, Vec<i32>> = std::collections::HashMap::new();
+    let mut digits_sum_repeat: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut origin_num;
+    let mut current_digits_sum;
+    let mut ret = -1;
+    while index < nums_len {
+        origin_num = nums[index];
+        current_digits_sum = 0;
+        while origin_num > 0 {
+            current_digits_sum += origin_num % 10;
+            origin_num /= 10;
+        }
+        if digits_sum_repeat.contains_key(&current_digits_sum) {
+            let old_n = digits_sum_repeat.get(&current_digits_sum).unwrap();
+            digits_sum_repeat.insert(current_digits_sum, *old_n + 1);
+            let old_big_two = big_two_map.get(&current_digits_sum).unwrap().clone();
+            if nums[index] >= old_big_two[0] && nums[index] <= old_big_two[1] {
+                big_two_map.insert(current_digits_sum, vec![nums[index], old_big_two[1]]);
+                ret = std::cmp::max(ret, nums[index] + old_big_two[1]);
+            } else if nums[index] > old_big_two[1] {
+                big_two_map.insert(current_digits_sum, vec![old_big_two[1], nums[index]]);
+                ret = std::cmp::max(ret, nums[index] + old_big_two[1]);
+            }
+        } else {
+            digits_sum_repeat.insert(current_digits_sum, 1);
+            big_two_map.insert(current_digits_sum, vec![i32::MIN, nums[index]]);
+        }
+        index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 3160
+/// Find the Numbers of Distinct Colors Among The Balls
+///
+pub fn query_results_3160(_limit: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    // count map for every color
+    let mut color_count_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    // color map for every ball
+    let mut ball_color_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let mut current_query_count = 0;
+    let queries_len = queries.len();
+    let mut index = 0;
+    while index < queries_len {
+        let current_color = queries[index][1];
+        // current ball has color
+        let mut minus_prev = false;
+        let add_current;
+        if ball_color_map.contains_key(&queries[index][0]) {
+            let prev_color = ball_color_map.get(&queries[index][0]).unwrap();
+            if color_count_map.contains_key(prev_color) {
+                let prev_color_count = color_count_map.get(prev_color).unwrap();
+                if *prev_color_count == 1 {
+                    minus_prev = true;
+                }
+                if *prev_color_count > 0 {
+                    color_count_map.insert(*prev_color, *prev_color_count - 1);
+                }
+            }
+            if color_count_map.contains_key(&current_color) {
+                let current_color_count = color_count_map.get(&current_color).unwrap();
+                if *current_color_count == 0 {
+                    add_current = true;
+                } else {
+                    add_current = false;
+                }
+                color_count_map.insert(current_color, *current_color_count + 1);
+            } else {
+                add_current = true;
+                color_count_map.insert(current_color, 1);
+            }
+        } else {
+            if color_count_map.contains_key(&current_color) {
+                let current_color_count = color_count_map.get(&current_color).unwrap();
+                if *current_color_count == 0 {
+                    add_current = true;
+                } else {
+                    add_current = false;
+                }
+                color_count_map.insert(current_color, *current_color_count + 1);
+            } else {
+                add_current = true;
+                color_count_map.insert(current_color, 1);
+            }
+        }
+        ball_color_map.insert(queries[index][0], queries[index][1]);
+        if minus_prev {
+            current_query_count -= 1;
+        }
+        if add_current {
+            current_query_count += 1;
+        }
+        ret.push(current_query_count);
+        index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 2657
+/// Find the Prefix Common Array of Two Arrays
+///
+pub fn find_the_prefix_common_array_2657(a: Vec<i32>, b: Vec<i32>) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    if a.len() != b.len() {
+        return ret;
+    }
+    let n = a.len();
+    // A number whether appears
+    let mut appear_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let mut index = 0;
+    let mut current_count = 0;
+    while index < n {
+        if appear_map.contains_key(&a[index]) {
+            current_count += 1;
+        } else {
+            appear_map.insert(a[index], true);
+        }
+        if appear_map.contains_key(&b[index]) {
+            current_count += 1;
+        } else {
+            appear_map.insert(b[index], true);
+        }
+        ret.push(current_count);
+        index += 1;
+    }
+    ret
+}

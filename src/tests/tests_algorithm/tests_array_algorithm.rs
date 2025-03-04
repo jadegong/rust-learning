@@ -194,3 +194,35 @@ pub fn test_count_bad_pairs_2364() {
     let expected_ret: i64 = 252;
     assert_eq!(array_algorithm::count_bad_pairs_2364(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_maximum_sum_2342() {
+    let test_nums: Vec<i32> = vec![18,43,36,13,7];
+    let expected_ret = 54;
+    assert_eq!(array_algorithm::maximum_sum_2342(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![10,12,19,14];
+    let expected_ret = -1;
+    assert_eq!(array_algorithm::maximum_sum_2342(test_nums), expected_ret);
+}
+
+#[test]
+pub fn test_query_results_3160() {
+    let test_queries: Vec<Vec<i32>> = vec![vec![1,4],vec![2,5],vec![1,3],vec![3,4]];
+    let expected_ret: Vec<i32> = vec![1,2,2,3];
+    assert_eq!(array_algorithm::query_results_3160(4, test_queries), expected_ret);
+    let test_queries: Vec<Vec<i32>> = vec![vec![0,1],vec![1,2],vec![2,2],vec![3,4],vec![4,5]];
+    let expected_ret: Vec<i32> = vec![1,2,2,3,4];
+    assert_eq!(array_algorithm::query_results_3160(4, test_queries), expected_ret);
+}
+
+#[test]
+pub fn test_find_the_prefix_common_array_2657() {
+    let test_a: Vec<i32> = vec![1,3,2,4];
+    let test_b: Vec<i32> = vec![3,1,2,4];
+    let expected_ret: Vec<i32> = vec![0,2,3,4];
+    assert_eq!(array_algorithm::find_the_prefix_common_array_2657(test_a, test_b), expected_ret);
+    let test_a: Vec<i32> = vec![2,3,1];
+    let test_b: Vec<i32> = vec![3,1,2];
+    let expected_ret: Vec<i32> = vec![0,1,3];
+    assert_eq!(array_algorithm::find_the_prefix_common_array_2657(test_a, test_b), expected_ret);
+}
