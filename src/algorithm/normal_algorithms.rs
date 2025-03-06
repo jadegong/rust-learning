@@ -148,3 +148,29 @@ pub fn trailing_zeroes_172(n: i32) -> i32 {
     }
     ret
 }
+
+/// 
+/// Leetcode 2425
+/// Bitwise XOR of All Parings
+///
+pub fn xor_all_nums_2425(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
+    let mut ret = 0;
+    let nums1_len = nums1.len();
+    let nums2_len = nums2.len();
+    let mut index;
+    if nums2_len % 2 == 1 {
+        index = 0;
+        while index < nums1_len {
+            ret ^= nums1[index];
+            index += 1;
+        }
+    }
+    if nums1_len % 2 == 1 {
+        index = 0;
+        while index < nums2_len {
+            ret ^= nums2[index];
+            index += 1;
+        }
+    }
+    ret
+}

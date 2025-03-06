@@ -226,3 +226,16 @@ pub fn test_find_the_prefix_common_array_2657() {
     let expected_ret: Vec<i32> = vec![0,1,3];
     assert_eq!(array_algorithm::find_the_prefix_common_array_2657(test_a, test_b), expected_ret);
 }
+
+#[test]
+pub fn test_does_valid_array_exist_2683() {
+    let test_derived: Vec<i32> = vec![1,1,0];
+    let expected_ret = true;
+    assert_eq!(array_algorithm::does_valid_array_exist_2683(test_derived), expected_ret);
+    let test_derived: Vec<i32> = vec![1,1];
+    let expected_ret = true;
+    assert_eq!(array_algorithm::does_valid_array_exist_2683(test_derived), expected_ret);
+    let test_derived: Vec<i32> = vec![1,0];
+    let expected_ret = false;
+    assert_eq!(array_algorithm::does_valid_array_exist_2683(test_derived), expected_ret);
+}

@@ -1,3 +1,5 @@
+use std::vec;
+
 use crate::algorithm::normal_algorithms;
 
 #[test]
@@ -61,4 +63,16 @@ pub fn test_plus_one_66() {
     let test_nums: Vec<i32> = vec![4,3,2,9];
     let expected_nums: Vec<i32> = vec![4,3,3,0];
     assert_eq!(normal_algorithms::plus_one_66(test_nums), expected_nums);
+}
+
+#[test]
+pub fn test_xor_all_nums_2425() {
+    let test_nums1: Vec<i32> = vec![2,1,3];
+    let test_nums2: Vec<i32> = vec![10,2,5,0];
+    let expected_ret = 13;
+    assert_eq!(normal_algorithms::xor_all_nums_2425(test_nums1, test_nums2), expected_ret);
+    let test_nums1: Vec<i32> = vec![1,2];
+    let test_nums2: Vec<i32> = vec![3,4];
+    let expected_ret = 0;
+    assert_eq!(normal_algorithms::xor_all_nums_2425(test_nums1, test_nums2), expected_ret);
 }

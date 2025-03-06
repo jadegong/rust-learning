@@ -186,3 +186,16 @@ pub fn test_min_add_to_make_valid_921() {
     assert_eq!(string_algorithms::min_add_to_make_valid_921(test_s), expected_ret);
 }
 
+#[test]
+pub fn test_max_score_1422() {
+    let test_s: String = String::from("011101");
+    let expected_ret = 5;
+    assert_eq!(string_algorithms::max_score_1422(test_s), expected_ret);
+    let test_s: String = String::from("00111");
+    let expected_ret = 5;
+    assert_eq!(string_algorithms::max_score_1422(test_s), expected_ret);
+    let test_s: String = String::from("1111");
+    let expected_ret = 3;
+    assert_eq!(string_algorithms::max_score_1422(test_s), expected_ret);
+}
+

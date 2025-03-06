@@ -331,3 +331,89 @@ pub fn maximal_square_221(matrix: Vec<Vec<char>>) -> i32 {
     ret * ret
 }
 
+/// 
+/// Leetcode 1368
+/// Minimum Cost to Make at Least One Valid Path in a Grid
+/// TODO: Not the shortest path!!!
+pub fn min_cost_1368(grid: Vec<Vec<i32>>) -> i32 {
+    let m = grid.len();
+    if m == 0 {
+        return 0;
+    }
+    let n = grid[0].len();
+    let mut min_dp: Vec<i32> = vec![0; n];
+    let mut row_index = 0;
+    let mut col_index;
+    while row_index < m {
+        col_index = 0;
+        while col_index < n {
+            if row_index == 0 { // First row
+                if col_index == 0 {
+                    min_dp[col_index] = 0;
+                } else {
+                    if grid[row_index][col_index - 1] == 1 {
+                        min_dp[col_index] = min_dp[col_index - 1];
+                    } else {
+                        min_dp[col_index] = min_dp[col_index - 1] + 1;
+                    }
+                }
+            } else {
+                if col_index == 0 {
+                    if grid[row_index - 1][col_index] == 3 {
+                        min_dp[col_index] = min_dp[col_index];
+                    } else {
+                        min_dp[col_index] = min_dp[col_index] + 1;
+                    }
+                } else {
+                    let mut left_min = min_dp[col_index - 1];
+                    if grid[row_index][col_index - 1] != 1 {
+                        left_min += 1;
+                    }
+                    let mut top_min = min_dp[col_index];
+                    if grid[row_index - 1][col_index] != 3 {
+                        top_min += 1;
+                    }
+                    min_dp[col_index] = std::cmp::min(left_min, top_min);
+                }
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    min_dp[n - 1]
+}
+
+/// 
+/// Leetcode 2466
+/// Count Ways To Build Good Strings
+///
+pub fn count_good_strings_2466(low: i32, high: i32, zero: i32, one: i32) -> i32 {
+    let mut dp_count: Vec<i32> = vec![0; 100001];
+    let modulo = 1000000007;
+    let mut index: usize = 0;
+    let min_num = std::cmp::min(zero, one) as usize;
+    let max_num = std::cmp::max(zero, one) as usize;
+    let mut ret = 0;
+    while index as i32 <= high {
+        if index < min_num {
+            dp_count[index] = 0;
+        } else if index == min_num {
+            dp_count[index] = 1;
+            if index == max_num {
+                dp_count[index] = 2;
+            }
+        } else if index > min_num && index < max_num {
+            dp_count[index] = dp_count[index - min_num] % modulo;
+        } else if index == max_num {
+            dp_count[index] = (dp_count[index - min_num] + 1) % modulo;
+        } else if index > max_num {
+            dp_count[index] = (dp_count[index - min_num] + dp_count[index - max_num]) % modulo;
+        }
+        if index >= low as usize {
+            ret = (ret + dp_count[index]) % modulo;
+        }
+        index += 1;
+    }
+    ret
+}
+

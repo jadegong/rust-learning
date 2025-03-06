@@ -837,3 +837,28 @@ pub fn find_the_prefix_common_array_2657(a: Vec<i32>, b: Vec<i32>) -> Vec<i32> {
     }
     ret
 }
+
+/// 
+/// Leetcode 2683
+/// Neighboring Bitwise XOR
+///
+pub fn does_valid_array_exist_2683(derived: Vec<i32>) -> bool {
+    let derived_len = derived.len();
+    if derived_len == 0 {
+        return true;
+    }
+    let mut ret = true; // If current the same with first
+    let mut index = 0;
+    while index < derived_len {
+        if derived[index] == 1 {
+            if ret {
+                ret = false;
+            } else {
+                ret = true;
+            }
+        }
+        index += 1;
+    }
+    ret
+}
+

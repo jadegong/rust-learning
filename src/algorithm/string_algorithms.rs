@@ -600,3 +600,36 @@ pub fn clear_digits_3174(s: String) -> String {
     String::from_iter(stack_vec)
 }
 
+///
+/// Leetcode 1422
+/// Maximum Score After Splitting a String
+///
+pub fn max_score_1422(s: String) -> i32 {
+    let s_len = s.len();
+    if s_len <= 1 {
+        return s_len as i32;
+    }
+    let s_chars: Vec<char> = s.chars().collect();
+    let mut one_count = 0;
+    let mut index = 0;
+    while index < s_len {
+        if s_chars[index] == '1' {
+            one_count += 1;
+        }
+        index += 1;
+    }
+    index = 0; // end index of left string
+    let mut zero_count = 0;
+    let mut ret = 0;
+    while index < s_len - 1 {
+        if s_chars[index] == '0' {
+            zero_count += 1;
+        } else {
+            one_count -= 1;
+        }
+        ret = std::cmp::max(ret, zero_count + one_count);
+        index += 1;
+    }
+    ret
+}
+

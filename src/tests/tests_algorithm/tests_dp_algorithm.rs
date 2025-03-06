@@ -115,3 +115,11 @@ pub fn test_maximal_square_221() {
     assert_eq!(dp_algorithm::maximal_square_221(test_matrix), expected_ret);
 }
 
+#[test]
+pub fn test_count_good_strings_2466() {
+    let expected_ret = 8;
+    assert_eq!(dp_algorithm::count_good_strings_2466(3, 3, 1, 1), expected_ret);
+    let expected_ret = 5;
+    assert_eq!(dp_algorithm::count_good_strings_2466(2,3,1,2), expected_ret);
+}
+
