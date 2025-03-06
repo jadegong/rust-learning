@@ -123,3 +123,13 @@ pub fn test_count_good_strings_2466() {
     assert_eq!(dp_algorithm::count_good_strings_2466(2,3,1,2), expected_ret);
 }
 
+#[test]
+pub fn test_max_score_sightseeing_pair_1014() {
+    let test_values: Vec<i32> = vec![8,1,5,2,6];
+    let expected_ret = 11;
+    assert_eq!(dp_algorithm::max_score_sightseeing_pair_1014(test_values), expected_ret);
+    let test_values: Vec<i32> = vec![1,2];
+    let expected_ret = 2;
+    assert_eq!(dp_algorithm::max_score_sightseeing_pair_1014(test_values), expected_ret);
+}
+

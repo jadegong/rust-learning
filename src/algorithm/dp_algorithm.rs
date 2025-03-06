@@ -417,3 +417,26 @@ pub fn count_good_strings_2466(low: i32, high: i32, zero: i32, one: i32) -> i32 
     ret
 }
 
+/// 
+/// Leetcode 1014
+/// Best Sightseeing Pair
+///
+pub fn max_score_sightseeing_pair_1014(values: Vec<i32>) -> i32 {
+    let values_len = values.len();
+    if values_len <= 1 {
+        return 0;
+    }
+    let mut left_index = 0;
+    let mut right_index = 1;
+    let mut ret = values[left_index] + left_index as i32 + values[right_index] - right_index as i32;
+    right_index += 1;
+    while right_index < values_len {
+        if values[right_index - 1] + (right_index as i32 - 1) >= values[left_index] + left_index as i32 {
+            left_index = right_index - 1;
+        }
+        ret = std::cmp::max(values[left_index] + left_index as i32 + values[right_index] - right_index as i32, ret);
+        right_index += 1;
+    }
+    ret
+}
+
