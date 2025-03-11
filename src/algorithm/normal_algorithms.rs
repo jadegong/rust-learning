@@ -174,3 +174,55 @@ pub fn xor_all_nums_2425(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
     }
     ret
 }
+
+/// 
+/// Leetcode 2579
+/// Count Total Number of Colored Cells
+/// Method 2: f(n) = n*n + (n-1)*(n-1)
+pub fn colored_cells_2579(n: i32) -> i64 {
+    if n == 0 {
+        return 0;
+    }
+    if n == 1 {
+        return 1;
+    }
+    let mut ret: i64 = 1;
+    let mut index: i64 = 2;
+    while index <= n as i64 {
+        ret = 2 * index + 2*(index - 2) + ret;
+        index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 1780
+/// Check if Number is a Sum of Powers of Three
+///
+pub fn check_powers_of_three_1780(n: i32) -> bool {
+    // 1.find the maxmum x, pow(3, x) <= n
+    let mut x = 0;
+    let mut x_pow = 1;
+    loop {
+        if x_pow > n {
+            break;
+        }
+        x += 1;
+        x_pow *= 3;
+    }
+    x -= 1;
+    x_pow /= 3;
+    // 2.Loop from x to 0, n minus x_pow if x_pow <= current_n, repeat.
+    let mut current_n = n;
+    loop {
+        if current_n <= 0 || x < 0 {
+            break;
+        }
+        if current_n >= x_pow {
+            current_n -= x_pow;
+        }
+        x_pow /= 3;
+        x -= 1;
+    }
+    return current_n == 0
+}

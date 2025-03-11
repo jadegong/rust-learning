@@ -239,3 +239,25 @@ pub fn test_does_valid_array_exist_2683() {
     let expected_ret = false;
     assert_eq!(array_algorithm::does_valid_array_exist_2683(test_derived), expected_ret);
 }
+
+#[test]
+pub fn test_apply_operations_2460() {
+    let test_nums: Vec<i32> = vec![1,2,2,1,1,0];
+    let expected_ret: Vec<i32> = vec![1,4,2,0,0,0];
+    assert_eq!(array_algorithm::apply_operations_2460(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![0,1];
+    let expected_ret: Vec<i32> = vec![1,0];
+    assert_eq!(array_algorithm::apply_operations_2460(test_nums), expected_ret);
+}
+
+#[test]
+pub fn test_merge_arrays_2570() {
+    let test_nums1: Vec<Vec<i32>> = vec![vec![1,2],vec![2,3],vec![4,5]];
+    let test_nums2: Vec<Vec<i32>> = vec![vec![1,4],vec![3,2],vec![4,1]];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,6],vec![2,3],vec![3,2],vec![4,6]];
+    assert_eq!(array_algorithm::merge_arrays_2570(test_nums1, test_nums2), expected_ret);
+    let test_nums1: Vec<Vec<i32>> = vec![vec![2,4],vec![3,6],vec![5,5]];
+    let test_nums2: Vec<Vec<i32>> = vec![vec![1,3],vec![4,3]];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,3],vec![2,4],vec![3,6],vec![4,3],vec![5,5]];
+    assert_eq!(array_algorithm::merge_arrays_2570(test_nums1, test_nums2), expected_ret);
+}

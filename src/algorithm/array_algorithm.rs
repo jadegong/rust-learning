@@ -862,3 +862,113 @@ pub fn does_valid_array_exist_2683(derived: Vec<i32>) -> bool {
     ret
 }
 
+/// 
+/// Leetcode 2460
+/// Apply Operations to an Array
+///
+pub fn apply_operations_2460(nums: Vec<i32>) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut prev_num = nums[index];
+    let mut ret_index = 0;
+    while index < nums_len - 1 {
+        if prev_num == nums[index + 1] {
+            if prev_num != 0 {
+                ret.push(prev_num + nums[index + 1]);
+                ret_index += 1;
+            }
+            prev_num = 0;
+        } else {
+            if prev_num != 0 {
+                ret.push(prev_num);
+                ret_index += 1;
+            }
+            prev_num = nums[index + 1];
+        }
+        index += 1;
+    }
+    // last element
+    if prev_num != 0 {
+        ret.push(prev_num);
+        ret_index += 1;
+    }
+    while ret_index < nums_len {
+        ret.push(0);
+        ret_index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 2570
+/// Merge Two 2D Arrays by Summing Values
+///
+pub fn merge_arrays_2570(nums1: Vec<Vec<i32>>, nums2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let nums1_len = nums1.len();
+    let nums2_len = nums2.len();
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let mut index1 = 0;
+    let mut index2 = 0;
+    while index1 < nums1_len && index2 < nums2_len {
+        if nums1[index1][0] < nums2[index2][0] {
+            ret.push(nums1[index1].clone());
+            index1 += 1;
+        } else if nums1[index1][0] == nums2[index2][0] {
+            ret.push(vec![nums1[index1][0], nums1[index1][1] + nums2[index2][1]]);
+            index1 += 1;
+            index2 += 1;
+        } else {
+            ret.push(nums2[index2].clone());
+            index2 += 1;
+        }
+    }
+    if index1 < nums1_len {
+        while index1 < nums1_len {
+            ret.push(nums1[index1].clone());
+            index1 += 1;
+        }
+    }
+    if index2 < nums2_len {
+        while index2 < nums2_len {
+            ret.push(nums2[index2].clone());
+            index2 += 1;
+        }
+    }
+    ret
+}
+
+/// 
+/// Leetcode 2965
+/// Find Missing and Repeated Values
+///
+pub fn find_missing_and_repeated_values_2965(grid: Vec<Vec<i32>>) -> Vec<i32> {
+    let n = grid.len();
+    let mut count_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let mut row_index = 0;
+    let mut col_index;
+    let mut repeated_num = 0;
+    while row_index < n {
+        col_index = 0;
+        while col_index < n {
+            if count_map.contains_key(&grid[row_index][col_index]) {
+                repeated_num = grid[row_index][col_index];
+            } else {
+                count_map.insert(grid[row_index][col_index], true);
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    let mut missing_num = 0;
+    row_index = 0;
+    while row_index < n * n {
+        if !count_map.contains_key(&((row_index + 1) as i32)) {
+            missing_num = (row_index + 1) as i32;
+            break;
+        }
+        row_index += 1;
+    }
+    vec![repeated_num, missing_num]
+}
+

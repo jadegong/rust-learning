@@ -633,3 +633,33 @@ pub fn max_score_1422(s: String) -> i32 {
     ret
 }
 
+/// 
+/// Leetcode 2379
+/// Minimum Recolors to Get K Consecutive Black Blocks
+///
+pub fn minimum_recolors_2379(blocks: String, k: i32) -> i32 {
+    let s_len = blocks.len();
+    let s_chars: Vec<char> = blocks.chars().collect();
+    let mut index = 0;
+    let mut max_b_count = 0;
+    let mut current_b_count = 0;
+    while index < k as usize {
+        if s_chars[index] == 'B' {
+            current_b_count += 1;
+            max_b_count += 1;
+        }
+        index += 1;
+    }
+    while index < s_len {
+        if s_chars[index] == 'B' {
+            current_b_count += 1;
+        }
+        if s_chars[index - (k as usize)] == 'B' {
+            current_b_count -= 1;
+        }
+        max_b_count = std::cmp::max(max_b_count, current_b_count);
+        index += 1;
+    }
+    k - max_b_count
+}
+

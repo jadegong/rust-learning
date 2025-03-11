@@ -199,3 +199,15 @@ pub fn test_max_score_1422() {
     assert_eq!(string_algorithms::max_score_1422(test_s), expected_ret);
 }
 
+#[test]
+pub fn test_minimum_recolors_2379() {
+    let test_blocks: String = String::from("WBBWWBBWBW");
+    let test_k = 7;
+    let expected_ret = 3;
+    assert_eq!(string_algorithms::minimum_recolors_2379(test_blocks, test_k), expected_ret);
+    let test_blocks: String = String::from("WBWBBBW");
+    let test_k = 2;
+    let expected_ret = 0;
+    assert_eq!(string_algorithms::minimum_recolors_2379(test_blocks, test_k), expected_ret);
+}
+

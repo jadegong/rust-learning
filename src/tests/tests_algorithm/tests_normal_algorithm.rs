@@ -76,3 +76,23 @@ pub fn test_xor_all_nums_2425() {
     let expected_ret = 0;
     assert_eq!(normal_algorithms::xor_all_nums_2425(test_nums1, test_nums2), expected_ret);
 }
+
+#[test]
+pub fn test_colored_cells_1579() {
+    let test_n = 1;
+    let expected_ret = 1;
+    assert_eq!(normal_algorithms::colored_cells_2579(test_n), expected_ret);
+    let test_n = 3;
+    let expected_ret = 13;
+    assert_eq!(normal_algorithms::colored_cells_2579(test_n), expected_ret);
+}
+
+#[test]
+pub fn test_check_powers_of_three_1780() {
+    let test_n = 12;
+    assert_eq!(normal_algorithms::check_powers_of_three_1780(test_n), true);
+    let test_n = 91;
+    assert_eq!(normal_algorithms::check_powers_of_three_1780(test_n), true);
+    let test_n = 21;
+    assert_eq!(normal_algorithms::check_powers_of_three_1780(test_n), false);
+}
