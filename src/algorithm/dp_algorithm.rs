@@ -440,3 +440,52 @@ pub fn max_score_sightseeing_pair_1014(values: Vec<i32>) -> i32 {
     ret
 }
 
+/// 
+/// Leetcode 1749
+/// Maximum Absolute Sum of Any Subarray
+///
+pub fn max_absolute_sum_1749(nums: Vec<i32>) -> i32 {
+    let mut min_sum = i32::MAX;
+    let mut current_min_sum = 0;
+    let mut max_sum = i32::MIN;
+    let mut current_max_sum = 0;
+    let nums_len = nums.len();
+    let mut index = 0;
+    while index < nums_len {
+        // max
+        current_max_sum = std::cmp::max(current_max_sum + nums[index], nums[index]);
+        max_sum = std::cmp::max(max_sum, current_max_sum);
+        // min
+        current_min_sum = std::cmp::min(current_min_sum + nums[index], nums[index]);
+        min_sum = std::cmp::min(min_sum, current_min_sum);
+        index += 1;
+    }
+    std::cmp::max(min_sum.abs(), max_sum)
+}
+
+/// 
+/// Leetcode 1524
+/// Number of Sub-arrays With odd Sum
+///
+pub fn num_of_subarrays_1524(arr: Vec<i32>) -> i32 {
+    let mut ret = 0;
+    let modulo = 1000000007;
+    let arr_len = arr.len();
+    let mut current_odd_sum = 0; // Number of odd sum sub-arrays which ends with current index
+    let mut current_even_sum = 0; // Number of even sum sub-arrays which ends with current index
+    let mut index = 0;
+    while index < arr_len {
+        if arr[index] % 2 == 0 { // Current even
+            // current_odd_sum = current_odd_sum;
+            current_even_sum = current_even_sum + 1;
+        } else { // Current odd
+            let temp = current_even_sum;
+            current_even_sum = current_odd_sum;
+            current_odd_sum = temp + 1;
+        }
+        ret = (ret + current_odd_sum) % modulo;
+        index += 1;
+    }
+    ret
+}
+

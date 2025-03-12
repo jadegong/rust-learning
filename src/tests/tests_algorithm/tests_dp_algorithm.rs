@@ -133,3 +133,26 @@ pub fn test_max_score_sightseeing_pair_1014() {
     assert_eq!(dp_algorithm::max_score_sightseeing_pair_1014(test_values), expected_ret);
 }
 
+#[test]
+pub fn test_max_absolute_sum_1749() {
+    let test_nums: Vec<i32> = vec![1,-3,2,3,-4];
+    let expected_ret = 5;
+    assert_eq!(dp_algorithm::max_absolute_sum_1749(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![2,-5,1,-4,3,-2];
+    let expected_ret = 8;
+    assert_eq!(dp_algorithm::max_absolute_sum_1749(test_nums), expected_ret);
+}
+
+#[test]
+pub fn test_num_of_subarrays_1524() {
+    let test_arr: Vec<i32> = vec![1,3,5];
+    let expected_ret = 4;
+    assert_eq!(dp_algorithm::num_of_subarrays_1524(test_arr), expected_ret);
+    let test_arr: Vec<i32> = vec![2,4,6];
+    let expected_ret = 0;
+    assert_eq!(dp_algorithm::num_of_subarrays_1524(test_arr), expected_ret);
+    let test_arr: Vec<i32> = vec![1,2,3,4,5,6,7];
+    let expected_ret = 16;
+    assert_eq!(dp_algorithm::num_of_subarrays_1524(test_arr), expected_ret);
+}
+
