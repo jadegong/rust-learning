@@ -663,3 +663,120 @@ pub fn minimum_recolors_2379(blocks: String, k: i32) -> i32 {
     k - max_b_count
 }
 
+/// 
+/// Leetcode 43
+/// Multiply Strings
+///
+pub fn multiply_43(num1: String, num2: String) -> String {
+    let num1_chars: Vec<char> = num1.chars().collect();
+    let num2_chars: Vec<char> = num2.chars().collect();
+    let num1_len = num1_chars.len();
+    let num2_len = num2_chars.len();
+    let mut multiply_tab: Vec<Vec<u32>> = vec![];
+    let mut num1_index = 0;
+    let mut num2_index;
+    let mut current_num1_digit;
+    let mut current_num2_digit;
+    while num1_index < num1_len {
+        let mut current_tab_row: Vec<u32> = vec![];
+        current_num1_digit = num1_chars[num1_index].to_digit(10).unwrap();
+        num2_index = 0;
+        while num2_index < num2_len {
+            current_num2_digit = num2_chars[num2_index].to_digit(10).unwrap();
+            current_tab_row.push(current_num1_digit * current_num2_digit);
+            num2_index += 1;
+        }
+        multiply_tab.push(current_tab_row);
+        num1_index += 1;
+    }
+    num1_index = num1_len;
+    let mut loop_num1_index;
+    let mut loop_num2_index;
+    let mut current_line_digit;
+    let mut ret = String::from("");
+    let mut add_digit = 0;
+    while num1_index > 0 {
+        loop_num1_index = num1_index;
+        loop_num2_index = num2_len;
+        current_line_digit = 0;
+        while loop_num1_index <= num1_len && loop_num2_index > 0 {
+            current_line_digit += multiply_tab[loop_num1_index - 1][loop_num2_index - 1];
+            loop_num2_index -= 1;
+            loop_num1_index += 1;
+        }
+        current_line_digit += add_digit;
+        ret = (current_line_digit % 10).to_string() + &ret;
+        add_digit = current_line_digit / 10;
+        num1_index -= 1;
+    }
+    num2_index = num2_len - 1;
+    while num2_index > 0 {
+        loop_num1_index = 1;
+        loop_num2_index = num2_index;
+        current_line_digit = 0;
+        while loop_num1_index <= num1_len && loop_num2_index > 0 {
+            current_line_digit += multiply_tab[loop_num1_index - 1][loop_num2_index - 1];
+            loop_num2_index -= 1;
+            loop_num1_index += 1;
+        }
+        current_line_digit += add_digit;
+        ret = (current_line_digit % 10).to_string() + &ret;
+        add_digit = current_line_digit / 10;
+        num2_index -= 1;
+    }
+    while add_digit > 0 {
+        ret = (add_digit % 10).to_string() + &ret;
+        add_digit /= 10;
+    }
+    // remove starting zeroes
+    let ret_len = ret.len();
+    let ret_chars: Vec<char> = ret.chars().collect();
+    num1_index = 0;
+    let mut result: String = String::from("");
+    let mut start_zero: bool = true;
+    while num1_index < ret_len {
+        if ret_chars[num1_index] != '0' {
+            start_zero = false;
+        }
+        if !start_zero {
+            result += &ret_chars[num1_index].to_string();
+        }
+        num1_index += 1;
+    }
+    if result.len() == 0 {
+        return String::from("0");
+    }
+    result
+}
+
+/// 
+/// Leetcode 67
+/// Add Binary
+///
+pub fn add_binary_67(a: String, b: String) -> String {
+    let a_chars: Vec<char> = a.chars().collect();
+    let b_chars: Vec<char> = b.chars().collect();
+    let a_len = a_chars.len();
+    let b_len = b_chars.len();
+    let mut index = 0;
+    let mut add_digit = 0;
+    let mut current_digit;
+    let mut ret: String = String::from("");
+    while index < a_len || index < b_len {
+        if index >= a_len {
+            current_digit = b_chars[b_len - 1 - index].to_digit(10).unwrap() + add_digit;
+        } else if index >= b_len {
+            current_digit = a_chars[a_len - 1 - index].to_digit(10).unwrap() + add_digit;
+        } else {
+            current_digit = a_chars[a_len - 1 - index].to_digit(10).unwrap() + b_chars[b_len - 1 - index].to_digit(10).unwrap() + add_digit;
+        }
+        ret = (current_digit % 2).to_string() + &ret;
+        add_digit = current_digit / 2;
+        index += 1;
+    }
+    while add_digit > 0 {
+        ret = (add_digit % 2).to_string() + &ret;
+        add_digit /= 2;
+    }
+    ret
+}

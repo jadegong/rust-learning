@@ -211,3 +211,34 @@ pub fn test_minimum_recolors_2379() {
     assert_eq!(string_algorithms::minimum_recolors_2379(test_blocks, test_k), expected_ret);
 }
 
+#[test]
+pub fn test_multiply_43() {
+    let test_num1: String = String::from("2");
+    let test_num2: String = String::from("3");
+    let expected_ret: String = String::from("6");
+    assert_eq!(string_algorithms::multiply_43(test_num1, test_num2), expected_ret);
+    let test_num1: String = String::from("123");
+    let test_num2: String = String::from("456");
+    let expected_ret: String = String::from("56088");
+    assert_eq!(string_algorithms::multiply_43(test_num1, test_num2), expected_ret);
+    let test_num1: String = String::from("9133");
+    let test_num2: String = String::from("0");
+    let expected_ret: String = String::from("0");
+    assert_eq!(string_algorithms::multiply_43(test_num1, test_num2), expected_ret);
+    let test_num1: String = String::from("6");
+    let test_num2: String = String::from("501");
+    let expected_ret: String = String::from("3006");
+    assert_eq!(string_algorithms::multiply_43(test_num1, test_num2), expected_ret);
+}
+
+#[test]
+pub fn test_add_binary_67() {
+    let test_a: String = String::from("11");
+    let test_b: String = String::from("1");
+    let expected_ret: String = String::from("100");
+    assert_eq!(string_algorithms::add_binary_67(test_a, test_b), expected_ret);
+    let test_a: String = String::from("1010");
+    let test_b: String = String::from("1011");
+    let expected_ret: String = String::from("10101");
+    assert_eq!(string_algorithms::add_binary_67(test_a, test_b), expected_ret);
+}

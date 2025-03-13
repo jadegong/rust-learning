@@ -261,3 +261,13 @@ pub fn test_merge_arrays_2570() {
     let expected_ret: Vec<Vec<i32>> = vec![vec![1,3],vec![2,4],vec![3,6],vec![4,3],vec![5,5]];
     assert_eq!(array_algorithm::merge_arrays_2570(test_nums1, test_nums2), expected_ret);
 }
+
+#[test]
+pub fn test_merge_56() {
+    let test_intervals: Vec<Vec<i32>> = vec![vec![1,3],vec![2,6],vec![8,10],vec![15,18]];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,6],vec![8,10],vec![15,18]];
+    assert_eq!(array_algorithm::merge_56(test_intervals), expected_ret);
+    let test_intervals: Vec<Vec<i32>> = vec![vec![1,4],vec![4,5]];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,5]];
+    assert_eq!(array_algorithm::merge_56(test_intervals), expected_ret);
+}

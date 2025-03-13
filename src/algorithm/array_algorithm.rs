@@ -972,3 +972,29 @@ pub fn find_missing_and_repeated_values_2965(grid: Vec<Vec<i32>>) -> Vec<i32> {
     vec![repeated_num, missing_num]
 }
 
+/// 
+/// Leetcode 56
+/// Merge Intervals
+///
+pub fn merge_56(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let mut new_intervals: Vec<Vec<i32>> = intervals;
+    new_intervals.sort_by(|a, b| a[0].cmp(&b[0]));
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let n_len = new_intervals.len();
+    let mut prev_left = new_intervals[0][0];
+    let mut prev_right = new_intervals[0][1];
+    let mut index = 1;
+    while index < n_len {
+        if new_intervals[index][0] > prev_right {
+            ret.push(vec![prev_left, prev_right]);
+            prev_left = new_intervals[index][0];
+            prev_right = new_intervals[index][1];
+        } else {
+            prev_right = std::cmp::max(prev_right, new_intervals[index][1]);
+        }
+        index += 1;
+    }
+    ret.push(vec![prev_left, prev_right]);
+    ret
+}
+

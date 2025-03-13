@@ -226,3 +226,20 @@ pub fn check_powers_of_three_1780(n: i32) -> bool {
     }
     return current_n == 0
 }
+
+/// 
+/// Leetcode 69
+/// Sqrt(x)
+/// Newton Iteration
+///
+pub fn my_sqrt_69(x: i32) -> i32 {
+    let f_x: f64 = f64::from(x);
+    let mut current_l: f64 = f_x;
+    let mut current_w: f64 = f_x / current_l;
+    let err: f64 = 0.00001;
+    while current_l - current_w > err {
+        current_l = (current_l + current_w) / 2.0;
+        current_w = f_x / current_l;
+    }
+    current_l.floor() as i32
+}

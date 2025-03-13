@@ -96,3 +96,16 @@ pub fn test_check_powers_of_three_1780() {
     let test_n = 21;
     assert_eq!(normal_algorithms::check_powers_of_three_1780(test_n), false);
 }
+
+#[test]
+pub fn test_my_sqrt_69() {
+    let test_x: i32 = 4;
+    let expected_ret: i32 = 2;
+    assert_eq!(normal_algorithms::my_sqrt_69(test_x), expected_ret);
+    let test_x: i32 = 8;
+    let expected_ret: i32 = 2;
+    assert_eq!(normal_algorithms::my_sqrt_69(test_x), expected_ret);
+    let test_x: i32 = 2147395599;
+    let expected_ret: i32 = 46339;
+    assert_eq!(normal_algorithms::my_sqrt_69(test_x), expected_ret);
+}
