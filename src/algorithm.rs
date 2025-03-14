@@ -5,3 +5,4 @@ pub mod string_algorithms;
 pub mod binary_tree_algorithm;
 pub mod linked_list_algorithm;
 pub mod normal_algorithms;
+pub mod heap_algorithms;

@@ -6,3 +6,4 @@ mod tests_string_algorithms;
 mod tests_binary_tree_algorithm;
 mod tests_linked_list_algorithm;
 mod tests_normal_algorithm;
+mod tests_heap_algorithm;

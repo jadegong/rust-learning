@@ -54,18 +54,6 @@ pub fn test_min_sub_array_len_209() {
 }
 
 #[test]
-pub fn test_max_sliding_window_239() {
-    let test_nums: Vec<i32> = vec![1,3,-1,-3,5,3,6,7];
-    let expected_ret = vec![3, 3, 5, 5, 6, 7];
-    let test_ret = array_algorithm::max_sliding_window_239(test_nums, 3);
-    assert_eq!(test_ret, expected_ret);
-    let test_nums: Vec<i32> = vec![1];
-    let expected_ret = vec![1];
-    let test_ret = array_algorithm::max_sliding_window_239(test_nums, 1);
-    assert_eq!(test_ret, expected_ret);
-}
-
-#[test]
 pub fn test_majority_element_169() {
     let test_nums: Vec<i32> = vec![3, 2, 3];
     let expected_ret = 3;

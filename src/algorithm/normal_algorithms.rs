@@ -230,7 +230,7 @@ pub fn check_powers_of_three_1780(n: i32) -> bool {
 /// 
 /// Leetcode 69
 /// Sqrt(x)
-/// Newton Iteration
+/// L_new = (L + S/L)/2; Let long side smaller, small side longer.
 ///
 pub fn my_sqrt_69(x: i32) -> i32 {
     let f_x: f64 = f64::from(x);
