@@ -49,3 +49,23 @@ pub fn test_find_relative_ranks_506() {
     let expected_ret: Vec<String> = vec![String::from("Gold Medal"),String::from("5"),String::from("Bronze Medal"),String::from("Silver Medal"),String::from("4")];
     assert_eq!(heap_algorithms::find_relative_ranks_506(test_score), expected_ret);
 }
+
+#[test]
+pub fn test_least_interval_621() {
+    let test_tasks: Vec<char> = vec!['A','A','A','B','B','B'];
+    let test_n: i32 = 2;
+    let expected_ret: i32 = 8;
+    assert_eq!(heap_algorithms::least_interval_621(test_tasks, test_n), expected_ret);
+    let test_tasks: Vec<char> = vec!['A','C','A','B','D','B'];
+    let test_n: i32 = 1;
+    let expected_ret: i32 = 6;
+    assert_eq!(heap_algorithms::least_interval_621(test_tasks, test_n), expected_ret);
+    let test_tasks: Vec<char> = vec!['A','A','A','B','B','B'];
+    let test_n: i32 = 3;
+    let expected_ret: i32 = 10;
+    assert_eq!(heap_algorithms::least_interval_621(test_tasks, test_n), expected_ret);
+    let test_tasks: Vec<char> = vec!['B','C','D','A','A','A','A','G'];
+    let test_n: i32 = 1;
+    let expected_ret: i32 = 8;
+    assert_eq!(heap_algorithms::least_interval_621(test_tasks, test_n), expected_ret);
+}

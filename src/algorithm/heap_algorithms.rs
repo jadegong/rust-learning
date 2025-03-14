@@ -155,3 +155,61 @@ pub fn find_relative_ranks_506(score: Vec<i32>) -> Vec<String> {
     }
     ret
 }
+
+/// 
+/// Leetcode 621
+/// Task Scheduler
+///
+pub fn least_interval_621(tasks: Vec<char>, n: i32) -> i32 {
+    let mut count_map: std::collections::HashMap<char, i32> = std::collections::HashMap::new();
+    let mut max_heap: std::collections::BinaryHeap<i32> = std::collections::BinaryHeap::new();
+    let tasks_len = tasks.len();
+    let mut index = 0;
+    let mut current_count: i32;
+    while index < tasks_len {
+        if count_map.contains_key(&tasks[index]) {
+            let old_n = count_map.get(&tasks[index]).unwrap();
+            current_count = *old_n + 1;
+        } else {
+            current_count = 1;
+        }
+        count_map.insert(tasks[index], current_count);
+        index += 1;
+    }
+    let map_values: Vec<&i32> = count_map.values().collect();
+    let map_len = map_values.len();
+    index = 0;
+    while index < map_len {
+        max_heap.push(*map_values[index]);
+        index += 1;
+    }
+    let max_heap_top = max_heap.pop().unwrap();
+    let mut ret = max_heap_top;
+    index = 1;
+    let mut current_max_heap_top: i32;
+    let mut need_before_n: i32 = 0;
+    let mut leave_after_n: i32 = 0;
+    while index < map_len {
+        current_max_heap_top = max_heap.pop().unwrap();
+        if index <= n as usize {
+            ret += current_max_heap_top;
+            if current_max_heap_top < max_heap_top {
+                need_before_n += max_heap_top - 1 - current_max_heap_top;
+            }
+        } else {
+            // ret += current_max_heap_top;
+            leave_after_n += current_max_heap_top;
+        }
+        index += 1;
+    }
+    if need_before_n >= leave_after_n {
+        ret += need_before_n;
+    } else {
+        ret += leave_after_n;
+    }
+    while index <= n as usize {
+        ret += max_heap_top - 1;
+        index += 1;
+    }
+    ret
+}
