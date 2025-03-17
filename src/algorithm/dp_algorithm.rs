@@ -489,3 +489,44 @@ pub fn num_of_subarrays_1524(arr: Vec<i32>) -> i32 {
     ret
 }
 
+/// 
+/// Leetcode 72
+/// Edit Distance
+///
+pub fn min_distance_72(word1: String, word2: String) -> i32 {
+    let word1_chars: Vec<char> = word1.chars().collect();
+    let word2_chars: Vec<char> = word2.chars().collect();
+    let word1_len = word1_chars.len();
+    let word2_len = word2_chars.len();
+    let mut distance_dp: Vec<i32> = vec![0; word2_len + 1];
+    let mut row_index = 0;
+    let mut col_index;
+    let mut prev_top_left;
+    while row_index <= word1_len {
+        col_index = 0;
+        prev_top_left = distance_dp[0];
+        while col_index <= word2_len {
+            let temp = distance_dp[col_index];
+            if row_index == 0 {
+                distance_dp[col_index] = col_index as i32;
+            } else {
+                if col_index == 0 {
+                    distance_dp[col_index] = row_index as i32;
+                } else {
+                    if word1_chars[row_index - 1] == word2_chars[col_index - 1] {
+                        distance_dp[col_index] = prev_top_left;
+                    } else {
+                        // 1.Remove last of word1: dp[row][col] = dp[row - 1][col];
+                        // 2.Add last of word2 to word1: dp[row][col] = dp[row][col - 1];
+                        // 3.Change last of word1 to last of word2: dp[row][col] = dp[row - 1][col - 1];
+                        distance_dp[col_index] = std::cmp::min(std::cmp::min(distance_dp[col_index - 1], distance_dp[col_index]), prev_top_left) + 1;
+                    }
+                }
+            }
+            prev_top_left = temp;
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    distance_dp[word2_len]
+}

@@ -4,9 +4,24 @@ use crate::structure::treenode::TreeNode;
 
 ///
 /// Create a binary tree from i32 Vec
-/// TODO  nums: Vec<i32>
+/// DONE  nums: Vec<i32>
 ///
-pub fn create_binary_tree() {}
+pub fn create_binary_tree(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+    fn inner_create_binary_tree(nums: Vec<i32>, num_index: usize) -> Option<Rc<RefCell<TreeNode>>> {
+        let nums_len = nums.len();
+        if num_index >= nums_len {
+            return None;
+        }
+        if nums[num_index] == i32::MIN {
+            return None;
+        }
+        let root = Rc::new(RefCell::new(TreeNode::new(nums[num_index])));
+        root.borrow_mut().left = inner_create_binary_tree(nums.clone(), (num_index + 1) * 2 - 1);
+        root.borrow_mut().right = inner_create_binary_tree(nums.clone(), (num_index + 1) * 2);
+        Some(root)
+    }
+    inner_create_binary_tree(nums, 0)
+}
 
 ///
 /// Leetcode 100
@@ -520,3 +535,23 @@ pub fn kth_smallest_230(root: Option<Rc<RefCell<TreeNode>>>, k: i32) -> i32 {
     return nums_vec[(k - 1) as usize];
 }
 
+/// 
+/// Leetcode 94
+/// Binary Tree Inorder Traversal
+///
+pub fn inorder_traversal_94(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    // Inorder
+    fn inner_generate_inorder(node: Option<Rc<RefCell<TreeNode>>>, nums_vec: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        inner_generate_inorder(node_ref.left.clone(), nums_vec);
+        nums_vec.push(node_ref.val);
+        inner_generate_inorder(node_ref.right.clone(), nums_vec);
+    }
+    let mut nums_vec: Vec<i32> = vec![];
+    inner_generate_inorder(root, &mut nums_vec);
+    nums_vec
+}

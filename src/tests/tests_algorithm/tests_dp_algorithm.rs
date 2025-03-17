@@ -156,3 +156,14 @@ pub fn test_num_of_subarrays_1524() {
     assert_eq!(dp_algorithm::num_of_subarrays_1524(test_arr), expected_ret);
 }
 
+#[test]
+pub fn test_min_distance_72() {
+    let test_word1: String = String::from("horse");
+    let test_word2: String = String::from("ros");
+    let expected_ret = 3;
+    assert_eq!(dp_algorithm::min_distance_72(test_word1, test_word2), expected_ret);
+    let test_word1: String = String::from("intention");
+    let test_word2: String = String::from("execution");
+    let expected_ret = 5;
+    assert_eq!(dp_algorithm::min_distance_72(test_word1, test_word2), expected_ret);
+}

@@ -259,3 +259,19 @@ pub fn test_merge_56() {
     let expected_ret: Vec<Vec<i32>> = vec![vec![1,5]];
     assert_eq!(array_algorithm::merge_56(test_intervals), expected_ret);
 }
+
+#[test]
+pub fn test_sort_colors_75() {
+    let mut test_nums: Vec<i32> = vec![2,0,2,1,1,0];
+    array_algorithm::sort_colors_75(&mut test_nums);
+    let expected_ret: Vec<i32> = vec![0,0,1,1,2,2];
+    assert_eq!(test_nums, expected_ret);
+    let mut test_nums: Vec<i32> = vec![2,0,1];
+    array_algorithm::sort_colors_75(&mut test_nums);
+    let expected_ret: Vec<i32> = vec![0,1,2];
+    assert_eq!(test_nums, expected_ret);
+    let mut test_nums: Vec<i32> = vec![0,2,0];
+    array_algorithm::sort_colors_75(&mut test_nums);
+    let expected_ret: Vec<i32> = vec![0,0,2];
+    assert_eq!(test_nums, expected_ret);
+}

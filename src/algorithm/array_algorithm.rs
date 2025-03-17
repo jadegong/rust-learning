@@ -953,3 +953,40 @@ pub fn merge_56(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     ret
 }
 
+/// 
+/// Leetcode 75
+/// Sort Colors
+///
+pub fn sort_colors_75(nums: &mut Vec<i32>) {
+    let nums_len = nums.len();
+    let mut index = 0;
+    let mut zero_len = 0; // The next index of end of 0
+    let mut one_len = 0; // The next index of end of 1
+    let mut temp: i32;
+    while index < nums_len {
+        if nums[index] == 0 {
+            // 1. Swap nums[index] and nums[zero_len];
+            // 2. Swap nums[index] and nums[one_len];
+            temp = nums[index];
+            nums[index] = nums[zero_len];
+            nums[zero_len] = temp;
+            if one_len == zero_len { // No ones
+                zero_len += 1;
+                one_len += 1;
+            } else {
+                zero_len += 1;
+                temp = nums[index];
+                nums[index] = nums[one_len];
+                nums[one_len] = temp;
+                one_len += 1;
+            }
+        } else if nums[index] == 1 {
+            // 1. Swap nums[index] and nums[one_len];
+            temp = nums[index];
+            nums[index] = nums[one_len];
+            nums[one_len] = temp;
+            one_len += 1;
+        }
+        index += 1;
+    }
+}

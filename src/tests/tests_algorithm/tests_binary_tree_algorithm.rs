@@ -35,3 +35,14 @@ pub fn test_sum_numbers_129() {
     assert_eq!(binary_tree_algorithm::sum_numbers_129(Some(Rc::new(RefCell::new(test_root)))), 1026);
 }
 
+#[test]
+pub fn test_inorder_traversal_94() {
+    let test_nums: Vec<i32> = vec![1, i32::MIN, 2, i32::MIN, i32::MIN, 3];
+    let test_root = binary_tree_algorithm::create_binary_tree(test_nums);
+    let expected_ret: Vec<i32> = vec![1,3,2];
+    assert_eq!(binary_tree_algorithm::inorder_traversal_94(test_root), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2,3,4,5,i32::MIN,8,i32::MIN,i32::MIN,6,7,i32::MIN,i32::MIN,9];
+    let test_root = binary_tree_algorithm::create_binary_tree(test_nums);
+    let expected_ret: Vec<i32> = vec![4,2,6,5,7,1,3,9,8];
+    assert_eq!(binary_tree_algorithm::inorder_traversal_94(test_root), expected_ret);
+}
