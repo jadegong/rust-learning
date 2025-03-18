@@ -167,3 +167,29 @@ pub fn test_min_distance_72() {
     let expected_ret = 5;
     assert_eq!(dp_algorithm::min_distance_72(test_word1, test_word2), expected_ret);
 }
+
+#[test]
+pub fn test_generate_118() {
+    let test_num_rows = 5;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1],vec![1,1],vec![1,2,1],vec![1,3,3,1],vec![1,4,6,4,1]];
+    assert_eq!(dp_algorithm::generate_118(test_num_rows), expected_ret);
+    let test_num_rows = 1;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1]];
+    assert_eq!(dp_algorithm::generate_118(test_num_rows), expected_ret);
+}
+
+#[test]
+pub fn test_max_profit_123() {
+    let test_prices: Vec<i32> = vec![3,3,5,0,0,3,1,4];
+    let expected_ret = 6;
+    assert_eq!(dp_algorithm::max_profit_123(test_prices), expected_ret);
+    let test_prices: Vec<i32> = vec![1,2,3,4,5];
+    let expected_ret = 4;
+    assert_eq!(dp_algorithm::max_profit_123(test_prices), expected_ret);
+    let test_prices: Vec<i32> = vec![7,6,4,3,1];
+    let expected_ret = 0;
+    assert_eq!(dp_algorithm::max_profit_123(test_prices), expected_ret);
+    let test_prices: Vec<i32> = vec![6,1,3,2,4,7];
+    let expected_ret = 7;
+    assert_eq!(dp_algorithm::max_profit_123(test_prices), expected_ret);
+}

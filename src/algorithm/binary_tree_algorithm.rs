@@ -670,3 +670,23 @@ pub fn level_order_bottom_107(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i3
     }
     inner_level_order_bottom(root)
 }
+
+/// 
+/// Leetcode 108
+/// Convert Sorted Array to Binary Search Tree
+///
+pub fn sorted_array_to_bst_108(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+    // left: left boundary;
+    // right: right boundary;
+    fn inner_sorted_array_tobst(nums: &Vec<i32>, left: i32, right: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        if right < left {
+            return None;
+        }
+        let root_index = (left + right) / 2;
+        let root = Rc::new(RefCell::new(TreeNode::new(nums[root_index as usize])));
+        root.borrow_mut().left = inner_sorted_array_tobst(nums, left, root_index - 1);
+        root.borrow_mut().right = inner_sorted_array_tobst(nums, root_index + 1, right);
+        Some(root)
+    }
+    inner_sorted_array_tobst(&nums, 0, (nums.len() - 1) as i32)
+}

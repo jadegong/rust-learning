@@ -530,3 +530,116 @@ pub fn min_distance_72(word1: String, word2: String) -> i32 {
     }
     distance_dp[word2_len]
 }
+
+/// 
+/// Leetcode 118
+/// Pascal's Triangle
+///
+pub fn generate_118(num_rows: i32) -> Vec<Vec<i32>> {
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let mut row_vec: Vec<i32> = vec![];
+    let mut row_index = 0;
+    let mut col_index: usize;
+    let mut prev_top_left: i32 = 1;
+    while row_index < num_rows as usize {
+        col_index = 0;
+        while col_index <= row_index {
+            let temp: i32;
+            // first column and last column
+            if row_index == 0 {
+                row_vec.push(1);
+                prev_top_left = 1;
+            } else {
+                if col_index == row_index {
+                    row_vec.push(1);
+                } else if col_index > 0 {
+                    temp = row_vec[col_index];
+                    row_vec[col_index] = prev_top_left + row_vec[col_index];
+                    prev_top_left = temp;
+                } else {
+                    prev_top_left = 1;
+                }
+            }
+            col_index += 1;
+        }
+        ret.push(row_vec.clone());
+        row_index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 119
+/// Pascal's Triangle II
+/// Space: O(row_index)
+///
+pub fn generate_119(row_index: i32) -> Vec<i32> {
+    let mut row_vec: Vec<i32> = vec![];
+    let mut row_iter = 0;
+    let mut col_index: usize;
+    let mut prev_top_left: i32 = 1;
+    while row_iter <= row_index as usize {
+        col_index = 0;
+        while col_index <= row_iter {
+            let temp: i32;
+            // first column and last column
+            if row_iter == 0 {
+                row_vec.push(1);
+                prev_top_left = 1;
+            } else {
+                if col_index == row_iter {
+                    row_vec.push(1);
+                } else if col_index > 0 {
+                    temp = row_vec[col_index];
+                    row_vec[col_index] = prev_top_left + row_vec[col_index];
+                    prev_top_left = temp;
+                } else {
+                    prev_top_left = 1;
+                }
+            }
+            col_index += 1;
+        }
+        row_iter += 1;
+    }
+    row_vec
+}
+
+/// 
+/// Leetcode 123
+/// Best Time to Buy and Sell Stock III
+///
+pub fn max_profit_123(prices: Vec<i32>) -> i32 {
+    let prices_len = prices.len();
+    let mut left_index = 1;
+    let mut min_buy = prices[0];
+    let mut max_left_single: i32 = 0;
+    let mut left_dp_max: Vec<i32> = vec![0]; // Max single profit before current index
+    while left_index < prices_len {
+        if prices[left_index] <= min_buy {
+            min_buy = prices[left_index];
+        }
+        max_left_single = std::cmp::max(prices[left_index] - min_buy, max_left_single);
+        left_dp_max.push(max_left_single);
+        left_index += 1;
+    }
+    let mut right_index = 1;
+    let mut max_sell = prices[prices_len - 1];
+    let mut max_right_single = 0;
+    let mut right_dp_max: Vec<i32> = vec![0]; // Max single profit after prices_len - index
+    while right_index < prices_len {
+        if prices[prices_len - right_index - 1] >= max_sell {
+            max_sell = prices[prices_len - right_index - 1];
+        }
+        max_right_single = std::cmp::max(max_sell - prices[prices_len - right_index - 1], max_right_single);
+        right_dp_max.push(max_right_single);
+        right_index += 1;
+    }
+    left_index = 0;
+    let mut ret = 0;
+    // Find the max profit of left_dp_max + right_dp_max
+    while left_index < prices_len {
+        ret = std::cmp::max(ret, left_dp_max[left_index] + right_dp_max[prices_len - left_index - 1]);
+        left_index += 1;
+    }
+    ret
+}

@@ -76,3 +76,13 @@ pub fn test_level_order_bottom_107() {
     let expected_ret: Vec<Vec<i32>> = vec![vec![1]];
     assert_eq!(binary_tree_algorithm::level_order_bottom_107(test_root), expected_ret);
 }
+
+#[test]
+pub fn test_sorted_array_to_bst_108() {
+    let test_nums: Vec<i32> = vec![-10,-3,0,5,9];
+    let expected_ret = binary_tree_algorithm::create_binary_tree(vec![0,-10,5,i32::MIN,-3,i32::MIN,9]);
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::sorted_array_to_bst_108(test_nums), expected_ret));
+    let test_nums: Vec<i32> = vec![1,3];
+    let expected_ret = binary_tree_algorithm::create_binary_tree(vec![1,i32::MIN,3]);
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::sorted_array_to_bst_108(test_nums), expected_ret));
+}
