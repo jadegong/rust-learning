@@ -46,3 +46,33 @@ pub fn test_inorder_traversal_94() {
     let expected_ret: Vec<i32> = vec![4,2,6,5,7,1,3,9,8];
     assert_eq!(binary_tree_algorithm::inorder_traversal_94(test_root), expected_ret);
 }
+
+#[test]
+pub fn test_build_tree_105() {
+    let test_preorder: Vec<i32> = vec![3,9,20,15,7];
+    let test_inorder: Vec<i32> = vec![9,3,15,20,7];
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::build_tree_105(test_preorder, test_inorder), binary_tree_algorithm::create_binary_tree(vec![3,9,20,i32::MIN,i32::MIN,15,7])));
+    let test_preorder: Vec<i32> = vec![-1];
+    let test_inorder: Vec<i32> = vec![-1];
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::build_tree_105(test_preorder, test_inorder), binary_tree_algorithm::create_binary_tree(vec![-1])));
+}
+
+#[test]
+pub fn test_build_tree_106() {
+    let test_inorder: Vec<i32> = vec![9,3,15,20,7];
+    let test_postorder: Vec<i32> = vec![9,15,7,20,3];
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::build_tree_106(test_inorder, test_postorder), binary_tree_algorithm::create_binary_tree(vec![3,9,20,i32::MIN,i32::MIN,15,7])));
+    let test_inorder: Vec<i32> = vec![-1];
+    let test_postorder: Vec<i32> = vec![-1];
+    assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::build_tree_106(test_inorder, test_postorder), binary_tree_algorithm::create_binary_tree(vec![-1])));
+}
+
+#[test]
+pub fn test_level_order_bottom_107() {
+    let test_root = binary_tree_algorithm::create_binary_tree(vec![3,9,20,i32::MIN,i32::MIN,15,7]);
+    let expected_ret: Vec<Vec<i32>> = vec![vec![15,7], vec![9,20], vec![3]];
+    assert_eq!(binary_tree_algorithm::level_order_bottom_107(test_root), expected_ret);
+    let test_root = binary_tree_algorithm::create_binary_tree(vec![1]);
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1]];
+    assert_eq!(binary_tree_algorithm::level_order_bottom_107(test_root), expected_ret);
+}

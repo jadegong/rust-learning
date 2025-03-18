@@ -7,7 +7,7 @@ use crate::structure::treenode::TreeNode;
 /// DONE  nums: Vec<i32>
 ///
 pub fn create_binary_tree(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
-    fn inner_create_binary_tree(nums: Vec<i32>, num_index: usize) -> Option<Rc<RefCell<TreeNode>>> {
+    fn inner_create_binary_tree(nums: &Vec<i32>, num_index: usize) -> Option<Rc<RefCell<TreeNode>>> {
         let nums_len = nums.len();
         if num_index >= nums_len {
             return None;
@@ -16,11 +16,11 @@ pub fn create_binary_tree(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
             return None;
         }
         let root = Rc::new(RefCell::new(TreeNode::new(nums[num_index])));
-        root.borrow_mut().left = inner_create_binary_tree(nums.clone(), (num_index + 1) * 2 - 1);
-        root.borrow_mut().right = inner_create_binary_tree(nums.clone(), (num_index + 1) * 2);
+        root.borrow_mut().left = inner_create_binary_tree(&nums, (num_index + 1) * 2 - 1);
+        root.borrow_mut().right = inner_create_binary_tree(&nums, (num_index + 1) * 2);
         Some(root)
     }
-    inner_create_binary_tree(nums, 0)
+    inner_create_binary_tree(&nums, 0)
 }
 
 ///
@@ -554,4 +554,119 @@ pub fn inorder_traversal_94(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
     let mut nums_vec: Vec<i32> = vec![];
     inner_generate_inorder(root, &mut nums_vec);
     nums_vec
+}
+
+/// 
+/// Leetcode 105
+/// Construct Binary Tree from Preorder and Inorder Traversal
+///
+pub fn build_tree_105(preorder: Vec<i32>, inorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+    let mut pre_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let mut in_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let mut index = 0;
+    let tree_len = preorder.len();
+    while index < tree_len {
+        pre_map.insert(preorder[index], index as i32);
+        in_map.insert(inorder[index], index as i32);
+        index += 1;
+    }
+    // i: the index of root in preorder,
+    // left: the left boundary of current tree in inorder, 
+    // right: the boundary of current tree in inorder.
+    fn inner_dfs(preorder: &Vec<i32>, in_map: &std::collections::HashMap<i32, i32>, i: i32, left: i32, right: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        if right - left < 0 {
+            return None;
+        }
+        // Root node
+        let root = Rc::new(RefCell::new(TreeNode::new(preorder[i as usize])));
+        // Find root in inorder, to build left and right
+        let root_index_inorder = in_map.get(&preorder[i as usize]).unwrap();
+        // build left
+        root.borrow_mut().left = inner_dfs(preorder, in_map, i + 1, left, *root_index_inorder - 1);
+        // root_index_inorder - left is the length of left tree
+        root.borrow_mut().right = inner_dfs(preorder, in_map, i + 1 + *root_index_inorder - left, *root_index_inorder + 1, right);
+        Some(root)
+    }
+    inner_dfs(&preorder, &in_map, 0, 0, (tree_len - 1) as i32)
+}
+
+///
+/// Leetcode 106
+/// Construct Binary Tree from Inorder and Postorder Traversal
+///
+pub fn build_tree_106(inorder: Vec<i32>, postorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+    let mut in_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let mut index = 0;
+    let tree_len = postorder.len();
+    while index < tree_len {
+        in_map.insert(inorder[index], index as i32);
+        index += 1;
+    }
+    // i: the index of root in postorder,
+    // left: the left boundary of current tree in inorder, 
+    // right: the boundary of current tree in inorder.
+    fn inner_dfs(postorder: &Vec<i32>, in_map: &std::collections::HashMap<i32, i32>, i: i32, left: i32, right: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        if right - left < 0 {
+            return None;
+        }
+        // Root node
+        let root = Rc::new(RefCell::new(TreeNode::new(postorder[i as usize])));
+        // Find root in inorder, to build left and right
+        let root_index_inorder = in_map.get(&postorder[i as usize]).unwrap();
+        // right - root_index_inorder is the length of right tree
+        root.borrow_mut().left = inner_dfs(postorder, in_map, i - 1 - (right - *root_index_inorder), left, *root_index_inorder - 1);
+        // build right
+        root.borrow_mut().right = inner_dfs(postorder, in_map, i - 1, *root_index_inorder + 1, right);
+        Some(root)
+    }
+    inner_dfs(&postorder, &in_map, (tree_len - 1) as i32, 0, (tree_len - 1) as i32)
+}
+
+/// 
+/// Leetcode 107
+/// Binary Tree Level Order Traversal II
+///
+pub fn level_order_bottom_107(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+    fn inner_level_order_bottom(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+        if root == None {
+            return vec![];
+        }
+        let root_rc = root.unwrap();
+        let root_ref = root_rc.borrow();
+        let left_vec = inner_level_order_bottom(root_ref.left.clone());
+        let right_vec = inner_level_order_bottom(root_ref.right.clone());
+        // Combine left and right
+        let left_len = left_vec.len();
+        let right_len = right_vec.len();
+        let mut index = 0;
+        let mut current_vec: Vec<Vec<i32>> = vec![];
+        let mut left_arr: Vec<i32>;
+        let mut right_arr: Vec<i32>;
+        while index < left_len || index < right_len {
+            if left_len < right_len {
+                if index < right_len - left_len {
+                    current_vec.push(right_vec[index].clone());
+                } else {
+                    left_arr = left_vec[index - (right_len - left_len)].clone();
+                    right_arr = right_vec[index].clone();
+                    left_arr.append(&mut right_arr);
+                    current_vec.push(left_arr);
+                }
+            } else {
+                if index < left_len - right_len {
+                    current_vec.push(left_vec[index].clone());
+                } else {
+                    left_arr = left_vec[index].clone();
+                    right_arr = right_vec[index - (left_len - right_len)].clone();
+                    left_arr.append(&mut right_arr);
+                    current_vec.push(left_arr);
+                }
+            }
+            index += 1;
+        }
+        // Add current node val
+        current_vec.push(vec![root_ref.val]);
+        current_vec
+    }
+    inner_level_order_bottom(root)
 }
