@@ -690,3 +690,43 @@ pub fn sorted_array_to_bst_108(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> 
     }
     inner_sorted_array_tobst(&nums, 0, (nums.len() - 1) as i32)
 }
+
+/// 
+/// Leetcode 144
+/// Binary Tree Preorder Traversal
+///
+pub fn preorder_traversal_144(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    fn inner_preorder_traversal(node: Option<Rc<RefCell<TreeNode>>>, nums: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        nums.push(node_ref.val);
+        inner_preorder_traversal(node_ref.left.clone(), nums);
+        inner_preorder_traversal(node_ref.right.clone(), nums);
+    }
+    let mut nums: Vec<i32> = vec![];
+    inner_preorder_traversal(root, &mut nums);
+    nums
+}
+
+/// 
+/// Leetcode 145
+/// Binary Tree Postorder Traversal
+///
+pub fn postorder_traversal_145(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    fn inner_postorder_traversal(node: Option<Rc<RefCell<TreeNode>>>, nums: &mut Vec<i32>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        inner_postorder_traversal(node_ref.left.clone(), nums);
+        inner_postorder_traversal(node_ref.right.clone(), nums);
+        nums.push(node_ref.val);
+    }
+    let mut nums: Vec<i32> = vec![];
+    inner_postorder_traversal(root, &mut nums);
+    nums
+}

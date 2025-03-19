@@ -86,3 +86,17 @@ pub fn test_sorted_array_to_bst_108() {
     let expected_ret = binary_tree_algorithm::create_binary_tree(vec![1,i32::MIN,3]);
     assert!(binary_tree_algorithm::is_same_tree_100(binary_tree_algorithm::sorted_array_to_bst_108(test_nums), expected_ret));
 }
+
+#[test]
+pub fn test_preorder_traversal_145() {
+    let test_nums: Vec<i32> = vec![1,2,3,4,5,i32::MIN,8,i32::MIN,i32::MIN,6,7,i32::MIN,i32::MIN,9];
+    let expected_ret: Vec<i32> = vec![1,2,4,5,6,7,3,8,9];
+    assert_eq!(binary_tree_algorithm::preorder_traversal_144(binary_tree_algorithm::create_binary_tree(test_nums)), expected_ret);
+}
+
+#[test]
+pub fn test_postorder_traversal_145() {
+    let test_nums: Vec<i32> = vec![1,2,3,4,5,i32::MIN,8,i32::MIN,i32::MIN,6,7,i32::MIN,i32::MIN,9];
+    let expected_ret: Vec<i32> = vec![4,6,7,5,2,9,8,3,1];
+    assert_eq!(binary_tree_algorithm::postorder_traversal_145(binary_tree_algorithm::create_binary_tree(test_nums)), expected_ret);
+}

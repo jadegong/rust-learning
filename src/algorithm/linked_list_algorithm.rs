@@ -288,4 +288,3 @@ pub fn partition_86(head: Option<Box<ListNode>>, x: i32) -> Option<Box<ListNode>
     }
     ret
 }
-

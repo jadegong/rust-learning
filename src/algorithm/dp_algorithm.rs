@@ -607,6 +607,7 @@ pub fn generate_119(row_index: i32) -> Vec<i32> {
 /// 
 /// Leetcode 123
 /// Best Time to Buy and Sell Stock III
+/// At most two transactions(Buy one day and sell another day is a transaction)
 ///
 pub fn max_profit_123(prices: Vec<i32>) -> i32 {
     let prices_len = prices.len();

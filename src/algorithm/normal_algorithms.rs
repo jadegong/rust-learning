@@ -243,3 +243,123 @@ pub fn my_sqrt_69(x: i32) -> i32 {
     }
     current_l.floor() as i32
 }
+
+/// 
+/// Leetcode 150
+/// Evaluate Reverse Polish Notation
+///
+pub fn eval_rpn_150(tokens: Vec<String>) -> i32 {
+    let mut stack_vec: Vec<i32> = vec![];
+    let tokens_len = tokens.len();
+    let mut index = 0;
+    let mut stack_len: usize = 0;
+    let mut first_num: i32;
+    let mut second_num: i32;
+    while index < tokens_len {
+        if tokens[index] == String::from("+") || tokens[index] == String::from("-") || tokens[index] == String::from("*") || tokens[index] == String::from("/") {
+            if stack_len <= 1 {
+                return 0;
+            } else {
+                second_num = stack_vec.pop().unwrap();
+                first_num = stack_vec.pop().unwrap();
+                stack_len -= 2;
+                let ret: i32;
+                if tokens[index] == String::from("+") {
+                    ret = first_num + second_num;
+                } else if tokens[index] == String::from("-") {
+                    ret = first_num - second_num;
+                } else if tokens[index] == String::from("*") {
+                    ret = first_num * second_num;
+                } else {
+                    ret = first_num / second_num;
+                }
+                stack_vec.push(ret);
+                stack_len += 1;
+            }
+        } else {
+            let ret = i32::from_str_radix(&tokens[index], 10).unwrap();
+            stack_vec.push(ret);
+            stack_len += 1;
+        }
+        index += 1;
+    }
+    if stack_len != 1 {
+        return 0;
+    }
+    stack_vec[0]
+}
+
+/// 
+/// Leetcode 168
+/// Excel Sheet Column Title
+///
+pub fn convert_to_title_168(column_number: i32) -> String {
+    let mut ret: String = String::from("");
+    let upper_chars: Vec<&str> = vec!["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    let modulo = 26;
+    let mut origin_num = column_number - 1;
+    while origin_num >= 0 {
+        ret = upper_chars[(origin_num % 26) as usize].to_owned() + &ret;
+        origin_num /= modulo;
+        if origin_num == 0 {
+            break;
+        }
+        origin_num -= 1;
+    }
+    String::from(ret)
+}
+
+/// 
+/// Leetcode 171
+/// Excel Sheet Column Number
+///
+pub fn title_to_number_171(column_title: String) -> i32 {
+    let upper_chars: Vec<char> = vec!['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    let mut char_map: std::collections::HashMap<char, i32> = std::collections::HashMap::new();
+    let mut index = 0;
+    while index < 26 {
+        char_map.insert(upper_chars[index], (index + 1) as i32);
+        index += 1;
+    }
+    let mut ret = 0;
+    let col_chars: Vec<char> = column_title.chars().collect();
+    let col_chars_len = col_chars.len();
+    index = 0;
+    while index < col_chars_len {
+        ret = ret * 26 + char_map.get(&col_chars[index]).unwrap();
+        index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 201
+/// Bitwise AND of Numbers Range
+pub fn range_bitwise_and_201(left: i32, right: i32) -> i32 {
+    let mut pow_num: u32 = 1;
+    let mut index = 0;
+    let mut current_zero: bool;
+    let mut ret = 0;
+    while index < 31 {
+        pow_num *= 2;
+        // first bit zero appears every two, and first one is zero
+        // second bit zero appears every four, and first two is zero...
+        if (right - left + 1) as u32 >= pow_num {
+            current_zero = true;
+        } else {
+            // judge current bit has zero according left and right
+            if ((left as u32) >= (left as u32) - ((left as u32) % pow_num) && (left as u32) < (left as u32) - ((left as u32) % pow_num) + pow_num / 2) 
+                || ((right as u32) >= (right as u32) - ((right as u32) % pow_num) && (right as u32) < (right as u32) - ((right as u32) % pow_num) + pow_num / 2)
+                || ((left as u32) <= ((right as u32) - ((right as u32) % pow_num)) && (right as u32) >= ((right as u32) - ((right as u32) % pow_num))) {
+                current_zero = true;
+            } else {
+                current_zero = false;
+            }
+        }
+        if !current_zero {
+            ret += pow_num / 2;
+        }
+        index += 1;
+    }
+    ret as i32
+}
