@@ -363,3 +363,59 @@ pub fn range_bitwise_and_201(left: i32, right: i32) -> i32 {
     }
     ret as i32
 }
+
+/// 
+/// Leetcode 204
+/// Count Primes
+///
+pub fn count_primes_204(n: i32) -> i32 {
+    // let mut primes: Vec<i32> = vec![2];
+    // let mut primes_len = 1;
+    // if n <= 2 {
+        // return 0;
+    // }
+    // let mut num = 3;
+    // let mut index;
+    // let mut current_prime: bool;
+    // while num < n {
+        // index = 0;
+        // current_prime = true;
+        // while index < primes_len {
+            // if primes[index] * primes[index] > num {
+                // break;
+            // } else {
+                // if num % primes[index] == 0 {
+                    // current_prime = false;
+                    // break;
+                // }
+            // }
+            // index += 1;
+        // }
+        // if current_prime {
+            // primes.push(num);
+            // primes_len += 1;
+        // }
+        // num += 1;
+    // }
+    // primes_len as i32
+    let mut primes: Vec<i32> = vec![1; (n + 1) as usize];
+    if n <= 2 {
+        return 0;
+    }
+    primes[0] = 0;
+    primes[1] = 0;
+    let mut cnt: i32 = 0;
+    let mut num = 2;
+    while num < n {
+        if primes[num as usize] == 1 {
+            cnt += 1;
+            let mut j = num * 2;
+            while j < n {
+                primes[j as usize] = 0;
+                j += num;
+            }
+        }
+        num += 1;
+    }
+    cnt
+}

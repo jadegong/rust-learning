@@ -163,3 +163,13 @@ pub fn test_range_bitwise_and_201() {
     let expected_ret: i32 = 0;
     assert_eq!(normal_algorithms::range_bitwise_and_201(test_left, test_right), expected_ret);
 }
+
+#[test]
+pub fn test_count_primes_204() {
+    let test_n = 10;
+    let expected_ret = 4;
+    assert_eq!(normal_algorithms::count_primes_204(test_n), expected_ret);
+    let test_n = 5000000;
+    let expected_ret = 348513;
+    assert_eq!(normal_algorithms::count_primes_204(test_n), expected_ret);
+}

@@ -193,3 +193,16 @@ pub fn test_max_profit_123() {
     let expected_ret = 7;
     assert_eq!(dp_algorithm::max_profit_123(test_prices), expected_ret);
 }
+
+#[test]
+pub fn test_rob_213() {
+    let test_nums: Vec<i32> = vec![2,3,2];
+    let expected_ret = 3;
+    assert_eq!(dp_algorithm::rob_213(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2,3,1];
+    let expected_ret = 4;
+    assert_eq!(dp_algorithm::rob_213(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2,3];
+    let expected_ret = 3;
+    assert_eq!(dp_algorithm::rob_213(test_nums), expected_ret);
+}

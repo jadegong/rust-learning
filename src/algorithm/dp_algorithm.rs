@@ -644,3 +644,31 @@ pub fn max_profit_123(prices: Vec<i32>) -> i32 {
     }
     ret
 }
+
+/// 
+/// Leetcode 213
+/// House Robber II
+///
+pub fn rob_213(nums: Vec<i32>) -> i32 {
+    let nums_len = nums.len();
+    let mut with_first_dp: Vec<i32> = vec![0; nums_len];
+    let mut no_first_dp: Vec<i32> = vec![0; nums_len];
+    let mut index = 0;
+    while index < nums_len {
+        if index == 0 {
+            with_first_dp[index] = nums[index];
+        } else if index == 1 {
+            with_first_dp[index] = nums[0];
+            no_first_dp[index] = nums[index];
+        } else if index == nums_len - 1 {
+            // last house, only calc no_first_dp
+            with_first_dp[index] = with_first_dp[index - 1];
+            no_first_dp[index] = std::cmp::max(no_first_dp[index - 1], no_first_dp[index - 2] + nums[index]);
+        } else {
+            no_first_dp[index] = std::cmp::max(no_first_dp[index - 1], no_first_dp[index - 2] + nums[index]);
+            with_first_dp[index] = std::cmp::max(with_first_dp[index - 1], with_first_dp[index - 2] + nums[index]);
+        }
+        index += 1;
+    }
+    std::cmp::max(no_first_dp[nums_len - 1], with_first_dp[nums_len - 1])
+}
