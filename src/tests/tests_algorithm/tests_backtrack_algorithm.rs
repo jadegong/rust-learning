@@ -1,0 +1,31 @@
+use crate::algorithm::backtrack_algorithm;
+
+#[test]
+pub fn test_combination_sum3_216() {
+    let test_k: i32 = 3;
+    let test_n: i32 = 7;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,2,4]];
+    assert_eq!(backtrack_algorithm::combination_sum3_216(test_k, test_n), expected_ret);
+    let test_k: i32 = 3;
+    let test_n: i32 = 9;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,2,6],vec![1,3,5],vec![2,3,4]];
+    assert_eq!(backtrack_algorithm::combination_sum3_216(test_k, test_n), expected_ret);
+    let test_k: i32 = 4;
+    let test_n: i32 = 1;
+    let expected_ret: Vec<Vec<i32>> = vec![];
+    assert_eq!(backtrack_algorithm::combination_sum3_216(test_k, test_n), expected_ret);
+}
+
+#[test]
+pub fn test_subsets_78() {
+    let test_nums: Vec<i32> = vec![1,2,3];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![],vec![1],vec![1,2],vec![1,2,3],vec![1,3],vec![2],vec![2,3],vec![3]];
+    assert_eq!(backtrack_algorithm::subsets_78(test_nums), expected_ret);
+}
+
+#[test]
+pub fn test_permute_46() {
+    let test_nums: Vec<i32> = vec![1,2,3];
+    let expected_ret: Vec<Vec<i32>> = vec![vec![1,2,3],vec![1,3,2],vec![2,1,3],vec![2,3,1],vec![3,1,2],vec![3,2,1]];
+    assert_eq!(backtrack_algorithm::permute_46(test_nums), expected_ret);
+}

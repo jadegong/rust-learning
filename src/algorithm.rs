@@ -6,3 +6,4 @@ pub mod binary_tree_algorithm;
 pub mod linked_list_algorithm;
 pub mod normal_algorithms;
 pub mod heap_algorithms;
+pub mod backtrack_algorithm;
