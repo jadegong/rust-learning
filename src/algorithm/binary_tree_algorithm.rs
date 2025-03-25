@@ -852,3 +852,28 @@ pub fn path_sum_113(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec
     inner_path_sum_ii(&mut res, &mut current_vec, root, target_sum);
     res
 }
+
+/// 
+/// Leetcode 257
+/// Binary Tree paths
+///
+pub fn binary_tree_paths_257(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
+    fn inner_binary_tree_paths(res: &mut Vec<String>, current_vec: &mut Vec<String>, node: Option<Rc<RefCell<TreeNode>>>) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        current_vec.push(node_ref.val.to_string());
+        if node_ref.left == None && node_ref.right == None {
+            res.push(current_vec.to_vec().join("->"));
+        }
+        inner_binary_tree_paths(res, current_vec, node_ref.left.clone());
+        inner_binary_tree_paths(res, current_vec, node_ref.right.clone());
+        current_vec.pop();
+    }
+    let mut res: Vec<String> = vec![];
+    let mut current_vec: Vec<String> = vec![];
+    inner_binary_tree_paths(&mut res, &mut current_vec, root);
+    res
+}
