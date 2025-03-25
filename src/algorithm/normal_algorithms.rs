@@ -419,3 +419,28 @@ pub fn count_primes_204(n: i32) -> i32 {
     }
     cnt
 }
+
+/// 
+/// Leetcode 231
+/// Power of Two
+/// 1. n & (n - 1) == 0, O(1)
+/// 2. (1<<30) % n == 0, O(1)
+/// 3. n % 2 == 0, n >> 1, at last n == 1, O(logn)
+/// 4. current: O(logn)
+///
+pub fn is_power_of_two_231(n: i32) -> bool {
+    let mut ret: bool = false;
+    let mut origin_n = n;
+    while origin_n != 0 {
+        if origin_n == 1 {
+            ret = true;
+            break;
+        }
+        if (origin_n >> 1) * 2 != origin_n {
+            ret = false;
+            break;
+        }
+        origin_n = origin_n >> 1;
+    }
+    ret
+}

@@ -110,3 +110,17 @@ pub fn test_num_trees_96() {
     let expected_ret: i32 = 129644790;
     assert_eq!(binary_tree_algorithm::num_trees_96(test_n), expected_ret);
 }
+
+#[test]
+pub fn test_path_sum_113() {
+    let test_nums: Vec<i32> = vec![5,4,8,11,i32::MIN,13,4,7,2,i32::MIN,i32::MIN,i32::MIN,i32::MIN,5,1];
+    let root = binary_tree_algorithm::create_binary_tree(test_nums);
+    let test_target_num = 22;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![5,4,11,2], vec![5,8,4,5]];
+    assert_eq!(binary_tree_algorithm::path_sum_113(root, test_target_num), expected_ret);
+    let test_nums: Vec<i32> = vec![-2,i32::MIN,-3];
+    let root = binary_tree_algorithm::create_binary_tree(test_nums);
+    let test_target_num = -5;
+    let expected_ret: Vec<Vec<i32>> = vec![vec![-2,-3]];
+    assert_eq!(binary_tree_algorithm::path_sum_113(root, test_target_num), expected_ret);
+}

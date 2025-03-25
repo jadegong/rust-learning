@@ -990,3 +990,114 @@ pub fn sort_colors_75(nums: &mut Vec<i32>) {
         index += 1;
     }
 }
+
+
+/// 
+/// Leetcode 128
+/// Longest Consecutive Sequence
+///
+pub fn longest_consecutive_128(nums: Vec<i32>) -> i32 {
+    // Max top heap
+    let mut max_heap: std::collections::BinaryHeap<i32> = std::collections::BinaryHeap::new();
+    let nums_len = nums.len();
+    let mut index = 0;
+    while index < nums_len {
+        max_heap.push(nums[index]);
+        index += 1;
+    }
+    let mut current_vec: Vec<i32> = vec![];
+    let mut max_len = 0;
+    let mut current_len = 0;
+    if nums_len == 0 {
+        return 0;
+    }
+    let mut max_heap_top = max_heap.pop().unwrap();
+    current_vec.push(max_heap_top);
+    current_len += 1;
+    while !max_heap.is_empty() {
+        max_heap_top = max_heap.pop().unwrap();
+        if max_heap_top == current_vec[current_len - 1] - 1 {
+            current_vec.push(max_heap_top);
+            current_len += 1;
+        } else if max_heap_top == current_vec[current_len - 1] {
+        }
+        else {
+            if current_len > max_len {
+                max_len = current_len;
+            }
+            current_vec = vec![max_heap_top];
+            current_len = 1;
+        }
+    }
+    if current_len > max_len {
+        max_len = current_len;
+    }
+    max_len as i32
+}
+
+/// 
+/// Leetcode 167
+/// Two Sum II - Input Array Is Sorted
+///
+pub fn two_sum_167(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+    let nums_len = numbers.len();
+    let mut middle_index = 0;
+    let mut left_index = 0;
+    let mut right_index = nums_len - 1;
+    while left_index < right_index {
+        middle_index = (left_index + right_index) / 2;
+        if numbers[middle_index] * 2 == target {
+            break;
+        } else if numbers[middle_index] * 2 > target {
+            right_index = middle_index;
+        } else {
+            if left_index == middle_index {
+                middle_index = left_index + 1;
+                break;
+            }
+            left_index = middle_index;
+        }
+    }
+    if middle_index < nums_len - 1 && numbers[middle_index + 1] == numbers[middle_index] {
+        middle_index += 1;
+    }
+    let mut res: Vec<i32> = vec![];
+    if middle_index == 0 {
+        return res;
+    }
+    left_index = middle_index;
+    right_index = middle_index + 1;
+    while left_index > 0 && right_index <= nums_len {
+        if numbers[left_index - 1] + numbers[right_index - 1] == target {
+            res.push(left_index as i32);
+            res.push(right_index as i32);
+            break;
+        } else if numbers[left_index - 1] + numbers[right_index - 1] > target {
+            left_index -= 1;
+        } else {
+            right_index += 1;
+        }
+    }
+    res
+}
+
+/// 
+/// Leetcode 217
+/// Contains Duplicate
+///
+pub fn contains_duplicate(nums: Vec<i32>) -> bool {
+    let mut ret = false;
+    let nums_len = nums.len();
+    let mut nums_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let mut index = 0;
+    while index < nums_len {
+        if nums_map.contains_key(&nums[index]) {
+            ret = true;
+            break;
+        } else {
+            nums_map.insert(nums[index], true);
+        }
+        index += 1;
+    }
+    ret
+}

@@ -826,3 +826,29 @@ pub fn min_depth_111(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
     }
     inner_min_depth(root)
 }
+
+/// 
+/// Leetcode 113
+/// Path Sum II
+///
+pub fn path_sum_113(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> Vec<Vec<i32>> {
+    fn inner_path_sum_ii(res: &mut Vec<Vec<i32>>, current_vec: &mut Vec<i32>, node: Option<Rc<RefCell<TreeNode>>>, target: i32) {
+        if node == None {
+            return;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        current_vec.push(node_ref.val);
+        if target == node_ref.val && node_ref.left == None && node_ref.right == None {
+            // Record right answer
+            res.push(current_vec.to_vec());
+        }
+        inner_path_sum_ii(res, current_vec, node_ref.left.clone(), target - node_ref.val);
+        inner_path_sum_ii(res, current_vec, node_ref.right.clone(), target - node_ref.val);
+        current_vec.pop();
+    }
+    let mut res: Vec<Vec<i32>> = vec![];
+    let mut current_vec: Vec<i32> = vec![];
+    inner_path_sum_ii(&mut res, &mut current_vec, root, target_sum);
+    res
+}

@@ -1,4 +1,4 @@
-use crate::algorithm::heap_algorithms;
+use crate::algorithm::{array_algorithm, heap_algorithms};
 
 #[test]
 pub fn test_find_kth_largest_215() {
@@ -68,4 +68,14 @@ pub fn test_least_interval_621() {
     let test_n: i32 = 1;
     let expected_ret: i32 = 8;
     assert_eq!(heap_algorithms::least_interval_621(test_tasks, test_n), expected_ret);
+}
+
+#[test]
+pub fn test_longest_consecutive_128() {
+    let test_nums: Vec<i32> = vec![100,4,200,1,3,2];
+    let expected_ret: i32 = 4;
+    assert_eq!(array_algorithm::longest_consecutive_128(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![0,3,7,2,5,8,4,6,0,1];
+    let expected_ret: i32 = 9;
+    assert_eq!(array_algorithm::longest_consecutive_128(test_nums), expected_ret);
 }

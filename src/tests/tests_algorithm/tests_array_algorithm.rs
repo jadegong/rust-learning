@@ -275,3 +275,19 @@ pub fn test_sort_colors_75() {
     let expected_ret: Vec<i32> = vec![0,0,2];
     assert_eq!(test_nums, expected_ret);
 }
+
+#[test]
+pub fn test_two_sum_167() {
+    let test_nums: Vec<i32> = vec![2,7,11,15];
+    let test_target = 9;
+    let expected_ret: Vec<i32> = vec![1,2];
+    assert_eq!(array_algorithm::two_sum_167(test_nums, test_target), expected_ret);
+    let test_nums: Vec<i32> = vec![2,3,4];
+    let test_target = 6;
+    let expected_ret: Vec<i32> = vec![1,3];
+    assert_eq!(array_algorithm::two_sum_167(test_nums, test_target), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2,3,4,4,9,56,90];
+    let test_target = 8;
+    let expected_ret: Vec<i32> = vec![4,5];
+    assert_eq!(array_algorithm::two_sum_167(test_nums, test_target), expected_ret);
+}
