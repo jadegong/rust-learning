@@ -58,6 +58,37 @@ pub fn subsets_78(nums: Vec<i32>) -> Vec<Vec<i32>> {
 }
 
 /// 
+/// Leetcode 90
+/// Subsets II
+///
+pub fn subsets_with_dup_90(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    fn inner_subsets_with_dup(res: &mut Vec<Vec<i32>>, current_vec: &mut Vec<i32>, nums: &Vec<i32>, index: usize) {
+        res.push(current_vec.to_vec());
+        // 1.index over nums length;
+        let nums_len = nums.len();
+        if index >= nums_len {
+            return;
+        }
+        let mut loop_index = index;
+        while loop_index < nums_len {
+            // Cut the same with prev
+            if loop_index == index || (loop_index != index && nums[loop_index] != nums[loop_index - 1]) {
+                current_vec.push(nums[loop_index]);
+                inner_subsets_with_dup(res, current_vec, nums, loop_index + 1);
+                current_vec.pop();
+            }
+            loop_index += 1;
+        }
+    }
+    let mut res: Vec<Vec<i32>> = vec![];
+    let mut current_vec: Vec<i32> = vec![];
+    let mut sorted_nums: Vec<i32> = nums.to_vec();
+    sorted_nums.sort();
+    inner_subsets_with_dup(&mut res, &mut current_vec, &sorted_nums, 0);
+    res
+}
+
+/// 
 /// Leetcode 216
 /// Combination Sum III
 ///
@@ -156,5 +187,39 @@ pub fn solve_n_queens_51(n: i32) -> Vec<Vec<String>> {
     let mut lt_rb_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
     let mut rt_lb_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
     inner_n_queen(&mut res, &mut current_vec, &mut row_map, &mut col_map, &mut lt_rb_map, &mut rt_lb_map, n);
+    res
+}
+
+/// 
+/// Leetcode 52
+/// N-Queens II
+///
+pub fn total_n_queens_52(n: i32) -> i32 {
+    fn inner_n_queens(row: i32, res: &mut i32, col_map: &mut Vec<bool>, lt_rb_map: &mut std::collections::HashMap<i32, bool>, rt_lb_map: &mut std::collections::HashMap<i32, bool>, n: i32) {
+        if row == n {
+            *res += 1;
+            return;
+        }
+        let mut index = 0;
+        while index < n as usize {
+            // Cut wrong cols
+            if col_map[index] == false && !lt_rb_map.contains_key(&((index as i32) - row)) && !rt_lb_map.contains_key(&((index as i32) + row)) {
+                col_map[index] = true;
+                lt_rb_map.insert((index as i32) - row, true);
+                rt_lb_map.insert((index as i32) + row, true);
+                inner_n_queens(row + 1, res, col_map, lt_rb_map, rt_lb_map, n); // next row
+                // backtrack
+                col_map[index] = false;
+                lt_rb_map.remove(&((index as i32) - row));
+                rt_lb_map.remove(&((index as i32) + row));
+            }
+            index += 1;
+        }
+    }
+    let mut res: i32 = 0;
+    let mut col_map: Vec<bool> = vec![false; n as usize];
+    let mut lt_rb_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let mut rt_lb_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    inner_n_queens(0, &mut res, &mut col_map, &mut lt_rb_map, &mut rt_lb_map, n);
     res
 }

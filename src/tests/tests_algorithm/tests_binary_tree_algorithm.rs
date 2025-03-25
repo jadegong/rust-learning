@@ -100,3 +100,13 @@ pub fn test_postorder_traversal_145() {
     let expected_ret: Vec<i32> = vec![4,6,7,5,2,9,8,3,1];
     assert_eq!(binary_tree_algorithm::postorder_traversal_145(binary_tree_algorithm::create_binary_tree(test_nums)), expected_ret);
 }
+
+#[test]
+pub fn test_num_trees_96() {
+    let test_n: i32 = 3;
+    let expected_ret: i32 = 5;
+    assert_eq!(binary_tree_algorithm::num_trees_96(test_n), expected_ret);
+    let test_n: i32 = 17;
+    let expected_ret: i32 = 129644790;
+    assert_eq!(binary_tree_algorithm::num_trees_96(test_n), expected_ret);
+}

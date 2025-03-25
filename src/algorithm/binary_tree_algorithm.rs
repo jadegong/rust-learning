@@ -1,6 +1,7 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 use crate::structure::treenode::TreeNode;
+use crate::structure::linked_list::ListNode;
 
 ///
 /// Create a binary tree from i32 Vec
@@ -729,4 +730,99 @@ pub fn postorder_traversal_145(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> 
     let mut nums: Vec<i32> = vec![];
     inner_postorder_traversal(root, &mut nums);
     nums
+}
+
+/// 
+/// Leetcode 96
+/// Unique Binary Search Trees
+/// Also dp solution
+///
+pub fn num_trees_96(n: i32) -> i32 {
+    let mut res: Vec<i32> = vec![1; n as usize + 1];
+    let mut index = 2;
+    while index <= n as usize {
+        let mut loop_index = 1; // root index
+        let mut current_ret: i32 = 0;
+        while loop_index <= index {
+            current_ret += res[loop_index - 1] * res[index - loop_index];
+            loop_index += 1;
+        }
+        res[index] = current_ret;
+        index += 1;
+    }
+    res[n as usize]
+}
+
+/// 
+/// Leetcode 109
+/// Convert Sorted List to Binary Search Tree
+///
+pub fn sorted_list_to_bst_109(head: Option<Box<ListNode>>) -> Option<Rc<RefCell<TreeNode>>> {
+    let mut nums: Vec<i32> = vec![];
+    let mut root = head.clone();
+    while root != None {
+        let root_rc = root.as_mut().unwrap();
+        nums.push(root_rc.val);
+        root = root_rc.next.clone();
+    }
+    fn inner_create_bst(nums: &Vec<i32>, start_index: i32, end_index: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        if start_index > end_index {
+            return None;
+        }
+        let middle_index = (start_index + end_index) / 2;
+        let root = Rc::new(RefCell::new(TreeNode::new(nums[middle_index as usize])));
+        root.borrow_mut().left = inner_create_bst(nums, start_index, middle_index - 1);
+        root.borrow_mut().right = inner_create_bst(nums, middle_index + 1, end_index);
+        Some(root)
+    }
+    let nums_len = nums.len();
+    inner_create_bst(&nums, 0, nums_len as i32 - 1)
+}
+
+/// 
+/// Leetcode 110
+/// Balanced Binary Tree
+///
+pub fn is_balanced_110(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+    fn inner_is_balanced_depth(node: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        if node == None {
+            return 0;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        return std::cmp::max(1 + inner_is_balanced_depth(node_ref.left.clone()), 1 + inner_is_balanced_depth(node_ref.right.clone()));
+    }
+    fn inner_is_balanced_bool(node: Option<Rc<RefCell<TreeNode>>>) -> bool {
+        if node == None {
+            return true;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        return (inner_is_balanced_depth(node_ref.left.clone()) - inner_is_balanced_depth(node_ref.right.clone())).abs() <= 1 &&
+            inner_is_balanced_bool(node_ref.left.clone()) &&
+            inner_is_balanced_bool(node_ref.right.clone());
+    }
+    inner_is_balanced_bool(root)
+}
+
+/// 
+/// Leetcode 111
+/// Minimum Depth of Binary Tree
+///
+pub fn min_depth_111(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    fn inner_min_depth(node: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        if node == None {
+            return 0;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        if node_ref.left == None {
+            return 1 + inner_min_depth(node_ref.right.clone());
+        } else if node_ref.right == None {
+            return 1 + inner_min_depth(node_ref.left.clone());
+        } else {
+            return std::cmp::min(1 + inner_min_depth(node_ref.left.clone()), 1 + inner_min_depth(node_ref.right.clone()));
+        }
+    }
+    inner_min_depth(root)
 }

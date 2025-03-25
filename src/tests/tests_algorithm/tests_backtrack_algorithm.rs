@@ -29,3 +29,10 @@ pub fn test_permute_46() {
     let expected_ret: Vec<Vec<i32>> = vec![vec![1,2,3],vec![1,3,2],vec![2,1,3],vec![2,3,1],vec![3,1,2],vec![3,2,1]];
     assert_eq!(backtrack_algorithm::permute_46(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_total_n_queens_52() {
+    let test_n: i32 = 4;
+    let expected_ret: i32 = 2;
+    assert_eq!(backtrack_algorithm::total_n_queens_52(test_n), expected_ret);
+}
