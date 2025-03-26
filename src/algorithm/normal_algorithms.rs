@@ -444,3 +444,43 @@ pub fn is_power_of_two_231(n: i32) -> bool {
     }
     ret
 }
+
+/// 
+/// Leetcode 258
+/// Add Digits
+/// eg: 38 -> 3 + 8 = 11 -> 1 + 1 = 2
+/// abc = 100a + 10b + c
+/// 100a + 10b + c - (a + b + c) = 99a + 9b
+/// (99a + 9b) % 9 = 0
+/// (100a + 10b + c) % 9 = (a + b + c) % 9
+/// a + b + c finally will return single digit
+///
+pub fn add_digits_258(num: i32) -> i32 {
+    if num == 0 {
+        return 0;
+    } else if num % 9 == 0 {
+        return 9;
+    } else {
+        return num % 9;
+    }
+}
+
+/// 
+/// Leetcode 263
+/// Ugly Number
+///
+pub fn is_ugly_263(n: i32) -> bool {
+    let mut origin_n = n;
+    while origin_n != 1 && origin_n != 0 {
+        if origin_n % 2 == 0 {
+            origin_n /= 2;
+        } else if origin_n % 3 == 0 {
+            origin_n /= 3;
+        } else if origin_n % 5 == 0 {
+            origin_n /= 5;
+        } else {
+            break;
+        }
+    }
+    origin_n == 1
+}

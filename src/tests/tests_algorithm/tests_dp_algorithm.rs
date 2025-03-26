@@ -206,3 +206,13 @@ pub fn test_rob_213() {
     let expected_ret = 3;
     assert_eq!(dp_algorithm::rob_213(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_num_squares_279() {
+    let test_n: i32 = 12;
+    let expected_ret = 3;
+    assert_eq!(dp_algorithm::num_squares_279(test_n), expected_ret);
+    let test_n: i32 = 13;
+    let expected_ret = 2;
+    assert_eq!(dp_algorithm::num_squares_279(test_n), expected_ret);
+}

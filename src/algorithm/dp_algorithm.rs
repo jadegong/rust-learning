@@ -672,3 +672,39 @@ pub fn rob_213(nums: Vec<i32>) -> i32 {
     }
     std::cmp::max(no_first_dp[nums_len - 1], with_first_dp[nums_len - 1])
 }
+
+/// 
+/// Leetcode 279
+/// Perfect Squares
+///
+pub fn num_squares_279(n: i32) -> i32 {
+    let mut squares: Vec<i32> = vec![];
+    let mut num = 1;
+    while num * num <= n {
+        squares.push(num * num);
+        num += 1;
+    }
+    let squares_len = squares.len();
+    let mut dp: Vec<i32> = vec![1];
+    num = 2;
+    let mut index;
+    let mut current_min;
+    while num <= n {
+        index = 0;
+        current_min = i32::MAX;
+        while index < squares_len {
+            if squares[index] > num {
+                break;
+            } else if squares[index] == num {
+                current_min = 1;
+                break;
+            } else {
+                current_min = std::cmp::min(current_min - 1, dp[(num - squares[index] - 1) as usize]) + 1;
+            }
+            index += 1;
+        }
+        dp.push(current_min);
+        num += 1;
+    }
+    dp[n as usize - 1]
+}
