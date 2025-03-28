@@ -1101,3 +1101,23 @@ pub fn contains_duplicate(nums: Vec<i32>) -> bool {
     }
     ret
 }
+
+/// 
+/// Leetcode 283
+/// Move Zeroes
+///
+pub fn move_zeroes_283(nums: &mut Vec<i32>) {
+    let mut none_zero_len = 0;
+    let mut current_index = 0;
+    let nums_len = nums.len();
+    while current_index < nums_len {
+        if nums[current_index] != 0 {
+            // Swap current_index and none_zero_len
+            let temp = nums[current_index];
+            nums[current_index] = nums[none_zero_len];
+            nums[none_zero_len] = temp;
+            none_zero_len += 1;
+        }
+        current_index += 1;
+    }
+}
