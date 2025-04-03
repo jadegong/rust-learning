@@ -36,3 +36,15 @@ pub fn test_total_n_queens_52() {
     let expected_ret: i32 = 2;
     assert_eq!(backtrack_algorithm::total_n_queens_52(test_n), expected_ret);
 }
+
+#[test]
+pub fn test_exist_79() {
+    let test_board: Vec<Vec<char>> = vec![vec!['A', 'B', 'C', 'E'], vec!['S', 'F', 'C', 'S'], vec!['A', 'D', 'E', 'E']];
+    let test_word: String = String::from("ABCCED");
+    let expected_ret = true;
+    assert_eq!(backtrack_algorithm::exist_79(test_board, test_word), expected_ret);
+    let test_board: Vec<Vec<char>> = vec![vec!['A', 'B', 'C', 'E'], vec!['S', 'F', 'C', 'S'], vec!['A', 'D', 'E', 'E']];
+    let test_word: String = String::from("ABCB");
+    let expected_ret = false;
+    assert_eq!(backtrack_algorithm::exist_79(test_board, test_word), expected_ret);
+}

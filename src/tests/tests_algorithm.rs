@@ -8,3 +8,4 @@ mod tests_linked_list_algorithm;
 mod tests_normal_algorithm;
 mod tests_heap_algorithm;
 mod tests_backtrack_algorithm;
+mod tests_graph_algorithms;

@@ -223,3 +223,77 @@ pub fn total_n_queens_52(n: i32) -> i32 {
     inner_n_queens(0, &mut res, &mut col_map, &mut lt_rb_map, &mut rt_lb_map, n);
     res
 }
+
+/// 
+/// Leetcode 79
+/// Word Search
+///
+pub fn exist_79(board: Vec<Vec<char>>, word: String) -> bool {
+    fn inner_word_search(matrix: &Vec<Vec<char>>, row: usize, col: usize, words: &Vec<char>, search_index: usize, visited_matrix: &mut Vec<Vec<bool>>) -> bool {
+        let words_len = words.len();
+        if search_index == words_len {
+            return true;
+        }
+        let rows = matrix.len();
+        let cols = matrix[0].len();
+        if row >= rows || col >= cols {
+            return false;
+        }
+        if matrix[row][col] != words[search_index] {
+            return false;
+        }
+        if visited_matrix[row][col] {
+            return false;
+        }
+        visited_matrix[row][col] = true;
+        if row > 0 {
+            let top_ret = inner_word_search(matrix, row - 1, col, words, search_index + 1, visited_matrix);
+            if top_ret {
+                return true;
+            }
+        }
+        if col > 0 {
+            let left_ret = inner_word_search(matrix, row, col - 1, words, search_index + 1, visited_matrix);
+            if left_ret {
+                return true;
+            }
+        }
+        let right_ret = inner_word_search(matrix, row, col + 1, words, search_index + 1, visited_matrix);
+        if right_ret {
+            return true;
+        }
+        let bottom_ret = inner_word_search(matrix, row + 1, col, words, search_index + 1, visited_matrix);
+        if bottom_ret {
+            return true;
+        }
+        // backtrack current visited
+        visited_matrix[row][col] = false;
+        return false;
+    }
+    let words: Vec<char> = word.chars().collect();
+    let rows = board.len();
+    let cols = board[0].len();
+    let mut visited_matrix: Vec<Vec<bool>> = vec![vec![false; cols]; rows];
+    let mut row_index = 0;
+    let mut col_index;
+    let mut ret = false;
+    'row_loop: loop {
+        if row_index >= rows {
+            break;
+        }
+        col_index = 0;
+        loop {
+            if col_index >= cols {
+                break;
+            }
+            let current_ret = inner_word_search(&board, row_index, col_index, &words, 0, &mut visited_matrix);
+            if current_ret {
+                ret = true;
+                break 'row_loop;
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    ret
+}
