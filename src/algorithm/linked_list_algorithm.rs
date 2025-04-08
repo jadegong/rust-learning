@@ -288,3 +288,29 @@ pub fn partition_86(head: Option<Box<ListNode>>, x: i32) -> Option<Box<ListNode>
     }
     ret
 }
+
+/// 
+/// Leetcode 234
+/// Palindrome Linked List
+///
+pub fn is_palindrome_234(head: Option<Box<ListNode>>) -> bool {
+    let mut nums: Vec<i32> = vec![];
+    let mut nums_len = 0;
+    let mut current_node = head.clone();
+    while current_node != None {
+        let current_val = current_node.as_ref().unwrap().val;
+        nums.push(current_val);
+        nums_len += 1;
+        current_node = current_node.unwrap().next;
+    }
+    let mut ret = true;
+    let mut index = 0;
+    while index < nums_len / 2 {
+        if nums[index] != nums[nums_len - index - 1] {
+            ret = false;
+            break;
+        }
+        index += 1;
+    }
+    ret
+}

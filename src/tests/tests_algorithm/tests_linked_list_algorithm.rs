@@ -48,3 +48,13 @@ pub fn test_remove_nth_from_end_19() {
     assert!(linked_list_algorithm::compare_two_linked_list(expected_list, linked_list_algorithm::remove_nth_from_end_19(test_list, 1)));
 }
 
+#[test]
+pub fn test_is_palindrome_234() {
+    let test_nums: Vec<i32> = vec![1,2,2,1];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    assert!(linked_list_algorithm::is_palindrome_234(test_list));
+    let test_nums: Vec<i32> = vec![1,2];
+    let test_list = linked_list_algorithm::create_linked_list(test_nums);
+    assert!(!linked_list_algorithm::is_palindrome_234(test_list));
+}
+

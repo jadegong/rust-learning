@@ -877,3 +877,29 @@ pub fn binary_tree_paths_257(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String>
     inner_binary_tree_paths(&mut res, &mut current_vec, root);
     res
 }
+
+/// 
+/// Leetcode 235
+/// Lowest Common Ancestor of a Binary Search Tree
+/// If both p and q are smaller or bigger than current node, continue
+/// Otherwise, break
+///
+pub fn lowest_common_ancestor_235(root: Option<Rc<RefCell<TreeNode>>>, p: Option<Rc<RefCell<TreeNode>>>, q: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
+    let mut node = root.clone();
+    let p_rc = p.unwrap();
+    let p_ref = p_rc.borrow();
+    let q_rc = q.unwrap();
+    let q_ref = q_rc.borrow();
+    loop {
+        let node_rc = node.clone().unwrap();
+        let node_ref = node_rc.borrow();
+        if p_ref.val < node_ref.val && q_ref.val < node_ref.val {
+            node = node_ref.left.clone();
+        } else if p_ref.val > node_ref.val && q_ref.val > node_ref.val {
+            node = node_ref.right.clone();
+        } else {
+            break;
+        }
+    }
+    node
+}
