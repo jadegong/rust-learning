@@ -291,3 +291,16 @@ pub fn test_two_sum_167() {
     let expected_ret: Vec<i32> = vec![4,5];
     assert_eq!(array_algorithm::two_sum_167(test_nums, test_target), expected_ret);
 }
+
+#[test]
+pub fn test_find_duplicate_287() {
+    let test_nums: Vec<i32> = vec![1,3,4,2,2];
+    let expected_ret = 2;
+    assert_eq!(array_algorithm::find_duplicate_287(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![3,1,3,2,4];
+    let expected_ret = 3;
+    assert_eq!(array_algorithm::find_duplicate_287(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![3,3,3,3,3];
+    let expected_ret = 3;
+    assert_eq!(array_algorithm::find_duplicate_287(test_nums), expected_ret);
+}

@@ -1121,3 +1121,31 @@ pub fn move_zeroes_283(nums: &mut Vec<i32>) {
         current_index += 1;
     }
 }
+
+///
+/// Leetcode 287
+/// Find the Duplicate Number
+/// Use slow fast pointers
+///
+pub fn find_duplicate_287(nums: Vec<i32>) -> i32 {
+    let nums_len = nums.len();
+    if nums_len < 2 {
+        return nums[0];
+    }
+    let mut slow = nums[0];
+    let mut fast = nums[0];
+    // find the meeting point
+    loop {
+        slow = nums[slow as usize];
+        fast = nums[nums[fast as usize] as usize];
+        if slow == fast {
+            break;
+        }
+    }
+    slow = nums[0];
+    while slow != fast {
+        slow = nums[slow as usize];
+        fast = nums[fast as usize];
+    }
+    slow
+}
