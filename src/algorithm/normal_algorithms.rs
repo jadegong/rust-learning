@@ -484,3 +484,29 @@ pub fn is_ugly_263(n: i32) -> bool {
     }
     origin_n == 1
 }
+
+/// Leetcode 264
+/// Ugly Number II
+///
+pub fn nth_ugly_number_264(n: i32) -> i32 {
+    let mut dp: Vec<i32> = vec![0;n as usize];
+    dp[0] = 1;
+    let mut index = 1;
+    let mut x = 0; // 2
+    let mut y = 0; // 3
+    let mut z = 0; // 5
+    while index < n {
+        dp[index as usize] = std::cmp::min(std::cmp::min(2*dp[x], 3*dp[y]), 5*dp[z]);
+        if dp[index as usize] == 2*dp[x] {
+            x += 1;
+        }
+        if dp[index as usize] == 3*dp[y] {
+            y += 1;
+        }
+        if dp[index as usize] == 5*dp[z] {
+            z += 1;
+        }
+        index += 1;
+    }
+    dp[n as usize - 1]
+}

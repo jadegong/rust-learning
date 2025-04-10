@@ -173,3 +173,10 @@ pub fn test_count_primes_204() {
     let expected_ret = 348513;
     assert_eq!(normal_algorithms::count_primes_204(test_n), expected_ret);
 }
+
+#[test]
+pub fn test_nth_ugly_number_264() {
+    let test_n = 10;
+    let expected_ret = 12;
+    assert_eq!(normal_algorithms::nth_ugly_number_264(test_n), expected_ret);
+}
