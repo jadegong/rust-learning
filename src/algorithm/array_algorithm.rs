@@ -1149,3 +1149,126 @@ pub fn find_duplicate_287(nums: Vec<i32>) -> i32 {
     }
     slow
 }
+
+/// 
+/// Leetcode 229
+/// Majority Element II
+///
+pub fn majority_element_229(nums: Vec<i32>) -> Vec<i32> {
+    let mut nums_map: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
+    let nums_len = nums.len();
+    let mut index = 0;
+    while index < nums_len {
+        if nums_map.contains_key(&nums[index]) {
+            let old_n = nums_map.get(&nums[index]).unwrap();
+            nums_map.insert(nums[index], *old_n + 1);
+        } else {
+            nums_map.insert(nums[index], 1);
+        }
+        index += 1;
+    }
+    index = 0;
+    let count_vec: Vec<&i32> = nums_map.keys().collect();
+    let count_vec_len = count_vec.len();
+    let mut ret: Vec<i32> = vec![];
+    while index < count_vec_len {
+        let old_n = nums_map.get(count_vec[index]).unwrap();
+        if *old_n > (nums_len / 3) as i32 {
+            ret.push(*count_vec[index]);
+        }
+        index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 240
+/// Search a 2D Matrix II
+///
+pub fn search_matrix_240(matrix: Vec<Vec<i32>>, target: i32) -> bool {
+    fn inner_search_matrix_col(matrix: &Vec<Vec<i32>>, start_col: usize, end_col: usize, row: usize, target: i32, start: bool) -> usize {
+        // binary search
+        let mut left = start_col;
+        let mut right = end_col;
+        let mut middle: usize;
+        while left < right {
+            middle = (left + right) / 2;
+            if matrix[row][middle] > target {
+                right = middle;
+            } else if matrix[row][middle] == target {
+                left = middle;
+                right = middle;
+                break;
+            } else {
+                left = middle;
+                if left == right - 1 {
+                    if matrix[row][right] == target {
+                        left = right;
+                    }
+                    break;
+                }
+            }
+        }
+        if start {
+            return right;
+        } else {
+            return left;
+        }
+    }
+    fn inner_search_matrix_row(matrix: &Vec<Vec<i32>>, start_row: usize, end_row: usize, col: usize, target: i32, start: bool) -> usize {
+        // binary search
+        let mut left = start_row;
+        let mut right = end_row;
+        let mut middle: usize;
+        while left < right {
+            middle = (left + right) / 2;
+            if matrix[middle][col] > target {
+                right = middle;
+            } else if matrix[middle][col] == target {
+                left = middle;
+                right = middle;
+                break;
+            } else {
+                left = middle;
+                if left == right - 1 {
+                    if matrix[right][col] == target {
+                        left = right;
+                    }
+                    break;
+                }
+            }
+        }
+        if start {
+            return right;
+        } else {
+            return left;
+        }
+    }
+    let rows =  matrix.len();
+    let cols = matrix[0].len();
+    let mut row_start: usize = 0;
+    let mut row_end: usize = rows - 1;
+    let mut col_start: usize = 0;
+    let mut col_end: usize = cols - 1;
+    loop {
+        if row_start != row_end {
+            row_start = inner_search_matrix_row(&matrix, row_start, row_end, col_end, target, true);
+            row_end = inner_search_matrix_row(&matrix, row_start, row_end, col_start, target, false);
+        }
+        if col_start != col_end {
+            col_start = inner_search_matrix_col(&matrix, col_start, col_end, row_end, target, true);
+            col_end = inner_search_matrix_col(&matrix, col_start, col_end, row_start, target, false);
+        }
+        if row_start == row_end && col_start == col_end {
+            break;
+        }
+        if matrix[row_start][col_end] == target {
+            col_start = col_end;
+            break;
+        }
+    }
+    if matrix[row_start][col_start] == target {
+        return true;
+    }
+    return false;
+}

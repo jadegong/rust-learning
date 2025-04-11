@@ -304,3 +304,33 @@ pub fn test_find_duplicate_287() {
     let expected_ret = 3;
     assert_eq!(array_algorithm::find_duplicate_287(test_nums), expected_ret);
 }
+
+#[test]
+pub fn test_majority_element_229() {
+    let test_nums: Vec<i32> = vec![3,2,3];
+    let expected_ret: Vec<i32> = vec![3];
+    assert_eq!(array_algorithm::majority_element_229(test_nums), expected_ret);
+    let test_nums: Vec<i32> = vec![1,2];
+    let expected_ret: Vec<i32> = vec![1,2];
+    assert_eq!(array_algorithm::majority_element_229(test_nums), expected_ret);
+}
+
+#[test]
+pub fn test_search_matrix_240() {
+    let test_matrix: Vec<Vec<i32>> = vec![
+        vec![3,6,9,12,17,22],
+        vec![5,11,11,16,22,26],
+        vec![10,11,14,16,24,31],
+        vec![10,15,17,17,29,31],
+        vec![14,17,20,23,34,37],
+        vec![19,21,22,28,37,40],
+        vec![22,22,24,32,37,43]];
+    let test_target = 20;
+    assert_eq!(array_algorithm::search_matrix_240(test_matrix, test_target), true);
+    let test_matrix: Vec<Vec<i32>> = vec![
+        vec![5,6,9],
+        vec![9,10,11],
+        vec![11,14,18]];
+    let test_target = 9;
+    assert_eq!(array_algorithm::search_matrix_240(test_matrix, test_target), true);
+}

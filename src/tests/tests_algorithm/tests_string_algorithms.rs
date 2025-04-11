@@ -242,3 +242,16 @@ pub fn test_add_binary_67() {
     let expected_ret: String = String::from("10101");
     assert_eq!(string_algorithms::add_binary_67(test_a, test_b), expected_ret);
 }
+
+#[test]
+pub fn test_word_break_139() {
+    let test_s: String = String::from("leetcode");
+    let word_dict: Vec<String> = vec![String::from("leet"), String::from("code")];
+    assert_eq!(string_algorithms::word_break_139(test_s, word_dict), true);
+    let test_s: String = String::from("abcd");
+    let word_dict: Vec<String> = vec![String::from("a"), String::from("abc"), String::from("b"), String::from("cd")];
+    assert_eq!(string_algorithms::word_break_139(test_s, word_dict), true);
+    let test_s: String = String::from("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    let word_dict: Vec<String> = vec![String::from("a"), String::from("aa"), String::from("aaa"), String::from("aaaa"), String::from("aaaaa"), String::from("aaaaaa"), String::from("aaaaaaa"), String::from("aaaaaaaa"), String::from("aaaaaaaaa"), String::from("aaaaaaaaaa")];
+    assert_eq!(string_algorithms::word_break_139(test_s, word_dict), false);
+}

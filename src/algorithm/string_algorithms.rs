@@ -780,3 +780,35 @@ pub fn add_binary_67(a: String, b: String) -> String {
     }
     ret
 }
+
+/// 
+/// Leetcode 139
+/// Word Break
+///
+pub fn word_break_139(s: String, word_dict: Vec<String>) -> bool {
+    let s_len = s.len();
+    let word_dict_len = word_dict.len();
+    let mut dp: Vec<bool> = vec![false; s_len];
+    let mut s_index = 0;
+    let mut dict_index: usize;
+    let mut current_word_len: usize;
+    while s_index < s_len {
+        dict_index = 0;
+        while dict_index < word_dict_len {
+            current_word_len = word_dict[dict_index].len();
+            if current_word_len == s_index + 1 && &s[..current_word_len] == &word_dict[dict_index] {
+                dp[s_index] = true;
+                break;
+            }
+            if current_word_len < s_index + 1 && &s[(s_index + 1 - current_word_len)..(s_index + 1)] == &word_dict[dict_index] {
+                dp[s_index] = dp[s_index - current_word_len];
+                if dp[s_index] {
+                    break;
+                }
+            }
+            dict_index += 1;
+        }
+        s_index += 1;
+    }
+    dp[s_len - 1]
+}
