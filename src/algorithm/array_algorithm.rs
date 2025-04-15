@@ -1296,3 +1296,30 @@ pub fn search_matrix_240_2(matrix: Vec<Vec<i32>>, target: i32) -> bool {
     }
     return true;
 }
+
+/// 
+/// Leetcode 74
+/// Search a 2D Matrix
+///
+pub fn search_matrix_74(matrix: Vec<Vec<i32>>, target: i32) -> bool {
+    let rows = matrix.len();
+    let cols = matrix[0].len();
+    let mut row_index = 0;
+    let mut col_index = cols - 1;
+    loop {
+        if matrix[row_index][col_index] == target {
+            break;
+        } else if matrix[row_index][col_index] > target {
+            if col_index == 0 {
+                return false;
+            }
+            col_index -= 1;
+        } else {
+            if row_index == rows - 1 {
+                return false;
+            }
+            row_index += 1;
+        }
+    }
+    return true;
+}
