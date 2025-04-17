@@ -708,3 +708,54 @@ pub fn num_squares_279(n: i32) -> i32 {
     }
     dp[n as usize - 1]
 }
+
+/// 
+/// Leetcode 322
+/// Coin Change
+///
+pub fn coin_change_322(coins: Vec<i32>, amount: i32) -> i32 {
+    if amount == 0 {
+        return 0;
+    }
+    let coins_len = coins.len();
+    let mut dp: Vec<Vec<i32>> = vec![vec![-1;coins_len];amount as usize + 1];
+    dp[0] = vec![0;coins_len];
+    let mut row_index = 1;
+    let mut col_index;
+    while row_index <= amount as usize {
+        col_index = 0;
+        while col_index < coins_len {
+            // 1.pick col_index, dp[row_index][col_index] = dp[row_index - coins[col_index]][col_index] + 1
+            // 2.not pick: dp[row_index][col_index] = dp[row_index][col_index - 1];
+            let pick_ret;
+            if row_index < (coins[col_index] as usize) {
+                pick_ret = i32::MAX;
+            } else {
+                if dp[row_index - (coins[col_index] as usize)][col_index] == -1 {
+                    pick_ret = i32::MAX;
+                } else {
+                    pick_ret = dp[row_index - (coins[col_index] as usize)][col_index] + 1;
+                }
+            }
+            let not_pick_ret;
+            if col_index == 0 {
+                not_pick_ret = i32::MAX;
+            } else {
+                if dp[row_index][col_index - 1] == -1 {
+                    not_pick_ret = i32::MAX;
+                } else {
+                    not_pick_ret = dp[row_index][col_index - 1];
+                }
+            }
+            let current_ret = std::cmp::min(pick_ret, not_pick_ret);
+            if current_ret == i32::MAX {
+                dp[row_index][col_index] = -1;
+            } else {
+                dp[row_index][col_index] = current_ret;
+            }
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    dp[amount as usize][coins_len - 1]
+}

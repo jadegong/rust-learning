@@ -510,3 +510,35 @@ pub fn nth_ugly_number_264(n: i32) -> i32 {
     }
     dp[n as usize - 1]
 }
+
+/// 
+/// Leetcode 313
+/// Super Ugly Number
+///
+pub fn nth_super_ugly_number_313(n: i32, primes: Vec<i32>) -> i32 {
+    let primes_len = primes.len();
+    let mut ugly_nums: Vec<i64> = vec![0;n as usize];
+    let mut primes_index: Vec<usize> = vec![0; primes_len];
+    ugly_nums[0] = 1;
+    let mut index = 1;
+    let mut inner_index;
+    let mut current_ugly_num;
+    while index < n {
+        current_ugly_num = i64::MAX;
+        inner_index = 0;
+        while inner_index < primes_len {
+            current_ugly_num = std::cmp::min(current_ugly_num, primes[inner_index] as i64 * ugly_nums[primes_index[inner_index]]);
+            inner_index += 1;
+        }
+        inner_index = 0;
+        while inner_index < primes_len {
+            if current_ugly_num == primes[inner_index] as i64 * ugly_nums[primes_index[inner_index]] {
+                primes_index[inner_index] += 1;
+            }
+            inner_index += 1;
+        }
+        ugly_nums[index as usize] = current_ugly_num;
+        index += 1;
+    }
+    ugly_nums[n as usize - 1] as i32
+}

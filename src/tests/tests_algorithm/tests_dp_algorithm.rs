@@ -216,3 +216,11 @@ pub fn test_num_squares_279() {
     let expected_ret = 2;
     assert_eq!(dp_algorithm::num_squares_279(test_n), expected_ret);
 }
+
+#[test]
+pub fn test_coin_change_322() {
+    let test_coins: Vec<i32> = vec![2,5,10,1];
+    let test_amount = 27;
+    let expected_ret = 4;
+    assert_eq!(dp_algorithm::coin_change_322(test_coins, test_amount), expected_ret);
+}

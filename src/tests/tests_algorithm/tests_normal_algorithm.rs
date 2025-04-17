@@ -180,3 +180,11 @@ pub fn test_nth_ugly_number_264() {
     let expected_ret = 12;
     assert_eq!(normal_algorithms::nth_ugly_number_264(test_n), expected_ret);
 }
+
+#[test]
+pub fn test_nth_super_ugly_number_313() {
+    let test_n = 12;
+    let test_primes: Vec<i32> = vec![2,7,13,19];
+    let expected_ret = 32;
+    assert_eq!(normal_algorithms::nth_super_ugly_number_313(test_n, test_primes), expected_ret);
+}
