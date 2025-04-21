@@ -297,3 +297,151 @@ pub fn exist_79(board: Vec<Vec<char>>, word: String) -> bool {
     }
     ret
 }
+
+/// 
+/// Leetcode 17
+/// Letter Combinations of a Phone Number
+///
+pub fn letter_combinations_17(digits: String) -> Vec<String> {
+    fn inner_letter_combinations(digits_nums: &Vec<u32>, digits_len: usize, digit_index: usize, digit_map: &Vec<Vec<char>>, current_ret: &mut Vec<char>, ret: &mut Vec<String>) {
+        if digit_index == digits_len {
+            if digit_index != 0 {
+                ret.push(current_ret.iter().collect());
+            }
+            return;
+        }
+        let mut index = 0;
+        let current_map_chars: Vec<char> = digit_map[(digits_nums[digit_index] as usize) - 2].clone();
+        let current_map_chars_len = current_map_chars.len();
+        while index < current_map_chars_len {
+            current_ret.push(current_map_chars[index]);
+            inner_letter_combinations(digits_nums, digits_len, digit_index + 1, digit_map, current_ret, ret);
+            current_ret.pop();
+            index += 1;
+        }
+    }
+    let mut ret: Vec<String> = vec![];
+    let mut current_ret:Vec<char> = vec![];
+    let digits_chars: Vec<char> = digits.chars().collect();
+    let digits_len = digits_chars.len();
+    let digit_map: Vec<Vec<char>> = vec![
+        vec!['a', 'b', 'c'],
+        vec!['d', 'e', 'f'],
+        vec!['g', 'h', 'i'],
+        vec!['j', 'k', 'l'],
+        vec!['m', 'n', 'o'],
+        vec!['p', 'q', 'r', 's'],
+        vec!['t', 'u', 'v'],
+        vec!['w', 'x', 'y', 'z'],
+    ];
+    let mut digit_index = 0;
+    let mut digits_nums: Vec<u32> = vec![];
+    while digit_index < digits_len {
+        digits_nums.push(digits_chars[digit_index].to_digit(10).unwrap());
+        digit_index += 1;
+    }
+    digit_index = 0;
+    inner_letter_combinations(&digits_nums, digits_len, digit_index, &digit_map, &mut current_ret, &mut ret);
+    ret
+}
+
+/// 
+/// Leetcode 22
+/// Generate Parentheses
+///
+pub fn generate_parentheses_22(n: i32) -> Vec<String> {
+    fn inner_generate_parentheses(ret: &mut Vec<String>, current_ret: &mut Vec<char>, left_count: i32, right_count: i32, n: i32) {
+        if left_count < right_count {
+            return;
+        }
+        if left_count == right_count { // Only add left
+            if left_count == n {
+                ret.push(current_ret.iter().collect());
+                return;
+            }
+            current_ret.push('(');
+            inner_generate_parentheses(ret, current_ret, left_count + 1, right_count, n);
+            current_ret.pop();
+        } else {
+            if left_count < n { // 1. add left
+                current_ret.push('(');
+                inner_generate_parentheses(ret, current_ret, left_count + 1, right_count, n);
+                current_ret.pop();
+            }
+            // 2. add right
+            current_ret.push(')');
+            inner_generate_parentheses(ret, current_ret, left_count, right_count + 1, n);
+            current_ret.pop();
+        }
+    }
+    let mut ret: Vec<String> = vec![];
+    let mut current_ret: Vec<char> = vec![];
+    inner_generate_parentheses(&mut ret, &mut current_ret, 0, 0, n);
+    ret
+}
+
+/// 
+/// Leetcode 39
+/// Combination Sum
+///
+pub fn combination_sum_39(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+    fn inner_combination_sum(ret: &mut Vec<Vec<i32>>, current_ret: &mut Vec<i32>, candidates: &Vec<i32>, candidate_index: usize, candidates_len: usize, target: i32) {
+        if candidate_index > candidates_len {
+            return;
+        }
+        if target <= 0 {
+            if target == 0 {
+                ret.push(current_ret.to_vec());
+            }
+            return;
+        }
+        let mut index = candidate_index;
+        while index < candidates_len {
+            current_ret.push(candidates[index]);
+            inner_combination_sum(ret, current_ret, candidates, index, candidates_len, target - candidates[index]);
+            current_ret.pop();
+            index += 1;
+        }
+    }
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let mut current_ret: Vec<i32> = vec![];
+    let candidates_len = candidates.len();
+    inner_combination_sum(&mut ret, &mut current_ret, &candidates, 0, candidates_len, target);
+    ret
+}
+
+/// 
+/// Leetcode 40
+/// Combination Sum II
+///
+pub fn combination_sum2_40(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+    fn inner_combination_sum(ret: &mut Vec<Vec<i32>>, current_ret: &mut Vec<i32>, candidates: &Vec<i32>, candidate_index: usize, candidates_len: usize, target: i32) {
+        if candidate_index > candidates_len {
+            return;
+        }
+        if target <= 0 {
+            if target == 0 {
+                ret.push(current_ret.to_vec());
+            }
+            return;
+        }
+        let mut index = candidate_index;
+        while index < candidates_len {
+            if index > candidate_index && candidates[index - 1] == candidates[index] {
+                index += 1;
+                continue;
+            }
+            current_ret.push(candidates[index]);
+            inner_combination_sum(ret, current_ret, candidates, index + 1, candidates_len, target - candidates[index]);
+            current_ret.pop();
+            index += 1;
+        }
+    }
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let mut current_ret: Vec<i32> = vec![];
+    let candidates_len = candidates.len();
+    let mut candidates_sorted = candidates.to_vec();
+    candidates_sorted.sort();
+    inner_combination_sum(&mut ret, &mut current_ret, &candidates_sorted, 0, candidates_len, target);
+    ret
+}
