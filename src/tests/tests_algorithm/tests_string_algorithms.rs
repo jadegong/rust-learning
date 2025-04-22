@@ -255,3 +255,10 @@ pub fn test_word_break_139() {
     let word_dict: Vec<String> = vec![String::from("a"), String::from("aa"), String::from("aaa"), String::from("aaaa"), String::from("aaaaa"), String::from("aaaaaa"), String::from("aaaaaaa"), String::from("aaaaaaaa"), String::from("aaaaaaaaa"), String::from("aaaaaaaaaa")];
     assert_eq!(string_algorithms::word_break_139(test_s, word_dict), false);
 }
+
+#[test]
+pub fn test_reverse_vowels_345() {
+    let test_s: String = String::from("IceCreAm");
+    let expected_ret: String = String::from("AceCreIm");
+    assert_eq!(string_algorithms::reverse_vowels_345(test_s), expected_ret);
+}

@@ -812,3 +812,49 @@ pub fn word_break_139(s: String, word_dict: Vec<String>) -> bool {
     }
     dp[s_len - 1]
 }
+
+/// 
+/// Leetcode 345
+/// Reverse Vowels of a String
+///
+pub fn reverse_vowels_345(s: String) -> String {
+    let mut s_chars: Vec<char> = s.chars().collect();
+    let s_len = s_chars.len();
+    if s_len == 0 {
+        return String::from("");
+    }
+    let mut left = 0;
+    let mut right = s_len - 1;
+    while left < right {
+        while s_chars[left] != 'a' && s_chars[left] != 'A' &&
+        s_chars[left] != 'e' && s_chars[left] != 'E' &&
+        s_chars[left] != 'i' && s_chars[left] != 'I' &&
+        s_chars[left] != 'o' && s_chars[left] != 'O' &&
+        s_chars[left] != 'u' && s_chars[left] != 'U' {
+            if left > right || left >= s_len - 1 {
+                break;
+            }
+            left += 1;
+        }
+        while s_chars[right] != 'a' && s_chars[right] != 'A' &&
+        s_chars[right] != 'e' && s_chars[right] != 'E' &&
+        s_chars[right] != 'i' && s_chars[right] != 'I' &&
+        s_chars[right] != 'o' && s_chars[right] != 'O' &&
+        s_chars[right] != 'u' && s_chars[right] != 'U' {
+            if left > right || right == 0 {
+                break;
+            }
+            right -= 1;
+        }
+        if left >= right {
+            break;
+        }
+        // swap left and right chars
+        let temp = s_chars[left];
+        s_chars[left] = s_chars[right];
+        s_chars[right] =temp;
+        left += 1;
+        right -= 1;
+    }
+    return s_chars.iter().collect();
+}

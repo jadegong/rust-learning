@@ -903,3 +903,27 @@ pub fn lowest_common_ancestor_235(root: Option<Rc<RefCell<TreeNode>>>, p: Option
     }
     node
 }
+
+/// 
+/// Leetcode 337
+/// House Robber III
+///
+pub fn rob_337(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    fn inner_rob(node: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+        let mut ret: Vec<i32> = vec![0;2];
+        if node == None {
+            return ret;
+        }
+        let node_rc = node.unwrap();
+        let node_ref = node_rc.borrow();
+        let lefts: Vec<i32> = inner_rob(node_ref.left.clone());
+        let rights: Vec<i32> = inner_rob(node_ref.right.clone());
+        // node is not robbed
+        ret[0] = std::cmp::max(lefts[0] + std::cmp::max(rights[0], rights[1]), lefts[1] + std::cmp::max(rights[0], rights[1]));
+        // node is robbed
+        ret[1] = lefts[0] + rights[0] + node_ref.val;
+        ret
+    }
+    let res: Vec<i32> = inner_rob(root);
+    return std::cmp::max(res[0], res[1]);
+}

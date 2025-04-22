@@ -1323,3 +1323,31 @@ pub fn search_matrix_74(matrix: Vec<Vec<i32>>, target: i32) -> bool {
     }
     return true;
 }
+
+/// 
+/// Leetcode 349
+/// Intersection of Two Arrays
+///
+pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    let mut nums1_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let mut nums2_map:  std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
+    let nums1_len = nums1.len();
+    let nums2_len = nums2.len();
+    let mut index = 0;
+    while index < nums1_len {
+        if !nums1_map.contains_key(&nums1[index]) {
+            nums1_map.insert(nums1[index], true);
+        }
+        index += 1;
+    }
+    index = 0;
+    while index < nums2_len {
+        if nums1_map.contains_key(&nums2[index]) && !nums2_map.contains_key(&nums2[index]) {
+            ret.push(nums2[index]);
+            nums2_map.insert(nums2[index], true);
+        }
+        index += 1;
+    }
+    ret
+}

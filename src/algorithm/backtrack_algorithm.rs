@@ -445,3 +445,41 @@ pub fn combination_sum2_40(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
     inner_combination_sum(&mut ret, &mut current_ret, &candidates_sorted, 0, candidates_len, target);
     ret
 }
+
+/// 
+/// Leetcode 47
+/// Permutations II
+///
+pub fn permute_unique_47(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    fn inner_permute_unique(ret: &mut Vec<Vec<i32>>, current_ret: &mut Vec<i32>, used_map: &mut std::collections::HashMap<usize, bool>, nums: &Vec<i32>, nums_len: usize, remain_num: i32) {
+        if remain_num == 0 {
+            ret.push(current_ret.to_vec());
+            return;
+        }
+        let mut index = 0;
+        while index < nums_len {
+            if !used_map.contains_key(&index) {
+                current_ret.push(nums[index]);
+                used_map.insert(index, true);
+                inner_permute_unique(ret, current_ret, used_map, nums, nums_len, remain_num - 1);
+                current_ret.pop();
+                used_map.remove(&index);
+                index += 1;
+                while index < nums_len && nums[index] == nums[index - 1] { // jump later repeated
+                    index += 1;
+                }
+            } else {
+                index += 1;
+            }
+        }
+    }
+
+    let mut ret: Vec<Vec<i32>> = vec![];
+    let mut current_ret: Vec<i32> = vec![];
+    let mut nums_sorted: Vec<i32> = nums.to_vec();
+    nums_sorted.sort();
+    let mut used_map: std::collections::HashMap<usize, bool> = std::collections::HashMap::new();
+    let nums_len = nums.len();
+    inner_permute_unique(&mut ret, &mut current_ret, &mut used_map, &nums_sorted, nums_len, nums_len as i32);
+    ret
+}
