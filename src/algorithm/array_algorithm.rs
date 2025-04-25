@@ -1328,7 +1328,7 @@ pub fn search_matrix_74(matrix: Vec<Vec<i32>>, target: i32) -> bool {
 /// Leetcode 349
 /// Intersection of Two Arrays
 ///
-pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+pub fn intersection_349(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
     let mut ret: Vec<i32> = vec![];
     let mut nums1_map: std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
     let mut nums2_map:  std::collections::HashMap<i32, bool> = std::collections::HashMap::new();
@@ -1348,6 +1348,34 @@ pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
             nums2_map.insert(nums2[index], true);
         }
         index += 1;
+    }
+    ret
+}
+
+/// 
+/// Leetcode 350
+/// Intersection of Two Arrays II
+///
+pub fn intersect_350(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+    let mut ret: Vec<i32> = vec![];
+    let mut nums1_sorted = nums1.to_vec();
+    let mut nums2_sorted = nums2.to_vec();
+    nums1_sorted.sort();
+    nums2_sorted.sort();
+    let nums1_len = nums1.len();
+    let nums2_len = nums2.len();
+    let mut index1 = 0;
+    let mut index2 = 0;
+    while index1 < nums1_len && index2 < nums2_len {
+        if nums1_sorted[index1] == nums2_sorted[index2] {
+            ret.push(nums1_sorted[index1]);
+            index1 += 1;
+            index2 += 1;
+        } else if nums1_sorted[index1] < nums2_sorted[index2] {
+            index1 += 1;
+        } else {
+            index2 += 1;
+        }
     }
     ret
 }

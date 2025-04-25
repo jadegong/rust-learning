@@ -542,3 +542,46 @@ pub fn nth_super_ugly_number_313(n: i32, primes: Vec<i32>) -> i32 {
     }
     ugly_nums[n as usize - 1] as i32
 }
+
+/// 
+/// Leetcode 367
+/// Valid Perfect Square
+///
+pub fn is_perfect_square_367(num: i32) -> bool {
+    let mut width = 1;
+    let mut height = num;
+    loop {
+        if width >= height - 1 {
+            break;
+        }
+        height = (width + height) / 2;
+        width = num / height;
+    }
+    return width == height && width * height == num;
+}
+
+/// 
+/// Leetcode 357
+/// Count Numbers with Unique Digits
+///
+pub fn count_numbers_with_unique_digits_357(n: i32) -> i32 {
+    let mut dp: Vec<i32> = vec![];
+    dp.push(1);
+    let mut index = 1;
+    let mut current_num;
+    let mut inner_index;
+    let mut current_digits;
+    while index <= n {
+        current_num = 9;
+        inner_index = 1;
+        current_digits = 9;
+        while inner_index < index {
+            current_num *= current_digits;
+            current_digits -= 1;
+            inner_index += 1;
+        }
+        dp.push(current_num + dp[index as usize - 1]);
+        index += 1;
+    }
+    dp[n as usize]
+}

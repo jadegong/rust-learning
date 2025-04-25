@@ -188,3 +188,21 @@ pub fn test_nth_super_ugly_number_313() {
     let expected_ret = 32;
     assert_eq!(normal_algorithms::nth_super_ugly_number_313(test_n, test_primes), expected_ret);
 }
+
+#[test]
+pub fn test_is_perfect_square_367() {
+    let test_num = 16;
+    assert_eq!(normal_algorithms::is_perfect_square_367(test_num), true);
+    let test_num = 14;
+    assert_eq!(normal_algorithms::is_perfect_square_367(test_num), false);
+}
+
+#[test]
+pub fn test_count_numbers_with_unique_digits_357() {
+    let test_n: i32 = 0;
+    let expected_ret = 1;
+    assert_eq!(normal_algorithms::count_numbers_with_unique_digits_357(test_n), expected_ret);
+    let test_n: i32 = 2;
+    let expected_ret = 91;
+    assert_eq!(normal_algorithms::count_numbers_with_unique_digits_357(test_n), expected_ret);
+}
