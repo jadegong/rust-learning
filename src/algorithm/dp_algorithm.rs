@@ -759,3 +759,34 @@ pub fn coin_change_322(coins: Vec<i32>, amount: i32) -> i32 {
     }
     dp[amount as usize][coins_len - 1]
 }
+
+/// 
+/// Leetcode 377
+/// Combination Sum IV
+///
+pub fn combination_sum4_377(nums: Vec<i32>, target: i32) -> i32 {
+    let nums_len = nums.len();
+    let mut dp: Vec<Vec<i32>> = vec![vec![0;nums_len];target as usize + 1];
+    let mut row_index = 1;
+    let mut col_index;
+    let mut current_ret;
+    while row_index <= target as usize {
+        col_index = 0;
+        while col_index < nums_len {
+            let mut nums_index = 0;
+            current_ret = 0;
+            while nums_index < nums_len {
+                if row_index == nums[nums_index] as usize {
+                    current_ret += 1;
+                } else if row_index >= nums[nums_index] as usize {
+                    current_ret += dp[row_index - nums[nums_index] as usize][nums_index];
+                }
+                nums_index += 1;
+            }
+            dp[row_index][col_index] = current_ret;
+            col_index += 1;
+        }
+        row_index += 1;
+    }
+    dp[target as usize][nums_len - 1]
+}
