@@ -858,3 +858,34 @@ pub fn reverse_vowels_345(s: String) -> String {
     }
     return s_chars.iter().collect();
 }
+
+/// 
+/// Leetcode 387
+/// First Unique Character in a String
+///
+pub fn first_uniq_char_387(s: String) -> i32 {
+    let s_len = s.len();
+    let s_chars: Vec<char> = s.chars().collect();
+    let mut index = 0;
+    let mut char_repeat_map: std::collections::HashMap<char, bool> = std::collections::HashMap::new();
+    while index < s_len {
+        if char_repeat_map.contains_key(&s_chars[index]) {
+            // repeated, change to false
+            char_repeat_map.insert(s_chars[index], false);
+        } else {
+            char_repeat_map.insert(s_chars[index], true);
+        }
+        index += 1;
+    }
+    let mut ret = -1;
+    index = 0;
+    while index < s_len {
+        let current_repeat = char_repeat_map.get(&s_chars[index]).unwrap();
+        if *current_repeat {
+            ret = index as i32;
+            break;
+        }
+        index += 1;
+    }
+    ret
+}
