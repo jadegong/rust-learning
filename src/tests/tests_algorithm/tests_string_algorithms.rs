@@ -262,3 +262,15 @@ pub fn test_reverse_vowels_345() {
     let expected_ret: String = String::from("AceCreIm");
     assert_eq!(string_algorithms::reverse_vowels_345(test_s), expected_ret);
 }
+
+#[test]
+pub fn test_find_the_difference_389() {
+    let test_s: String = String::from("abcd");
+    let test_t: String = String::from("abcde");
+    let expected_ret: char = 'e';
+    assert_eq!(string_algorithms::find_the_difference_389(test_s, test_t), expected_ret);
+    let test_s: String = String::from("");
+    let test_t: String = String::from("y");
+    let expected_ret: char = 'y';
+    assert_eq!(string_algorithms::find_the_difference_389(test_s, test_t), expected_ret);
+}

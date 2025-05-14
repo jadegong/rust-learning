@@ -889,3 +889,43 @@ pub fn first_uniq_char_387(s: String) -> i32 {
     }
     ret
 }
+
+/// 
+/// Leetcode 389
+/// Find the Difference
+///
+pub fn find_the_difference_389(s: String, t: String) -> char {
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    let mut char_count_map: std::collections::HashMap<char, i32> = std::collections::HashMap::new();
+    let s_len = s_chars.len();
+    let t_len = t_chars.len();
+    if s_len >= t_len {
+        return '0';
+    }
+    let mut index = 0;
+    while index < s_len {
+        if char_count_map.contains_key(&s_chars[index]) {
+            let old_n = char_count_map.get(&s_chars[index]).unwrap();
+            char_count_map.insert(s_chars[index], *old_n + 1);
+        } else {
+            char_count_map.insert(s_chars[index], 1);
+        }
+        index += 1;
+    }
+    index = 0;
+    while index < t_len {
+        if char_count_map.contains_key(&t_chars[index]) {
+            let old_n = char_count_map.get(&t_chars[index]).unwrap();
+            if *old_n <= 0 {
+                break;
+            } else {
+                char_count_map.insert(t_chars[index], *old_n - 1);
+            }
+        } else {
+            break;
+        }
+        index += 1;
+    }
+    t_chars[index]
+}
