@@ -1379,3 +1379,52 @@ pub fn intersect_350(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
     }
     ret
 }
+
+///
+/// Leetcode 393
+/// UTF-8 Validation
+///
+pub fn valid_utf8_393(data: Vec<i32>) -> bool {
+    let mut ret = true;
+    let data_len = data.len();
+    if data_len == 0 {
+        return ret;
+    }
+    let mut index = 0;
+    while index < data_len {
+        if data[index] >> 3 == 30 {
+            if index + 3 >= data_len {
+                ret = false;
+                break;
+            } else if data[index + 1] >> 6 != 2 || data[index + 2] >> 6 != 2 || data[index + 3] >> 6 != 2 {
+                ret = false;
+                break;
+            }
+            index += 4;
+        } else if data[index] >> 4 == 14 {
+            if index + 2 >= data_len {
+                ret = false;
+                break;
+            } else if data[index + 1] >> 6 != 2 || data[index + 2] >> 6 != 2 {
+                ret = false;
+                break;
+            }
+            index += 3;
+        } else if data[index] >> 5 == 6 {
+            if index + 1 >= data_len {
+                ret = false;
+                break;
+            } else if data[index + 1] >> 6 != 2 {
+                ret = false;
+                break;
+            }
+            index += 2;
+        } else if data[index] >> 7 == 0 {
+            index += 1;
+        } else {
+            ret = false;
+            break;
+        }
+    }
+    ret
+}
